@@ -190,11 +190,11 @@ export const LandingNavbar: React.FC<LandingNavbarProps> = ({
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs py-1'
-          : 'bg-white/90 backdrop-blur-xs border-b border-slate-100 py-2.5 sm:py-3'
+          ? 'bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs'
+          : 'bg-white/90 backdrop-blur-xs border-b border-slate-100'
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between transition-all duration-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between transition-all duration-200">
         {/* Left: Brand Logo & Title */}
         <a
           href="#home"
@@ -202,11 +202,11 @@ export const LandingNavbar: React.FC<LandingNavbarProps> = ({
           className="flex items-center rounded-xl p-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
           title="SatQuery AI Home"
         >
-          <ModernSatelliteAiLogo size="md" showText={true} />
+          <ModernSatelliteAiLogo size="sm" showText={true} />
         </a>
 
         {/* Center: Clean Minimal Navigation Links */}
-        <nav className="hidden lg:flex items-center gap-7 xl:gap-8">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-7">
           {navLinks.map((link) => (
             <a
               key={link.label}
@@ -226,7 +226,7 @@ export const LandingNavbar: React.FC<LandingNavbarProps> = ({
           <button
             type="button"
             onClick={() => handleGoToAuth('login')}
-            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold rounded-xl text-slate-700 hover:text-blue-600 bg-white hover:bg-slate-50 border border-slate-200 shadow-xs transition-all active:scale-95"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs sm:text-sm font-semibold rounded-lg text-slate-700 hover:text-blue-600 bg-white hover:bg-slate-50 border border-slate-200 shadow-xs transition-all active:scale-95"
             title="Sign In"
           >
             <LogIn className="w-3.5 h-3.5 text-blue-600" />
@@ -237,7 +237,7 @@ export const LandingNavbar: React.FC<LandingNavbarProps> = ({
           <button
             type="button"
             onClick={onLaunchApp}
-            className="px-4 sm:px-5 py-2 sm:py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs sm:text-sm flex items-center justify-center shadow-sm hover:shadow transition-all active:scale-95"
+            className="btn-gradient btn-shine px-4 py-1.5 sm:px-5 text-xs sm:text-sm"
           >
             <span>Launch SatQuery AI</span>
           </button>
@@ -246,7 +246,7 @@ export const LandingNavbar: React.FC<LandingNavbarProps> = ({
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden p-2 sm:p-2.5 rounded-xl border border-slate-200 bg-white text-slate-700 hover:text-blue-600"
+            className="lg:hidden p-2 rounded-lg border border-slate-200 bg-white text-slate-700 hover:text-blue-600"
             aria-label="Toggle mobile menu"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -280,7 +280,7 @@ export const LandingNavbar: React.FC<LandingNavbarProps> = ({
                 setMobileMenuOpen(false);
                 onLaunchApp();
               }}
-              className="w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#5B8CFF] to-[#7C6CFF] text-white font-semibold text-sm flex items-center justify-center shadow-md shadow-[#5B8CFF]/25"
+              className="btn-gradient btn-shine w-full py-2.5 px-4 text-sm"
             >
               <span>Launch SatQuery AI</span>
             </button>

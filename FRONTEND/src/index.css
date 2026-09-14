@@ -308,6 +308,100 @@
     animation: atmosphericShimmer 6s ease-in-out infinite;
   }
 
+  /* Subtle dot-grid texture for light sections */
+  .bg-dot-grid {
+    background-image: radial-gradient(circle, rgba(37, 99, 235, 0.16) 1px, transparent 1px);
+    background-size: 26px 26px;
+    -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 30%, black 30%, transparent 72%);
+    mask-image: radial-gradient(ellipse 70% 65% at 50% 30%, black 30%, transparent 72%);
+  }
+
+  /* Slow floating ambient blobs */
+  @keyframes blob-float {
+    0%, 100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    33% {
+      transform: translate3d(28px, -22px, 0) scale(1.08);
+    }
+    66% {
+      transform: translate3d(-22px, 16px, 0) scale(0.94);
+    }
+  }
+
+  .animate-blob-float {
+    animation: blob-float 16s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .animate-blob-float-slow {
+    animation: blob-float 24s ease-in-out infinite;
+    animation-delay: -6s;
+    will-change: transform;
+  }
+
+  .animate-blob-float-reverse {
+    animation: blob-float 20s ease-in-out infinite reverse;
+    animation-delay: -3s;
+    will-change: transform;
+  }
+
+  /* Gentle twinkling star dots */
+  @keyframes twinkle {
+    0%, 100% {
+      opacity: 0.15;
+      transform: scale(0.75);
+    }
+    50% {
+      opacity: 0.85;
+      transform: scale(1.2);
+    }
+  }
+
+  .animate-twinkle {
+    animation: twinkle 3.6s ease-in-out infinite;
+    will-change: opacity, transform;
+  }
+
+  .animate-twinkle-slow {
+    animation: twinkle 5.2s ease-in-out infinite;
+    animation-delay: -1.5s;
+    will-change: opacity, transform;
+  }
+
+  /* Animated gradient sweep on primary buttons */
+  @keyframes btn-gradient-shift {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* Soft diagonal shine sweep across buttons on hover */
+  .btn-shine {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-shine::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -75%;
+    width: 45%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+    transform: skewX(-20deg);
+    pointer-events: none;
+    transition: left 0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .btn-shine:hover::after {
+    left: 130%;
+  }
+
   /* ========================================================================= */
   /* SATQUERY AI HERO ANIMATIONS (GPU-ACCELERATED 60FPS)                       */
   /* ========================================================================= */

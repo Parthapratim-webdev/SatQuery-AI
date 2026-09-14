@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Globe, Terminal, FileCode2, ExternalLink } from 'lucide-react';
+import { Globe, Sparkles, Home, LogIn, UserPlus, LayoutDashboard, FileCheck2 } from 'lucide-react';
 import { ModernSatelliteAiLogo } from '../landing/LandingNavbar';
 
 export const Footer: React.FC = () => {
@@ -11,104 +11,100 @@ export const Footer: React.FC = () => {
           <div className="md:col-span-1 space-y-3">
             <ModernSatelliteAiLogo size="sm" showText={true} />
             <p className="text-xs text-slate-600 leading-relaxed">
-              Smart AI platform for satellite imagery analysis, landscape monitoring, and environmental intelligence.
+              SatQuery AI makes satellite photos easier to understand — answering your
+              questions in plain, everyday language.
             </p>
             <div className="flex items-center gap-2 text-[11px] text-emerald-600 font-medium">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-              All satellite analysis services operational
+              Ready to help whenever you are
             </div>
           </div>
 
-          {/* Col 2: Earth Observation Sensors */}
+          {/* Col 2: What You Can Do */}
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 mb-3">
-              Supported Satellites & Data
+              Made for Everyone
             </h4>
             <ul className="space-y-2">
               <li>
-                <span className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5 cursor-pointer">
+                <span className="text-slate-600 flex items-center gap-1.5">
                   <Globe className="w-3 h-3 text-slate-400" />
-                  European Space Agency Sentinel-2
+                  Photos from space, explained simply
                 </span>
               </li>
               <li>
-                <span className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5 cursor-pointer">
-                  <Globe className="w-3 h-3 text-slate-400" />
-                  USGS & NASA Landsat-9
+                <span className="text-slate-600 flex items-center gap-1.5">
+                  <Sparkles className="w-3 h-3 text-slate-400" />
+                  Everyday-language answers
                 </span>
               </li>
               <li>
-                <span className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5 cursor-pointer">
-                  <Globe className="w-3 h-3 text-slate-400" />
-                  High-Resolution PlanetScope
+                <span className="text-slate-600 flex items-center gap-1.5">
+                  <FileCheck2 className="w-3 h-3 text-slate-400" />
+                  Clear, friendly results
                 </span>
               </li>
               <li>
-                <span className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5 cursor-pointer">
+                <span className="text-slate-600 flex items-center gap-1.5">
                   <Globe className="w-3 h-3 text-slate-400" />
-                  All-Weather Radar Sentinel-1
+                  No experience needed
                 </span>
               </li>
             </ul>
           </div>
 
-          {/* Col 3: Application Pages */}
+          {/* Col 3: Quick Links */}
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 mb-3">
-              Application Pages
+              Quick Links
             </h4>
             <ul className="space-y-1.5 text-[11px]">
               <li>
                 <a href="#landing" className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5">
-                  <Terminal className="w-3 h-3 text-slate-400" />
+                  <Home className="w-3 h-3 text-slate-400" />
                   Home
                 </a>
               </li>
               <li>
+                <a href="#features" className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5">
+                  <Sparkles className="w-3 h-3 text-slate-400" />
+                  Features
+                </a>
+              </li>
+              <li>
                 <a href="#login" className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5">
-                  <FileCode2 className="w-3 h-3 text-slate-400" />
+                  <LogIn className="w-3 h-3 text-slate-400" />
                   Sign In
                 </a>
               </li>
               <li>
                 <a href="#signup" className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5">
-                  <FileCode2 className="w-3 h-3 text-slate-400" />
+                  <UserPlus className="w-3 h-3 text-slate-400" />
                   Create Account
                 </a>
               </li>
               <li>
                 <a href="#dashboard" className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5">
-                  <Terminal className="w-3 h-3 text-slate-400" />
-                  Workspace
-                </a>
-              </li>
-              <li>
-                <a href="#history" className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5">
-                  <ExternalLink className="w-3 h-3 text-slate-400" />
-                  Saved Reports & History
-                </a>
-              </li>
-              <li>
-                <a href="#dashboard" className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5">
-                  <Shield className="w-3 h-3 text-slate-400" />
-                  System Diagnostics
+                  <LayoutDashboard className="w-3 h-3 text-slate-400" />
+                  My Workspace
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Col 4: Benchmark Standards */}
+          {/* Col 4: Note */}
           <div>
             <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 mb-3">
-              Trust & Accuracy
+              How It Helps
             </h4>
             <div className="p-3.5 rounded-xl bg-white border border-slate-200 space-y-2 shadow-xs">
               <div className="flex items-center gap-2 text-emerald-700 font-semibold text-[11px]">
-                <Shield className="w-3.5 h-3.5 text-emerald-600" />
-                Verified Satellite Standards
+                <Sparkles className="w-3.5 h-3.5 text-emerald-600" />
+                Ask, and you'll understand
               </div>
               <p className="text-[11px] text-slate-600 leading-relaxed">
-                All imagery is processed and calibrated automatically for reliable, accurate insights.
+                You don't need any special skills — just describe what you want to know
+                and SatQuery answers in a way that makes sense.
               </p>
             </div>
           </div>
@@ -116,16 +112,14 @@ export const Footer: React.FC = () => {
 
         {/* Bottom copyright */}
         <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
-          <p>© 2026 SatQuery AI. Easy Satellite Image Analysis & Insights.</p>
+          <p>© 2026 SatQuery AI. Simple satellite photo answers for everyone.</p>
           <div className="flex items-center gap-4">
-            <span className="hover:text-blue-600 cursor-pointer transition-colors">Privacy Policy</span>
-            <span className="hover:text-blue-600 cursor-pointer transition-colors">Terms of Service</span>
-            <span className="hover:text-blue-600 cursor-pointer transition-colors">Documentation</span>
-            <span className="hover:text-blue-600 cursor-pointer transition-colors">System Status</span>
+            <span className="hover:text-blue-600 cursor-pointer transition-colors">Privacy</span>
+            <span className="hover:text-blue-600 cursor-pointer transition-colors">Terms</span>
+            <span className="hover:text-blue-600 cursor-pointer transition-colors">Support</span>
           </div>
         </div>
       </div>
     </footer>
   );
 };
-

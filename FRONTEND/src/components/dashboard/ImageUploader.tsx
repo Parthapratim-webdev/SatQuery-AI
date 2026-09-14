@@ -82,7 +82,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
       const isJpeg = file.name.toLowerCase().endsWith('.jpg') || file.name.toLowerCase().endsWith('.jpeg');
 
       if (!isTiff && !isPng && !isJpeg) {
-        setErrorMessage(`"${file.name}" is not supported. Please upload satellite images (.tif, .png, .jpg).`);
+        setErrorMessage(`"${file.name}" is not supported. Please upload satellite images (.tif, .tiff).`);
         continue;
       }
 
@@ -234,7 +234,7 @@ export const ImageUploader: React.FC<ImageUploaderProps> = ({
               Drag & Drop Satellite Imagery Here
             </h4>
             <p className="text-xs text-slate-500 mt-1">
-              Supports <strong className="text-blue-600">satellite images (.tif, .png, .jpg)</strong> or click to browse.
+              Supports <strong className="text-blue-600">satellite images (.tif, .tiff)</strong> or click to browse.
             </p>
           </div>
         </div>

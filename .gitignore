@@ -34,3 +34,7 @@ dist/
 # OS generated files
 .DS_Store
 Thumbs.db
+
+# Documentation / structure dumps
+docs/project_structure.txt
+docs/.project_structure_ignore

@@ -49,10 +49,10 @@ Modern commercial Vision-Language Models (VLMs) like GPT-4V or general-purpose m
 
 ## 🏗️ System Architecture
 
-<p align="center">
+<!-- <p align="center">
   <img src="AI%20Cognitive%20Core-2026-09-13-092459.png" alt="SatQuery AI Cognitive Core Workflow Chart" width="850" />
 </p>
-<p align="center"><em>Figure: SatQuery AI Cognitive Core — Multimodal Agentic Controller, Specialist Ensemble & Physics Guardrail Pipeline.</em></p>
+<p align="center"><em>Figure: SatQuery AI Cognitive Core — Multimodal Agentic Controller, Specialist Ensemble & Physics Guardrail Pipeline.</em></p> -->
 
 ```mermaid
 flowchart TD

@@ -1,49 +1,49 @@
 import React, { useState } from 'react';
-import { UploadCloud, MessageSquare, BrainCircuit, Cpu, FileCheck2, ArrowRight, CheckCircle2 } from 'lucide-react';
+import { UploadCloud, MessageSquare, BrainCircuit, SearchCheck, FileCheck2, CheckCircle2 } from 'lucide-react';
 
 export const HowItWorksSection: React.FC = () => {
-  const [activeStep, setActiveStep] = useState(2); // default highlighting Agent Understanding
+  const [activeStep, setActiveStep] = useState(2); // default highlighting step 3
 
   const steps = [
     {
       step: '01',
       title: 'Upload',
-      subtitle: 'Satellite Image(s)',
+      subtitle: 'Your Satellite Photo',
       icon: UploadCloud,
-      detail: 'Upload single photos, before-and-after image pairs, or radar images. Formats and image details are detected automatically.',
-      badge: 'Easy Upload'
+      detail: 'Add one photo, or two from different dates. SatQuery figures out the details for you.',
+      badge: 'Easy to Add'
     },
     {
       step: '02',
       title: 'Ask',
-      subtitle: 'Type in Plain English',
+      subtitle: 'In Plain English',
       icon: MessageSquare,
-      detail: 'Type any question like "What type of land is here?" or "Has the city expanded?" without needing complicated commands.',
-      badge: 'Plain English'
+      detail: 'Type any question in your own words, like "Has the town grown?" — no commands to learn.',
+      badge: 'Just Ask'
     },
     {
       step: '03',
       title: 'Understand',
-      subtitle: 'AI Identifies the Task',
+      subtitle: 'We Look at What You Meant',
       icon: BrainCircuit,
-      detail: 'The assistant reads your question and determines whether you need an image summary, an area highlighted, or a comparison.',
-      badge: 'Smart Assistant'
+      detail: 'SatQuery works out whether you want a quick answer, a helpful summary, or a look at what changed.',
+      badge: 'We Figure It Out'
     },
     {
       step: '04',
-      title: 'Analyze',
-      subtitle: 'Fast AI Inspection',
-      icon: Cpu,
-      detail: 'Runs specialized satellite AI models in seconds to identify structures, waterways, greenery, and changes.',
-      badge: 'Fast AI Models'
+      title: 'Check',
+      subtitle: 'Careful Examination',
+      icon: SearchCheck,
+      detail: 'Your photos are inspected closely and the important details are gathered for your answer.',
+      badge: 'Thorough & Fast'
     },
     {
       step: '05',
       title: 'Explain',
-      subtitle: 'Clear Visual Answers',
+      subtitle: 'Clear, Friendly Answers',
       icon: FileCheck2,
-      detail: 'Get easy-to-read answers with interactive sliders, highlighted overlays, and certainty percentages to verify everything.',
-      badge: 'Visual Proof'
+      detail: 'You get a simple answer you can trust, with highlighted areas on the photo to back it up.',
+      badge: 'Easy to Understand'
     }
   ];
 
@@ -52,13 +52,13 @@ export const HowItWorksSection: React.FC = () => {
       {/* Header */}
       <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200 text-xs font-semibold uppercase tracking-wider">
-          Easy 5-Step Process
+          A Simple 5-Step Process
         </div>
         <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
           From Question to Clear Answers
         </h2>
         <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-          How SatQuery AI turns your questions and satellite photos into clear, verified visual answers in five easy steps.
+          SatQuery turns your questions and satellite photos into clear, friendly answers in just five easy steps.
         </p>
       </div>
 
@@ -77,7 +77,7 @@ export const HowItWorksSection: React.FC = () => {
               onClick={() => setActiveStep(index)}
               className={`p-5 rounded-2xl cursor-pointer transition-all duration-200 flex flex-col justify-between group relative select-none ${
                 isActive
-                  ? 'bg-blue-50/80 border-2 border-blue-600 shadow-md -translate-y-1'
+                  ? 'bg-gradient-to-br from-blue-50 to-indigo-50 border-2 border-blue-600 shadow-md -translate-y-1'
                   : 'bg-white hover:bg-slate-50 border border-slate-200 hover:border-blue-400 hover:-translate-y-0.5 shadow-sm'
               }`}
             >
@@ -93,7 +93,7 @@ export const HowItWorksSection: React.FC = () => {
 
                 <div className={`w-9 h-9 rounded-xl flex items-center justify-center transition-transform duration-200 ${
                   isActive
-                    ? 'bg-blue-100 text-blue-700 border border-blue-300 scale-105'
+                    ? 'bg-blue-600 text-white shadow-md scale-105'
                     : 'bg-slate-100 text-slate-600 group-hover:text-blue-600'
                 }`}>
                   <Icon className="w-4 h-4 stroke-[2.3]" />
