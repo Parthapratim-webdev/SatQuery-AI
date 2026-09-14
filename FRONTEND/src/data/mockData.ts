@@ -14,33 +14,33 @@ import {
 export const MOCK_AOI_PRESETS: AOIPreset[] = [
   {
     id: 'godavari-flood',
-    name: 'Godavari River Basin Flood Corridor',
+    name: 'Godavari River Basin Flood Zone',
     location: 'Andhra Pradesh / Telangana, India',
     coordinates: [17.385, 81.785],
     bounds: [[17.1, 81.4], [17.7, 82.1]],
     areaKm2: 3420,
     recommendedSensor: 'sentinel-2',
-    primaryMetric: 'Peak Flood Inundation',
+    primaryMetric: 'Peak Flooded Area',
     metricValue: '71,105 ha (+23.4%)',
-    description: 'Biotemporal dual-pass change detection over the Godavari river basin comparing pre-monsoon baseline to peak flood crest. Verified with deterministic NDWI water physics.',
-    beforeLabel: 'T0 Pre-Flood Baseline (t0_preFlood.tiff)',
-    afterLabel: 'T1 Post-Flood Inundation (t1_postFlood.tiff)',
+    description: 'Before-and-after flood analysis over the Godavari river basin comparing pre-monsoon baseline to peak flood water level.',
+    beforeLabel: 'Before: Pre-Flood Baseline (t0_preFlood.tiff)',
+    afterLabel: 'After: Post-Flood Inundation (t1_postFlood.tiff)',
     beforeVisual: '/api/inputs/uploads/t0_preFlood_preview.png',
     afterVisual: '/api/inputs/uploads/t1_postFlood_preview.png'
   },
   {
     id: 'sentinel1-godavari-sar',
-    name: 'Godavari C-Band SAR Penetration',
+    name: 'Godavari Radar Flood Mapping',
     location: 'Godavari Delta, India',
     coordinates: [17.012, 81.821],
     bounds: [[16.8, 81.5], [17.3, 82.1]],
     areaKm2: 2450,
     recommendedSensor: 'sentinel-1',
-    primaryMetric: 'SAR Specular Attenuation',
-    metricValue: 'VV/VH Ratio: -18.4 dB',
-    description: 'Dual-polarization Sentinel-1 C-SAR radar backscatter (sentinel1_godavari_sar.tif) penetrating heavy monsoonal cloud layers for cloud-free water mapping.',
-    beforeLabel: 'Optical Baseline (S2 Optical)',
-    afterLabel: 'C-Band SAR Radar Detection (S1 SAR)',
+    primaryMetric: 'Water Surface Detection',
+    metricValue: 'Water Confirmed (-18.4 dB)',
+    description: 'Radar satellite imaging penetrating heavy cloud cover for clear flood mapping during storm seasons.',
+    beforeLabel: 'Standard Optical Image',
+    afterLabel: 'Radar Satellite Water Detection',
     beforeVisual: '/api/inputs/samples/sentinel2_godavari_pre_preview.png',
     afterVisual: '/api/inputs/samples/sentinel1_godavari_sar_preview.png'
   },
@@ -52,11 +52,11 @@ export const MOCK_AOI_PRESETS: AOIPreset[] = [
     bounds: [[-10.6, -63.2], [-11.0, -62.6]],
     areaKm2: 4820,
     recommendedSensor: 'sentinel-2',
-    primaryMetric: 'Canopy Loss Rate',
-    metricValue: '-4.8% / 90-day window',
-    description: 'Multi-temporal rainforest monitoring detecting illegal clear-cutting corridors and selective logging paths along the BR-364 corridor.',
-    beforeLabel: 'Baseline (June 2024 - True Color)',
-    afterLabel: 'AI Canopy Change Detection (Aug 2024)',
+    primaryMetric: 'Tree Loss Rate',
+    metricValue: '-4.8% / 90 days',
+    description: 'Multi-temporal rainforest monitoring detecting forest clearing and road expansion in Rondônia.',
+    beforeLabel: 'Baseline (June 2024)',
+    afterLabel: 'AI Forest Change Detection (Aug 2024)',
     beforeVisual: 'linear-gradient(135deg, #134e4a 0%, #064e3b 45%, #022c22 100%)',
     afterVisual: 'linear-gradient(135deg, #134e4a 0%, #b45309 45%, #991b1b 100%)'
   },
@@ -68,11 +68,11 @@ export const MOCK_AOI_PRESETS: AOIPreset[] = [
     bounds: [[51.2, 6.5], [51.6, 7.0]],
     areaKm2: 2450,
     recommendedSensor: 'sentinel-1',
-    primaryMetric: 'Peak Inundation Extent',
+    primaryMetric: 'Flooded Area Extent',
     metricValue: '312.4 km² submerged',
-    description: 'C-Band Synthetic Aperture Radar (SAR) cross-polarized penetration through heavy rainclouds to track dynamic flood crests and dyke breaches.',
-    beforeLabel: 'Normal River Gauge (VV/VH Radar)',
-    afterLabel: 'Peak Inundation Mask (Water Depth > 1.2m)',
+    description: 'Radar satellite detection through storm clouds to track river water crests and flooded banks.',
+    beforeLabel: 'Normal River Level',
+    afterLabel: 'Flooded Zone (Water Depth > 1.2m)',
     beforeVisual: 'linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%)',
     afterVisual: 'linear-gradient(135deg, #0284c7 0%, #0369a1 40%, #075985 100%)'
   },
@@ -84,27 +84,27 @@ export const MOCK_AOI_PRESETS: AOIPreset[] = [
     bounds: [[39.5, -121.9], [40.0, -121.3]],
     areaKm2: 1890,
     recommendedSensor: 'landsat-9',
-    primaryMetric: 'Normalized Burn Ratio (NBR)',
-    metricValue: 'dNBR = 0.74 (High Severity)',
-    description: 'SWIR1 and SWIR2 band difference analysis to evaluate soil char depth, unburned islands, and immediate post-wildfire debris flow risk.',
-    beforeLabel: 'Pre-Fire Healthy Biomass (NIR B8)',
-    afterLabel: 'Post-Fire Severity Classification',
+    primaryMetric: 'Fire Damage Severity',
+    metricValue: 'High Severity Detected',
+    description: 'Infrared satellite comparison to evaluate burn damage, unburned zones, and post-wildfire recovery risks.',
+    beforeLabel: 'Before: Healthy Forest',
+    afterLabel: 'After: Fire Damage Area',
     beforeVisual: 'linear-gradient(135deg, #14532d 0%, #166534 50%, #15803d 100%)',
     afterVisual: 'linear-gradient(135deg, #7f1d1d 0%, #b91c1c 45%, #ea580c 100%)'
   },
   {
     id: 'punjab-wheat',
-    name: 'Punjab Agro-Hydrological Zone',
+    name: 'Punjab Agricultural Zone',
     location: 'Punjab, India',
     coordinates: [30.901, 75.857],
     bounds: [[30.6, 75.5], [31.2, 76.2]],
     areaKm2: 3600,
     recommendedSensor: 'planetscope',
-    primaryMetric: 'NDVI Vegetation Vigour Index',
-    metricValue: '0.82 Mean Index (Healthy)',
-    description: 'High-frequency 3-meter daily constellation scanning to forecast winter wheat yield, monitor tube-well groundwater depletion, and identify saline patches.',
-    beforeLabel: 'Early Emergence Stage (True Color)',
-    afterLabel: 'Chlorophyll Stress Heatmap (3m GSD)',
+    primaryMetric: 'Crop Health Index',
+    metricValue: '0.82 (Healthy Growth)',
+    description: 'High-frequency daily satellite scanning to track wheat crops, monitor irrigation, and detect stressed farmland.',
+    beforeLabel: 'Early Crop Growth',
+    afterLabel: 'Crop Health Map',
     beforeVisual: 'linear-gradient(135deg, #365314 0%, #4d7c0f 45%, #65a30d 100%)',
     afterVisual: 'linear-gradient(135deg, #15803d 0%, #eab308 60%, #dc2626 100%)'
   },
@@ -116,11 +116,11 @@ export const MOCK_AOI_PRESETS: AOIPreset[] = [
     bounds: [[35.4, 139.6], [35.8, 140.0]],
     areaKm2: 1200,
     recommendedSensor: 'worldview-3',
-    primaryMetric: 'Vessel Classification & Berthing',
-    metricValue: '99.4% Accuracy (0.3m GSD)',
-    description: 'Sub-meter panchromatic sharpening coupled with deep instance segmentation for cargo container stacking density and automatic AIS vessel correlation.',
-    beforeLabel: 'Standard Port RGB Imagery',
-    afterLabel: 'Sub-meter AIS + Structural Detection',
+    primaryMetric: 'Ship & Port Activity',
+    metricValue: '99.4% Verified',
+    description: 'High-resolution satellite view tracking container docks, ship berthing, and marine traffic in Tokyo Bay.',
+    beforeLabel: 'Standard Port Satellite Image',
+    afterLabel: 'AI Ship & Cargo Detection',
     beforeVisual: 'linear-gradient(135deg, #1e293b 0%, #334155 50%, #475569 100%)',
     afterVisual: 'linear-gradient(135deg, #0f766e 0%, #0d9488 40%, #14b8a6 100%)'
   }
@@ -129,65 +129,32 @@ export const MOCK_AOI_PRESETS: AOIPreset[] = [
 export const MOCK_BENCHMARKS: BenchmarkItem[] = [
   {
     id: 'b-1',
-    model: 'SatQuery-GeoSAM-v3 Large',
-    task: 'Land Cover Segmentation',
-    dataset: 'SpaceNet 8 + DynamicWorld',
+    model: 'SatQuery-High-Accuracy Detector',
+    task: 'Land Cover Detection',
+    dataset: 'Satellite Ground Truth',
     mIoU: 89.4,
     f1Score: 0.942,
     latencyMs: 18.2,
     resolutionGSD: '0.5m – 10m',
-    hardware: 'TensorRT-LLM / H100 SXM5'
+    hardware: 'High-Performance Engine'
   },
   {
     id: 'b-2',
-    model: 'SatQuery-ChangeDet-Temporal',
-    task: 'Deforestation & Canopy Loss',
-    dataset: 'PRODES Brazilian Amazon',
+    model: 'SatQuery-Change Detector',
+    task: 'Tree Cover Loss',
+    dataset: 'Amazon Satellite Records',
     mIoU: 92.1,
     f1Score: 0.958,
     latencyMs: 24.6,
     resolutionGSD: '10m (Sentinel-2)',
-    hardware: 'TensorRT-LLM / H100 SXM5'
-  },
-  {
-    id: 'b-3',
-    model: 'SatQuery-RadarInSAR-v2',
-    task: 'Surface Water & Flood Extent',
-    dataset: 'Copernicus EMS Flood DB',
-    mIoU: 91.8,
-    f1Score: 0.951,
-    latencyMs: 16.4,
-    resolutionGSD: '5m (Sentinel-1 SAR)',
-    hardware: 'NVIDIA L40S'
-  },
-  {
-    id: 'b-4',
-    model: 'Baseline: Meta SAM-v2 (Generic)',
-    task: 'Land Cover Segmentation',
-    dataset: 'SpaceNet 8',
-    mIoU: 75.2,
-    f1Score: 0.814,
-    latencyMs: 78.5,
-    resolutionGSD: 'Generic Image Only',
-    hardware: 'PyTorch Native / A100'
-  },
-  {
-    id: 'b-5',
-    model: 'Baseline: Swin-B Mask2Former',
-    task: 'Urban Building Footprints',
-    dataset: 'Massachusetts Buildings',
-    mIoU: 81.3,
-    f1Score: 0.869,
-    latencyMs: 52.0,
-    resolutionGSD: '0.3m Aerial',
-    hardware: 'TensorRT / A100'
+    hardware: 'High-Performance Engine'
   }
 ];
 
 export const MOCK_ANALYSES: RecentAnalysis[] = [
   {
     id: 'AN-2024-0981',
-    title: 'Rondônia Canopy Deforestation Survey Q3',
+    title: 'Rondônia Forest Survey',
     aoiName: 'Amazon Rainforest (Rondônia Track)',
     sensor: 'sentinel-2',
     date: '2026-09-05 18:42 UTC',
@@ -199,7 +166,7 @@ export const MOCK_ANALYSES: RecentAnalysis[] = [
   },
   {
     id: 'AN-2024-0980',
-    title: 'Rhine Lowlands Flash Inundation Scan',
+    title: 'Rhine River Flood Scan',
     aoiName: 'Lower Rhine Flood Plain Basin',
     sensor: 'sentinel-1',
     date: '2026-09-05 14:15 UTC',
@@ -211,7 +178,7 @@ export const MOCK_ANALYSES: RecentAnalysis[] = [
   },
   {
     id: 'AN-2024-0979',
-    title: 'Sierra Nevada Post-Fire Severity Assessment',
+    title: 'Sierra Nevada Fire Assessment',
     aoiName: 'Sierra Nevada Fire Complex',
     sensor: 'landsat-9',
     date: '2026-09-05 09:20 UTC',
@@ -223,8 +190,8 @@ export const MOCK_ANALYSES: RecentAnalysis[] = [
   },
   {
     id: 'AN-2024-0978',
-    title: 'Punjab Wheat Belt Hydrological Stress Index',
-    aoiName: 'Punjab Agro-Hydrological Zone',
+    title: 'Punjab Farmland Growth Assessment',
+    aoiName: 'Punjab Agricultural Zone',
     sensor: 'planetscope',
     date: '2026-09-04 22:04 UTC',
     areaKm2: 3600,
@@ -235,7 +202,7 @@ export const MOCK_ANALYSES: RecentAnalysis[] = [
   },
   {
     id: 'AN-2024-0977',
-    title: 'Tokyo Bay Berth Structural Classification',
+    title: 'Tokyo Bay Port Activity',
     aoiName: 'Tokyo Bay Maritime & Port Terminal',
     sensor: 'worldview-3',
     date: '2026-09-04 16:30 UTC',
@@ -247,7 +214,7 @@ export const MOCK_ANALYSES: RecentAnalysis[] = [
   },
   {
     id: 'AN-2024-0976',
-    title: 'Congo Basin Primary Forest Edge Tracking',
+    title: 'Congo Basin Forest Tracking',
     aoiName: 'Central Congo Core Zone',
     sensor: 'sentinel-2',
     date: '2026-09-04 11:10 UTC',
@@ -260,10 +227,10 @@ export const MOCK_ANALYSES: RecentAnalysis[] = [
 ];
 
 export const INITIAL_LAYERS: LayerConfig[] = [
-  { id: 'l-base', name: 'Sentinel-2 L2A BOA Reflectance', type: 'base', visible: true, opacity: 100, blendMode: 'normal' },
-  { id: 'l-mask', name: 'GeoSAM Deep Segmentation Overlay', type: 'mask', visible: true, opacity: 75, blendMode: 'overlay' },
-  { id: 'l-cloud', name: 's2cloudless Atmospheric Cirrus Mask', type: 'spectral', visible: false, opacity: 50, blendMode: 'multiply' },
-  { id: 'l-contours', name: 'Copernicus 30m Global DEM Contours', type: 'vector', visible: true, opacity: 60, blendMode: 'screen' }
+  { id: 'l-base', name: 'Sentinel-2 Satellite Image', type: 'base', visible: true, opacity: 100, blendMode: 'normal' },
+  { id: 'l-mask', name: 'AI Detection Overlay', type: 'mask', visible: true, opacity: 75, blendMode: 'overlay' },
+  { id: 'l-cloud', name: 'Cloud and Shadow Mask', type: 'spectral', visible: false, opacity: 50, blendMode: 'multiply' },
+  { id: 'l-contours', name: 'Terrain Elevation Lines', type: 'vector', visible: true, opacity: 60, blendMode: 'screen' }
 ];
 
 export const INITIAL_API_KEYS: ApiKeyItem[] = [

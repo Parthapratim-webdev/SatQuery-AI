@@ -69,26 +69,26 @@ export const ReportsView: React.FC<ReportsViewProps> = ({ customReports = [] }) 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-200">
       {/* Header */}
-      <div className="border-b border-slate-200 dark:border-slate-800 pb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="border-b border-slate-200 pb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400 uppercase">
-            <FileText className="w-4 h-4 text-cyan-500" />
-            <span>Document Generation Hub</span>
+          <div className="flex items-center gap-2 text-xs font-bold text-blue-600 uppercase">
+            <FileText className="w-4 h-4 text-blue-600" />
+            <span>Reports</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white mt-1">
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 mt-1">
             Saved Analysis Reports
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Generate, preview, and download structured mission briefing dossiers for government and research stakeholders.
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
+            Generate, preview, and download structured analysis reports.
           </p>
         </div>
       </div>
 
-      {/* Main Grid: Left List + Right Active Report Preview (Section 25 of design.md) */}
+      {/* Main Grid: Left List + Right Active Report Preview */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
         {/* Left 4 cols: Reports List */}
         <div className="lg:col-span-4 space-y-3">
-          <div className="text-xs font-mono font-bold text-slate-500 uppercase tracking-wider">
+          <div className="text-xs font-bold text-slate-500 uppercase tracking-wider">
             Available Reports ({allReports.length})
           </div>
 
@@ -99,22 +99,22 @@ export const ReportsView: React.FC<ReportsViewProps> = ({ customReports = [] }) 
                 onClick={() => setSelectedReport(report)}
                 className={`p-4 rounded-xl cursor-pointer transition-all duration-150 border text-left ${
                   selectedReport?.id === report.id
-                    ? 'bg-cyan-500/10 dark:bg-cyan-950/40 border-cyan-400 shadow-md ring-1 ring-cyan-400/40'
-                    : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 hover:border-cyan-400/40'
+                    ? 'bg-blue-50/70 border-blue-500 shadow-xs ring-1 ring-blue-200'
+                    : 'bg-white border-slate-200 hover:border-blue-300'
                 }`}
               >
-                <div className="flex items-center justify-between text-[11px] font-mono mb-1">
-                  <span className="text-cyan-600 dark:text-cyan-400 font-bold">{report.task}</span>
+                <div className="flex items-center justify-between text-[11px] mb-1">
+                  <span className="text-blue-700 font-bold">{report.task}</span>
                   <span className="text-slate-400">{report.date.split(' ')[0]}</span>
                 </div>
-                <h4 className="text-xs font-bold text-slate-900 dark:text-white line-clamp-1">
+                <h4 className="text-xs font-bold text-slate-900 line-clamp-1">
                   {report.title}
                 </h4>
-                <p className="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 mt-1">
+                <p className="text-[11px] text-slate-500 line-clamp-2 mt-1">
                   "{report.query}"
                 </p>
-                <div className="mt-2.5 pt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between text-[10px] font-mono">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">
+                <div className="mt-2.5 pt-2 border-t border-slate-100 flex items-center justify-between text-[10px]">
+                  <span className="text-emerald-600 font-bold">
                     {report.confidence}% Conf.
                   </span>
                   <span className="text-slate-400">{report.executionTime}</span>
@@ -124,83 +124,83 @@ export const ReportsView: React.FC<ReportsViewProps> = ({ customReports = [] }) 
           </div>
         </div>
 
-        {/* Right 8 cols: Detailed Report Preview Document (Section 25 of design.md) */}
+        {/* Right 8 cols: Detailed Report Preview Document */}
         {selectedReport ? (
-          <div className="lg:col-span-8 p-6 sm:p-8 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 shadow-xl space-y-6">
+          <div className="lg:col-span-8 p-6 sm:p-8 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-6">
             {/* Top Action Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-4">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-4">
               <div className="flex items-center gap-2">
-                <span className="px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 text-xs font-mono font-bold border border-cyan-500/20">
+                <span className="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200">
                   {selectedReport.task}
                 </span>
-                <span className="text-xs font-mono text-slate-500">ID: {selectedReport.id}</span>
+                <span className="text-xs text-slate-500">ID: {selectedReport.id}</span>
               </div>
 
               <div className="flex items-center gap-2">
                 <button
                   onClick={handlePrintReport}
-                  className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:border-cyan-400 text-xs font-mono font-semibold flex items-center gap-1.5 text-slate-700 dark:text-slate-200 transition-colors"
+                  className="px-3 py-1.5 rounded-xl border border-slate-200 hover:border-blue-400 text-xs font-semibold flex items-center gap-1.5 text-slate-700 hover:text-blue-600 transition-colors cursor-pointer"
                 >
                   <Printer className="w-3.5 h-3.5" />
-                  <span>Print Dossier</span>
+                  <span>Print Report</span>
                 </button>
 
                 <button
                   onClick={() => handleDownloadReportJson(selectedReport)}
-                  className="px-3.5 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-mono font-bold flex items-center gap-1.5 transition-all shadow-xs"
+                  className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 transition-all shadow-xs cursor-pointer"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>Download JSON / Report</span>
+                  <span>Download Report</span>
                 </button>
               </div>
             </div>
 
             {/* Document Header */}
             <div className="space-y-2">
-              <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+              <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
                 {selectedReport.title}
               </h2>
-              <div className="flex flex-wrap gap-4 text-xs font-mono text-slate-500 dark:text-slate-400">
+              <div className="flex flex-wrap gap-4 text-xs text-slate-500">
                 <span>Date: <strong>{selectedReport.date}</strong></span>
-                <span>Latency: <strong>{selectedReport.executionTime}</strong></span>
-                <span>Status: <strong className="text-emerald-500">{selectedReport.status}</strong></span>
+                <span>Processing Time: <strong>{selectedReport.executionTime}</strong></span>
+                <span>Status: <strong className="text-emerald-600">{selectedReport.status}</strong></span>
               </div>
             </div>
 
-            {/* 1. Query & Inputs (Section 25 requirement) */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs font-mono">
-              <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
-                <span className="text-[10px] uppercase text-slate-400 font-bold block mb-1">User Query:</span>
-                <span className="text-slate-900 dark:text-white font-semibold">"{selectedReport.query}"</span>
+            {/* 1. Query & Inputs */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+                <span className="text-[10px] uppercase text-slate-400 font-bold block mb-1">Question:</span>
+                <span className="text-slate-900 font-semibold">"{selectedReport.query}"</span>
               </div>
-              <div className="p-3.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
                 <span className="text-[10px] uppercase text-slate-400 font-bold block mb-1">Input Images:</span>
-                <span className="text-slate-900 dark:text-white font-semibold">{selectedReport.inputSummary}</span>
+                <span className="text-slate-900 font-semibold">{selectedReport.inputSummary}</span>
               </div>
             </div>
 
-            {/* 2. Analysis Answer & Confidence (Section 25 requirement) */}
-            <div className="p-4 rounded-xl bg-cyan-500/5 dark:bg-cyan-950/20 border border-cyan-500/30 space-y-2">
+            {/* 2. Analysis Answer & Confidence */}
+            <div className="p-4 rounded-xl bg-blue-50/50 border border-blue-200 space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono uppercase font-bold text-cyan-700 dark:text-cyan-300">
-                  Synthesized Answer
+                <span className="text-[10px] uppercase font-bold text-blue-700">
+                  Answer
                 </span>
-                <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-xs font-mono font-bold">
-                  {selectedReport.confidence}% Calibrated Confidence
+                <span className="px-2 py-0.5 rounded bg-emerald-100 text-emerald-800 text-xs font-bold">
+                  {selectedReport.confidence}% Confidence
                 </span>
               </div>
-              <p className="text-sm font-semibold text-slate-900 dark:text-slate-100 leading-relaxed">
+              <p className="text-sm font-medium text-slate-900 leading-relaxed">
                 {selectedReport.answer}
               </p>
             </div>
 
-            {/* 3. Visual Evidence Snapshot (Section 25 requirement) */}
+            {/* 3. Visual Evidence Snapshot */}
             <div className="space-y-2">
-              <span className="text-xs font-mono uppercase font-bold text-slate-400 block">
-                Visual Evidence Snapshot:
+              <span className="text-xs uppercase font-bold text-slate-500 block">
+                Visual Results Snapshot:
               </span>
               <div
-                className="h-44 sm:h-52 rounded-xl relative overflow-hidden border border-slate-300 dark:border-slate-700 p-4 flex flex-col justify-between"
+                className="h-44 sm:h-52 rounded-xl relative overflow-hidden border border-slate-200 p-4 flex flex-col justify-between"
                 style={{
                   background: selectedReport.evidenceVisual
                     ? (selectedReport.evidenceVisual.startsWith('http') || selectedReport.evidenceVisual.startsWith('/')
@@ -209,40 +209,40 @@ export const ReportsView: React.FC<ReportsViewProps> = ({ customReports = [] }) 
                     : 'linear-gradient(135deg, #0f172a, #0369a1)'
                 }}
               >
-                <div className="absolute inset-0 geo-grid-pattern opacity-40 pointer-events-none" />
-                <span className="relative z-10 px-2.5 py-0.5 rounded bg-slate-950/80 text-xs font-mono text-slate-200 self-start">
-                  Georeferenced Analytical Verification Mask
+                <div className="absolute inset-0 geo-grid-pattern opacity-30 pointer-events-none" />
+                <span className="relative z-10 px-2.5 py-0.5 rounded bg-slate-950/80 text-xs text-slate-200 self-start">
+                  Detection Map
                 </span>
-                <span className="relative z-10 text-xs font-mono text-white font-bold bg-slate-950/90 px-3 py-1 rounded self-end">
-                  Task Verification: {selectedReport.task}
+                <span className="relative z-10 text-xs text-white font-bold bg-slate-950/90 px-3 py-1 rounded self-end">
+                  Task: {selectedReport.task}
                 </span>
               </div>
             </div>
 
-            {/* 4. Models Used & Execution Summary (Section 25 requirement) */}
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-3 text-xs font-mono">
+            {/* 4. Models Used & Execution Summary */}
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 text-xs">
               <div>
                 <span className="text-[10px] text-slate-400 uppercase font-bold block mb-1">
-                  Models / Tools Orchestrated:
+                  Models & Tools Used:
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {selectedReport.modelsUsed.map((m, i) => (
-                    <span key={i} className="px-2 py-0.5 rounded bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-cyan-600 dark:text-cyan-400 font-bold">
+                    <span key={i} className="px-2 py-0.5 rounded bg-white border border-slate-200 text-blue-700 font-bold">
                       {m}
                     </span>
                   ))}
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[11px] text-slate-500">
-                <span>Certification: CEOS & NASA ARD Validated Pipeline</span>
-                <span className="text-emerald-500 font-bold">Passed QA Audits</span>
+              <div className="pt-2 border-t border-slate-200 flex items-center justify-between text-[11px] text-slate-500">
+                <span>Validation: Standard Quality Assurance Verification</span>
+                <span className="text-emerald-600 font-bold">Verified</span>
               </div>
             </div>
           </div>
         ) : (
-          <div className="lg:col-span-8 p-12 text-center rounded-2xl border border-slate-200 dark:border-slate-800 text-slate-400 font-mono text-xs">
-            Select a report on the left to view complete dossier
+          <div className="lg:col-span-8 p-12 text-center rounded-2xl border border-slate-200 text-slate-400 text-xs">
+            Select a report on the left to view details
           </div>
         )}
       </div>

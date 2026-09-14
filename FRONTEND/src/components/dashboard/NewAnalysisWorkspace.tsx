@@ -72,15 +72,15 @@ export const NewAnalysisWorkspace: React.FC<NewAnalysisWorkspaceProps> = ({
   const [currentResult, setCurrentResult] = useState<AnalysisResultData | null>(null);
   const [savedSuccess, setSavedSuccess] = useState(false);
 
-  // Step definition from Section 19 of design.md with auto-routed specialist
+  // Step definition with user-friendly plain English descriptions
   const agentSteps: AgentProcessStep[] = [
-    { id: '1', title: 'Input validated', detail: 'Raster tags and CRS EPSG projection confirmed', status: 'completed' },
-    { id: '2', title: 'Query understood', detail: 'Semantic intent & referential targets extracted', status: 'completed' },
-    { id: '3', title: 'Mode auto-detected', detail: `${mode === 'bi-temporal' ? 'CHANGE DETECTION' : mode === 'optical-sar' ? 'OPTICAL + SAR CROSS-MODAL' : 'SINGLE IMAGE GROUNDING'} pipeline auto-routed`, status: 'completed' },
-    { id: '4', title: 'Specialist model selected', detail: mode === 'bi-temporal' ? 'Siamese ResNet-50 Change Detector' : mode === 'optical-sar' ? '14-Channel ViT (Optical+SAR)' : 'ConvNeXt-v2 Optical/SAR Specialist', status: 'completed' },
-    { id: '5', title: 'Running analysis...', detail: 'Offline deep learning specialist inference running', status: 'running' },
-    { id: '6', title: 'Generating visual evidence', detail: 'Extracting bounding boxes & difference heatmap', status: 'pending' },
-    { id: '7', title: 'Preparing response', detail: 'Correlating confidence and execution summary', status: 'pending' }
+    { id: '1', title: 'Input verified', detail: 'Image format and coordinates confirmed', status: 'completed' },
+    { id: '2', title: 'Question understood', detail: 'Question analyzed and target areas identified', status: 'completed' },
+    { id: '3', title: 'Mode selected', detail: `${mode === 'bi-temporal' ? 'Change Detection' : mode === 'optical-sar' ? 'Radar + Optical Analysis' : 'Single Image Analysis'} selected`, status: 'completed' },
+    { id: '4', title: 'Model ready', detail: mode === 'bi-temporal' ? 'Change Detection Model' : mode === 'optical-sar' ? 'Radar & Optical Model' : 'High-Accuracy Detection Model', status: 'completed' },
+    { id: '5', title: 'Running analysis...', detail: 'Running AI analysis on satellite imagery', status: 'running' },
+    { id: '6', title: 'Finding visual highlights', detail: 'Highlighting detected areas and differences', status: 'pending' },
+    { id: '7', title: 'Preparing response', detail: 'Calculating confidence and generating final summary', status: 'pending' }
   ];
 
   // When scenario changes
@@ -289,14 +289,14 @@ export const NewAnalysisWorkspace: React.FC<NewAnalysisWorkspaceProps> = ({
               key={lIdx}
               className={`leading-relaxed text-sm sm:text-base ${
                 isHeader
-                  ? 'font-bold text-slate-900 dark:text-white'
-                  : 'text-slate-700 dark:text-slate-200'
+                  ? 'font-bold text-slate-900'
+                  : 'text-slate-700'
               }`}
             >
               {parts.map((part, pIdx) => {
                 if (part.startsWith('**') && part.endsWith('**')) {
                   return (
-                    <strong key={pIdx} className="font-bold text-cyan-600 dark:text-cyan-300">
+                    <strong key={pIdx} className="font-bold text-blue-700">
                       {part.slice(2, -2)}
                     </strong>
                   );
@@ -312,18 +312,18 @@ export const NewAnalysisWorkspace: React.FC<NewAnalysisWorkspaceProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-200">
-      {/* 15. Workspace Header (Section 15 of design.md: Heading & Subtitle) */}
-      <div className="border-b border-slate-200 dark:border-slate-800 pb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      {/* Workspace Header */}
+      <div className="border-b border-slate-200 pb-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400 uppercase">
-            <Compass className="w-4 h-4 text-cyan-500" />
+          <div className="flex items-center gap-2 text-xs font-bold text-blue-600 uppercase">
+            <Compass className="w-4 h-4 text-blue-600" />
             <span>Analysis Workspace</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white mt-1">
+          <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 mt-1">
             New Analysis
           </h1>
-          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-            Upload remote-sensing imagery and ask a question.
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">
+            Upload satellite images and ask a question in plain English.
           </p>
         </div>
 
@@ -332,16 +332,16 @@ export const NewAnalysisWorkspace: React.FC<NewAnalysisWorkspaceProps> = ({
           {onViewReports && (
             <button
               onClick={onViewReports}
-              className="px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-mono font-semibold text-slate-700 dark:text-slate-300 hover:border-cyan-400 transition-colors flex items-center gap-1.5"
+              className="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:border-blue-400 hover:text-blue-600 transition-colors flex items-center gap-1.5 cursor-pointer shadow-xs"
             >
-              <FileText className="w-3.5 h-3.5 text-cyan-500" />
+              <FileText className="w-3.5 h-3.5 text-blue-600" />
               <span>Saved Reports</span>
             </button>
           )}
         </div>
       </div>
 
-      {/* 16 & 17. Image Upload & Dynamic Configuration */}
+      {/* Image Upload & Dynamic Configuration */}
       <ImageUploader
         mode={mode}
         images={images}
@@ -350,7 +350,7 @@ export const NewAnalysisWorkspace: React.FC<NewAnalysisWorkspaceProps> = ({
         onUpdateImage={handleUpdateImage}
       />
 
-      {/* 18. Natural Language Query */}
+      {/* Natural Language Query */}
       <QueryBox
         query={query}
         onChangeQuery={setQuery}
@@ -359,7 +359,7 @@ export const NewAnalysisWorkspace: React.FC<NewAnalysisWorkspaceProps> = ({
         disabled={images.length === 0}
       />
 
-      {/* 19. Agent Processing UI */}
+      {/* Agent Processing UI */}
       {isProcessing && (
         <AgentProcessingView
           currentStepIndex={processingStepIndex}
@@ -369,49 +369,49 @@ export const NewAnalysisWorkspace: React.FC<NewAnalysisWorkspaceProps> = ({
         />
       )}
 
-      {/* 20 & 21 & 22. Results Interface & Evidence Viewer */}
+      {/* Results Interface & Evidence Viewer */}
       {currentResult && !isProcessing && (
         <div className="space-y-6 pt-4 animate-in fade-in duration-300">
-          {/* Section 20: Results Header (Final Answer + Confidence Badge) */}
-          <div className="p-6 sm:p-7 rounded-2xl bg-white dark:bg-slate-900 border-2 border-cyan-400/40 shadow-xl space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-3">
+          {/* Results Header (Final Answer + Confidence Badge) */}
+          <div className="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 pb-3">
               <div className="flex items-center gap-2">
                 <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                <span className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">
-                  Final Answer • {currentResult.task}
+                <span className="text-xs uppercase tracking-wider text-slate-500 font-bold">
+                  Answer • {currentResult.task}
                 </span>
               </div>
 
-              {/* Confidence Badge (Section 20: e.g. 91% — High confidence) */}
+              {/* Confidence Badge */}
               <div className="flex items-center gap-2">
-                <span className="px-3 py-1 rounded-full bg-emerald-500/10 dark:bg-emerald-950/50 border border-emerald-500/40 text-emerald-700 dark:text-emerald-300 text-xs font-mono font-bold flex items-center gap-1.5">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" />
+                <span className="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center gap-1.5">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
                   <span>{currentResult.confidence}% — {currentResult.confidenceLevel} confidence</span>
                 </span>
               </div>
             </div>
 
             {/* Final Answer Text */}
-            <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 space-y-2">
-              <div className="text-[11px] font-mono font-bold uppercase tracking-wider text-cyan-600 dark:text-cyan-400">
-                Ground-Verified Query Findings
+            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <div className="text-[11px] font-bold uppercase tracking-wider text-blue-600">
+                Analysis Findings
               </div>
               {renderFormattedAnswer(currentResult.answer)}
             </div>
 
             {/* Action Bar: Save to Reports / Re-run */}
-            <div className="pt-3 border-t border-slate-100 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
-              <div className="text-slate-500 dark:text-slate-400">
+            <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3 text-xs">
+              <div className="text-slate-500">
                 Models: {currentResult.modelsUsed.join(' + ')}
               </div>
 
               <div className="flex items-center gap-2">
                 <button
                   onClick={handleSaveToReports}
-                  className={`px-3.5 py-1.5 rounded-xl border font-semibold flex items-center gap-1.5 transition-all ${
+                  className={`px-3.5 py-1.5 rounded-xl border font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
                     savedSuccess
-                      ? 'bg-emerald-500 text-slate-950 border-emerald-500 font-bold'
-                      : 'bg-white dark:bg-slate-800 border-slate-300 dark:border-slate-700 text-slate-800 dark:text-slate-200 hover:border-cyan-400'
+                      ? 'bg-emerald-600 text-white border-emerald-600 font-bold'
+                      : 'bg-white border-slate-300 text-slate-800 hover:border-blue-400 hover:text-blue-600'
                   }`}
                 >
                   <BookmarkPlus className="w-3.5 h-3.5" />
@@ -421,15 +421,15 @@ export const NewAnalysisWorkspace: React.FC<NewAnalysisWorkspaceProps> = ({
             </div>
           </div>
 
-          {/* Section 21: Visual Evidence Viewer */}
+          {/* Visual Evidence Viewer */}
           <div className="space-y-2">
-            <div className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">
-              Visual Evidence & Multi-Spectral Verification
+            <div className="text-xs uppercase tracking-wider text-slate-500 font-bold">
+              Visual Results & Detected Areas
             </div>
             <EvidenceViewer result={currentResult} />
           </div>
 
-          {/* Section 22: Execution Summary */}
+          {/* Execution Summary */}
           <ExecutionSummary
             summary={currentResult.executionSummary}
             confidence={currentResult.confidence}

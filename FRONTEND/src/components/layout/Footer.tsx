@@ -4,49 +4,49 @@ import { ModernSatelliteAiLogo } from '../landing/LandingNavbar';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="border-t border-slate-200 dark:border-[#263B5C] bg-slate-100/90 dark:bg-[#080E21]/90 backdrop-blur-md text-slate-600 dark:text-[#A8B6CF] text-xs py-12 transition-colors duration-300">
+    <footer className="border-t border-slate-200 bg-white text-slate-600 text-xs py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           {/* Col 1: Brand & Mission */}
           <div className="md:col-span-1 space-y-3">
             <ModernSatelliteAiLogo size="sm" showText={true} />
-            <p className="text-xs text-slate-600 dark:text-[#A8B6CF] leading-relaxed">
-              Open Planetary Foundation Models for multi-spectral Earth Observation, real-time change detection, and climate intelligence.
+            <p className="text-xs text-slate-600 leading-relaxed">
+              Smart AI platform for satellite imagery analysis, landscape monitoring, and environmental intelligence.
             </p>
-            <div className="flex items-center gap-2 text-[11px] text-teal-600 dark:text-[#2DD4BF] font-mono">
-              <span className="w-1.5 h-1.5 rounded-full bg-teal-500 dark:bg-[#2DD4BF] animate-pulse"></span>
-              All 8 Global Processing Nodes Operational
+            <div className="flex items-center gap-2 text-[11px] text-emerald-600 font-medium">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              All satellite analysis services operational
             </div>
           </div>
 
           {/* Col 2: Earth Observation Sensors */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-[#F5F7FF] mb-3 font-mono">
-              Sensors & Feeds
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 mb-3">
+              Supported Satellites & Data
             </h4>
             <ul className="space-y-2">
               <li>
-                <span className="text-slate-600 dark:text-[#A8B6CF] hover:text-blue-600 dark:hover:text-[#5B8CFF] transition-colors flex items-center gap-1.5 cursor-pointer">
-                  <Globe className="w-3 h-3 text-slate-400 dark:text-[#A8B6CF]" />
-                  ESA Copernicus Sentinel-2 L2A (10m)
+                <span className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5 cursor-pointer">
+                  <Globe className="w-3 h-3 text-slate-400" />
+                  European Space Agency Sentinel-2
                 </span>
               </li>
               <li>
-                <span className="text-slate-600 dark:text-[#A8B6CF] hover:text-blue-600 dark:hover:text-[#5B8CFF] transition-colors flex items-center gap-1.5 cursor-pointer">
-                  <Globe className="w-3 h-3 text-slate-400 dark:text-[#A8B6CF]" />
-                  USGS / NASA Landsat-9 OLI-2 (15m)
+                <span className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5 cursor-pointer">
+                  <Globe className="w-3 h-3 text-slate-400" />
+                  USGS & NASA Landsat-9
                 </span>
               </li>
               <li>
-                <span className="text-slate-600 dark:text-[#A8B6CF] hover:text-blue-600 dark:hover:text-[#5B8CFF] transition-colors flex items-center gap-1.5 cursor-pointer">
-                  <Globe className="w-3 h-3 text-slate-400 dark:text-[#A8B6CF]" />
-                  PlanetScope 8-Band SuperDove (3m)
+                <span className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5 cursor-pointer">
+                  <Globe className="w-3 h-3 text-slate-400" />
+                  High-Resolution PlanetScope
                 </span>
               </li>
               <li>
-                <span className="text-slate-600 dark:text-[#A8B6CF] hover:text-blue-600 dark:hover:text-[#5B8CFF] transition-colors flex items-center gap-1.5 cursor-pointer">
-                  <Globe className="w-3 h-3 text-slate-400 dark:text-[#A8B6CF]" />
-                  Sentinel-1 C-Band SAR GRD (5m)
+                <span className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5 cursor-pointer">
+                  <Globe className="w-3 h-3 text-slate-400" />
+                  All-Weather Radar Sentinel-1
                 </span>
               </li>
             </ul>
@@ -54,44 +54,44 @@ export const Footer: React.FC = () => {
 
           {/* Col 3: Application Pages */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-[#F5F7FF] mb-3 font-mono">
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 mb-3">
               Application Pages
             </h4>
-            <ul className="space-y-1.5 font-mono text-[11px]">
+            <ul className="space-y-1.5 text-[11px]">
               <li>
-                <a href="#landing" className="text-slate-600 dark:text-[#A8B6CF] hover:text-[#5B8CFF] transition-colors flex items-center gap-1.5">
-                  <Terminal className="w-3 h-3 text-slate-400 dark:text-[#A8B6CF]" />
-                  Landing Page
+                <a href="#landing" className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5">
+                  <Terminal className="w-3 h-3 text-slate-400" />
+                  Home
                 </a>
               </li>
               <li>
-                <a href="#login" className="text-slate-600 dark:text-[#A8B6CF] hover:text-[#5B8CFF] transition-colors flex items-center gap-1.5">
-                  <FileCode2 className="w-3 h-3 text-slate-400 dark:text-[#A8B6CF]" />
-                  Institutional Sign In
+                <a href="#login" className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5">
+                  <FileCode2 className="w-3 h-3 text-slate-400" />
+                  Sign In
                 </a>
               </li>
               <li>
-                <a href="#signup" className="text-slate-600 dark:text-[#A8B6CF] hover:text-[#5B8CFF] transition-colors flex items-center gap-1.5">
-                  <FileCode2 className="w-3 h-3 text-slate-400 dark:text-[#A8B6CF]" />
-                  Researcher Registration
+                <a href="#signup" className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5">
+                  <FileCode2 className="w-3 h-3 text-slate-400" />
+                  Create Account
                 </a>
               </li>
               <li>
-                <a href="#dashboard" className="text-slate-600 dark:text-[#A8B6CF] hover:text-[#5B8CFF] transition-colors flex items-center gap-1.5">
-                  <Terminal className="w-3 h-3 text-slate-400 dark:text-[#A8B6CF]" />
-                  Analysis Workspace
+                <a href="#dashboard" className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5">
+                  <Terminal className="w-3 h-3 text-slate-400" />
+                  Workspace
                 </a>
               </li>
               <li>
-                <a href="#history" className="text-slate-600 dark:text-[#A8B6CF] hover:text-[#5B8CFF] transition-colors flex items-center gap-1.5">
-                  <ExternalLink className="w-3 h-3 text-slate-400 dark:text-[#A8B6CF]" />
-                  Analysis History & Reports
+                <a href="#history" className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5">
+                  <ExternalLink className="w-3 h-3 text-slate-400" />
+                  Saved Reports & History
                 </a>
               </li>
               <li>
-                <a href="#dashboard" className="text-slate-600 dark:text-[#A8B6CF] hover:text-[#5B8CFF] transition-colors flex items-center gap-1.5">
-                  <Shield className="w-3 h-3 text-slate-400 dark:text-[#A8B6CF]" />
-                  Diagnostic Telemetry
+                <a href="#dashboard" className="text-slate-600 hover:text-blue-600 transition-colors flex items-center gap-1.5">
+                  <Shield className="w-3 h-3 text-slate-400" />
+                  System Diagnostics
                 </a>
               </li>
             </ul>
@@ -99,32 +99,33 @@ export const Footer: React.FC = () => {
 
           {/* Col 4: Benchmark Standards */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 dark:text-[#F5F7FF] mb-3 font-mono">
-              Integrity & Standards
+            <h4 className="text-xs font-semibold uppercase tracking-wider text-slate-900 mb-3">
+              Trust & Accuracy
             </h4>
-            <div className="p-3.5 rounded-xl bg-white dark:bg-[#101F38] border border-slate-200 dark:border-[#263B5C] space-y-2 shadow-xs transition-colors">
-              <div className="flex items-center gap-2 text-teal-600 dark:text-[#2DD4BF] font-semibold font-mono text-[11px]">
-                <Shield className="w-3.5 h-3.5" />
-                NASA ARD & CEOS Certified
+            <div className="p-3.5 rounded-xl bg-white border border-slate-200 space-y-2 shadow-xs">
+              <div className="flex items-center gap-2 text-emerald-700 font-semibold text-[11px]">
+                <Shield className="w-3.5 h-3.5 text-emerald-600" />
+                Verified Satellite Standards
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-[#A8B6CF] leading-relaxed">
-                All spectral bands are orthorectified and bottom-of-atmosphere (BOA) atmospherically corrected in real time.
+              <p className="text-[11px] text-slate-600 leading-relaxed">
+                All imagery is processed and calibrated automatically for reliable, accurate insights.
               </p>
             </div>
           </div>
         </div>
 
         {/* Bottom copyright */}
-        <div className="pt-6 border-t border-slate-200 dark:border-[#263B5C] flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500 dark:text-[#71819B] transition-colors">
-          <p>© 2026 SatQuery AI Consortium. Multi-Modal Earth Observation & Spatial Intelligence.</p>
+        <div className="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] text-slate-500">
+          <p>© 2026 SatQuery AI. Easy Satellite Image Analysis & Insights.</p>
           <div className="flex items-center gap-4">
-            <span className="hover:text-[#5B8CFF] cursor-pointer transition-colors">Privacy Policy</span>
-            <span className="hover:text-[#5B8CFF] cursor-pointer transition-colors">Terms of Service</span>
-            <span className="hover:text-[#5B8CFF] cursor-pointer transition-colors">API Docs</span>
-            <span className="hover:text-[#5B8CFF] cursor-pointer transition-colors">System Status</span>
+            <span className="hover:text-blue-600 cursor-pointer transition-colors">Privacy Policy</span>
+            <span className="hover:text-blue-600 cursor-pointer transition-colors">Terms of Service</span>
+            <span className="hover:text-blue-600 cursor-pointer transition-colors">Documentation</span>
+            <span className="hover:text-blue-600 cursor-pointer transition-colors">System Status</span>
           </div>
         </div>
       </div>
     </footer>
   );
 };
+

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ThemeProvider, useTheme } from './context/ThemeContext';
+import { ThemeProvider } from './context/ThemeContext';
 import { LandingPage } from './components/landing/LandingPage';
 import { DashboardLayout } from './components/dashboard/DashboardLayout';
 import { AuthPage } from './components/auth/AuthPage';
@@ -9,9 +9,6 @@ import { Screen, UserProfile, DashboardView } from './types';
 import { DEFAULT_PROFILE } from './data/mockData';
 
 function AppContent() {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
-
   // Check if current window was spawned as an OAuth popup
   const isOAuthPopup = typeof window !== 'undefined' && window.location.hash.startsWith('#oauth-');
   const oauthProvider = typeof window !== 'undefined' && window.location.hash.includes('google') ? 'Google' : 'GitHub';
@@ -160,7 +157,7 @@ function AppContent() {
   }
 
   return (
-    <div className={`relative min-h-screen ${isDark ? 'dark bg-modern-gradient text-[#F5F7FF]' : 'light bg-slate-50 text-slate-900'} transition-colors duration-300`}>
+    <div className="relative min-h-screen bg-white text-slate-900">
       {/* ========================================================================= */}
       {/* 1. PUBLIC LANDING PAGE (Sections 1 to 12 of design.md)                    */}
       {/* ========================================================================= */}

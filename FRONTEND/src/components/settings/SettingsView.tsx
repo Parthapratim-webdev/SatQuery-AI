@@ -92,37 +92,37 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateProfil
     .toUpperCase();
 
   return (
-    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 animate-in fade-in duration-200">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 animate-in fade-in duration-200 bg-white">
       {/* Header */}
-      <div className="border-b border-slate-200 dark:border-slate-800 pb-5">
-        <div className="flex items-center gap-2 text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400 uppercase">
-          <User className="w-4 h-4 text-cyan-500" />
-          <span>Account & Researcher Profile</span>
+      <div className="border-b border-slate-200 pb-5">
+        <div className="flex items-center gap-2 text-xs font-semibold text-blue-600 uppercase">
+          <User className="w-4 h-4 text-blue-600" />
+          <span>User Profile & Account</span>
         </div>
-        <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 dark:text-white mt-1">
+        <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 mt-1">
           Profile Settings
         </h1>
-        <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
-          Manage your geospatial analyst credentials, institutional profile, and cloud storage allocations.
+        <p className="text-xs sm:text-sm text-slate-500 mt-1">
+          Manage your account details, organization, and cloud storage usage.
         </p>
       </div>
 
       <form onSubmit={handleSaveProfile} className="space-y-6">
         {/* Section 1: Avatar Upload Card */}
-        <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5">
-          <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800/80 pb-3">
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-5">
+          <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div>
-              <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <Camera className="w-4 h-4 text-cyan-500" />
+              <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <Camera className="w-4 h-4 text-blue-600" />
                 Profile Photo
               </h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Upload a professional photo or team avatar for reports and collaborator workspaces.
+              <p className="text-xs text-slate-500 mt-0.5">
+                Upload a photo or team avatar for reports and shared projects.
               </p>
             </div>
-            <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-semibold bg-cyan-500/10 text-cyan-700 dark:text-cyan-300 border border-cyan-500/20 flex items-center gap-1">
-              <ShieldCheck className="w-3 h-3 text-cyan-500" />
-              Verified Analyst
+            <span className="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center gap-1">
+              <ShieldCheck className="w-3 h-3 text-emerald-600" />
+              Active Member
             </span>
           </div>
 
@@ -133,18 +133,18 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateProfil
                 <img
                   src={avatarUrl}
                   alt={name}
-                  className="w-24 h-24 rounded-2xl object-cover border-2 border-cyan-500/40 shadow-md"
+                  className="w-24 h-24 rounded-2xl object-cover border-2 border-slate-200 shadow-xs"
                 />
               ) : (
-                <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-cyan-500/20 via-teal-500/20 to-indigo-500/30 text-cyan-700 dark:text-cyan-300 font-black text-2xl flex items-center justify-center border-2 border-cyan-500/30 shadow-md">
-                  {initials || 'EO'}
+                <div className="w-24 h-24 rounded-2xl bg-blue-50 text-blue-700 font-bold text-2xl flex items-center justify-center border-2 border-blue-100 shadow-xs">
+                  {initials || 'SQ'}
                 </div>
               )}
 
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="absolute -bottom-1 -right-1 p-1.5 rounded-xl bg-cyan-500 text-slate-950 hover:bg-cyan-400 shadow-md transition-transform duration-150 active:scale-95"
+                className="absolute -bottom-1 -right-1 p-1.5 rounded-xl bg-blue-600 text-white hover:bg-blue-700 shadow-xs transition-transform duration-150 active:scale-95"
                 title="Change Photo"
               >
                 <Camera className="w-3.5 h-3.5" />
@@ -165,7 +165,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateProfil
                 <button
                   type="button"
                   onClick={() => fileInputRef.current?.click()}
-                  className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs font-mono transition-all duration-150 active:scale-95 shadow-xs flex items-center gap-1.5"
+                  className="px-4 py-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs transition-all duration-150 active:scale-95 shadow-xs flex items-center gap-1.5"
                 >
                   <Camera className="w-3.5 h-3.5" />
                   <span>Upload New Photo</span>
@@ -175,7 +175,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateProfil
                   <button
                     type="button"
                     onClick={handleRemoveAvatar}
-                    className="px-3 py-2 rounded-xl bg-slate-100 hover:bg-rose-50 dark:bg-slate-800 dark:hover:bg-rose-950/40 text-slate-600 hover:text-rose-600 dark:text-slate-400 dark:hover:text-rose-400 border border-slate-200 dark:border-slate-700 text-xs font-mono font-semibold transition-all duration-150 active:scale-95 flex items-center gap-1.5"
+                    className="px-3 py-2 rounded-xl bg-slate-100 hover:bg-rose-50 text-slate-600 hover:text-rose-600 border border-slate-200 text-xs font-semibold transition-all duration-150 active:scale-95 flex items-center gap-1.5"
                   >
                     <Trash2 className="w-3.5 h-3.5" />
                     <span>Remove</span>
@@ -183,12 +183,12 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateProfil
                 )}
               </div>
 
-              <p className="text-[11px] font-mono text-slate-400">
+              <p className="text-[11px] text-slate-400">
                 Recommended: Square JPG, PNG, or WebP. Max 5 MB.
               </p>
 
               {uploadError && (
-                <p className="text-xs font-mono text-rose-500 pt-1">
+                <p className="text-xs text-rose-500 pt-1">
                   {uploadError}
                 </p>
               )}
@@ -197,21 +197,21 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateProfil
         </div>
 
         {/* Section 2: Identity & Organization Data */}
-        <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5">
-          <div className="border-b border-slate-100 dark:border-slate-800/80 pb-3">
-            <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-              <User className="w-4 h-4 text-cyan-500" />
-              Institutional Credentials
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-5">
+          <div className="border-b border-slate-100 pb-3">
+            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <User className="w-4 h-4 text-blue-600" />
+              Account Details
             </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Personal research details referenced in AI report generation and audit trails.
+            <p className="text-xs text-slate-500 mt-0.5">
+              Your personal details used on reports and shared projects.
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {/* Full Name */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
                 Full Name
               </label>
               <div className="relative">
@@ -219,26 +219,26 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateProfil
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white outline-none focus:border-cyan-500 transition-colors"
-                  placeholder="e.g. Dr. Maya Chen"
+                  className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-white border border-slate-200 text-slate-900 outline-none focus:border-blue-600 transition-colors"
+                  placeholder="e.g. Maya Chen"
                   required
                 />
                 <User className="w-4 h-4 text-slate-400 absolute left-2.5 top-2.5" />
               </div>
             </div>
 
-            {/* Institutional Email */}
+            {/* Email */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                Institutional Email
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                Email Address
               </label>
               <div className="relative">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white outline-none focus:border-cyan-500 font-mono transition-colors"
-                  placeholder="name@institute.org"
+                  className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-white border border-slate-200 text-slate-900 outline-none focus:border-blue-600 transition-colors"
+                  placeholder="name@example.com"
                   required
                 />
                 <Mail className="w-4 h-4 text-slate-400 absolute left-2.5 top-2.5" />
@@ -247,16 +247,16 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateProfil
 
             {/* Organization */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                Organization / Research Lab
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                Organization / Team
               </label>
               <div className="relative">
                 <input
                   type="text"
                   value={organization}
                   onChange={(e) => setOrganization(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white outline-none focus:border-cyan-500 transition-colors"
-                  placeholder="e.g. Planetary Dynamics Institute & ESA"
+                  className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-white border border-slate-200 text-slate-900 outline-none focus:border-blue-600 transition-colors"
+                  placeholder="e.g. Earth Observation Lab"
                   required
                 />
                 <Building2 className="w-4 h-4 text-slate-400 absolute left-2.5 top-2.5" />
@@ -265,16 +265,16 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateProfil
 
             {/* Role / Designation */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1.5">
-                Designation / Research Role
+              <label className="block text-xs font-semibold text-slate-700 mb-1.5">
+                Role / Job Title
               </label>
               <div className="relative">
                 <input
                   type="text"
                   value={role}
                   onChange={(e) => setRole(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white outline-none focus:border-cyan-500 transition-colors"
-                  placeholder="e.g. Principal Geospatial Research Lead"
+                  className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-white border border-slate-200 text-slate-900 outline-none focus:border-blue-600 transition-colors"
+                  placeholder="e.g. Satellite Research Analyst"
                   required
                 />
                 <Briefcase className="w-4 h-4 text-slate-400 absolute left-2.5 top-2.5" />
@@ -283,41 +283,41 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateProfil
           </div>
         </div>
 
-        {/* Section 3: STAC Tier & Storage Allocation */}
-        <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm space-y-4">
-          <div className="border-b border-slate-100 dark:border-slate-800/80 pb-3 flex items-center justify-between">
+        {/* Section 3: Tier & Storage Allocation */}
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs space-y-4">
+          <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
             <div>
-              <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <Database className="w-4 h-4 text-cyan-500" />
-                STAC Tier & Cloud Quota
+              <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+                <Database className="w-4 h-4 text-blue-600" />
+                Plan & Cloud Storage
               </h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-                Storage allocated for Cloud-Optimized GeoTIFF (COG) rasters and multi-spectral caches.
+              <p className="text-xs text-slate-500 mt-0.5">
+                Storage allocated for your saved satellite imagery and generated maps.
               </p>
             </div>
-            <span className="px-2.5 py-0.5 rounded-md text-[11px] font-mono font-semibold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
+            <span className="px-2.5 py-0.5 rounded-md text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
               {user.stacTier}
             </span>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 space-y-2.5">
+          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2.5">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-                <HardDrive className="w-3.5 h-3.5 text-cyan-500" />
-                Cloud Raster Quota Usage
+              <span className="font-semibold text-slate-700 flex items-center gap-1.5">
+                <HardDrive className="w-3.5 h-3.5 text-blue-600" />
+                Cloud Storage Used
               </span>
-              <span className="font-mono text-slate-600 dark:text-slate-400">
-                <strong className="text-slate-900 dark:text-white">{user.quotaUsedGb} GB</strong> / {user.quotaMaxGb} GB ({Math.round((user.quotaUsedGb / user.quotaMaxGb) * 100)}%)
+              <span className="text-slate-600">
+                <strong className="text-slate-900">{user.quotaUsedGb} GB</strong> / {user.quotaMaxGb} GB ({Math.round((user.quotaUsedGb / user.quotaMaxGb) * 100)}%)
               </span>
             </div>
-            <div className="w-full h-2.5 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
+            <div className="w-full h-2.5 rounded-full bg-slate-200 overflow-hidden">
               <div
-                className="h-full bg-gradient-to-r from-cyan-500 to-teal-400 rounded-full transition-all duration-300"
+                className="h-full bg-blue-600 rounded-full transition-all duration-300"
                 style={{ width: `${Math.min(100, Math.round((user.quotaUsedGb / user.quotaMaxGb) * 100))}%` }}
               />
             </div>
-            <div className="flex justify-between text-[11px] font-mono text-slate-400 pt-0.5">
-              <span>Sentinel-2 L2A BOA Cache: 410 GB</span>
+            <div className="flex justify-between text-[11px] text-slate-500 pt-0.5">
+              <span>Saved Satellite Images: 410 GB</span>
               <span>Available: {user.quotaMaxGb - user.quotaUsedGb} GB</span>
             </div>
           </div>
@@ -327,7 +327,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateProfil
         <div className="flex items-center justify-between pt-2">
           <div>
             {profileSaved && (
-              <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 flex items-center gap-1.5 font-bold animate-in fade-in">
+              <span className="text-xs text-emerald-600 flex items-center gap-1.5 font-semibold animate-in fade-in">
                 <CheckCircle2 className="w-4 h-4 text-emerald-500" />
                 Profile updated successfully!
               </span>
@@ -336,7 +336,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateProfil
 
           <button
             type="submit"
-            className="px-5 py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs font-mono flex items-center gap-2 shadow-sm shadow-cyan-500/25 transition-all duration-150 active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-cyan-500"
+            className="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs flex items-center gap-2 shadow-xs transition-all duration-150 active:scale-95"
           >
             <Save className="w-4 h-4" />
             <span>Save Profile Changes</span>
@@ -346,24 +346,24 @@ export const SettingsView: React.FC<SettingsViewProps> = ({ user, onUpdateProfil
 
       {/* Section 4: Account Session & Sign Out */}
       {onSignOut && (
-        <div className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="p-6 rounded-2xl bg-white border border-slate-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <h2 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <h2 className="text-sm font-bold text-slate-900 flex items-center gap-2">
               <LogOut className="w-4 h-4 text-rose-500" />
               Account Session
             </h2>
-            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Sign out of your researcher workspace session and return to the main landing page.
+            <p className="text-xs text-slate-500 mt-0.5">
+              Sign out of your workspace session and return to the main home page.
             </p>
           </div>
 
           <button
             type="button"
             onClick={onSignOut}
-            className="px-4 py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 text-rose-600 dark:text-rose-400 border border-rose-500/30 text-xs font-mono font-bold flex items-center gap-2 transition-all duration-150 active:scale-95 whitespace-nowrap self-start sm:self-auto"
+            className="px-4 py-2 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-600 border border-rose-200 text-xs font-semibold flex items-center gap-2 transition-all duration-150 active:scale-95 whitespace-nowrap self-start sm:self-auto"
           >
             <LogOut className="w-3.5 h-3.5" />
-            <span>Log Out to Landing Page</span>
+            <span>Log Out</span>
           </button>
         </div>
       )}

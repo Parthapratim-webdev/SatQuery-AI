@@ -46,37 +46,36 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
+    <div className="min-h-screen flex flex-col bg-white text-slate-900">
       {/* Workspace Top Header Bar with Toggle Menu Button */}
-      <header className="sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 py-2.5 bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800">
+      <header className="sticky top-0 z-30 flex items-center justify-between px-4 sm:px-6 py-2.5 bg-white border-b border-slate-200">
         <div className="flex items-center gap-3">
-          {/* Required menu icon that opens and closes sidebar */}
+          {/* Menu button that opens and closes sidebar */}
           <button
             type="button"
             onClick={() => setIsSidebarOpen(prev => !prev)}
-            className="p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-cyan-400 hover:bg-slate-100 dark:hover:bg-slate-900 border border-slate-200 dark:border-slate-800 transition-all flex items-center gap-2 active:scale-95 cursor-pointer shadow-xs"
+            className="p-2 rounded-xl text-slate-700 hover:text-blue-600 hover:bg-slate-50 border border-slate-200 transition-all flex items-center gap-2 active:scale-95 cursor-pointer shadow-xs"
             title={isSidebarOpen ? "Close sidebar menu" : "Open sidebar menu"}
             aria-label={isSidebarOpen ? "Close sidebar menu" : "Open sidebar menu"}
           >
-            <Menu className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
-            <span className="text-xs font-mono font-bold">
+            <Menu className="w-5 h-5 text-blue-600" />
+            <span className="text-xs font-semibold">
               {isSidebarOpen ? 'Close Menu' : 'Menu'}
             </span>
           </button>
 
           <div className="flex items-center gap-2.5">
             <ModernSatelliteAiLogo size="sm" showText={true} />
-            <span className="text-xs font-mono text-slate-300 dark:text-slate-700">|</span>
-            <span className="text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400 capitalize hidden sm:inline">
-              {currentView === 'new-analysis' ? 'New Analysis' : currentView === 'models' ? 'Models & Tools' : currentView === 'chat' ? 'Orbit AI Copilot' : currentView === 'workspace' ? 'Geospatial Canvas' : currentView === 'history' ? 'Analysis History' : currentView === 'reports' ? 'Saved Reports' : 'Settings'}
+            <span className="text-xs text-slate-300">|</span>
+            <span className="text-xs font-semibold text-blue-600 capitalize hidden sm:inline">
+              {currentView === 'new-analysis' ? 'New Analysis' : currentView === 'models' ? 'Models & Tools' : currentView === 'chat' ? 'AI Assistant' : currentView === 'workspace' ? 'Satellite Viewer' : currentView === 'history' ? 'Analysis History' : currentView === 'reports' ? 'Saved Reports' : 'Settings'}
             </span>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[11px] font-mono font-bold text-emerald-700 dark:text-emerald-300">
+          <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[11px] font-medium text-emerald-800">
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
             </span>
             <span>AI System Ready</span>
@@ -89,7 +88,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({
         {/* Mobile Backdrop */}
         {isSidebarOpen && (
           <div 
-            className="fixed inset-0 top-[53px] bg-slate-950/60 backdrop-blur-xs z-30 lg:hidden"
+            className="fixed inset-0 top-[53px] bg-slate-900/30 backdrop-blur-xs z-30 lg:hidden"
             onClick={() => setIsSidebarOpen(false)}
           />
         )}

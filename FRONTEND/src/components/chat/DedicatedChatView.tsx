@@ -38,37 +38,37 @@ export const DedicatedChatView: React.FC<DedicatedChatViewProps> = ({
   onNavigateToWorkspace,
   onNavigate
 }) => {
-  const [selectedModel, setSelectedModel] = useState<string>('SatQuery-GeoLLM-v3 (Grounded STAC)');
+  const [selectedModel, setSelectedModel] = useState<string>('Standard Satellite Assistant');
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: 'msg-welcome',
       sender: 'agent',
       timestamp: '04:40:02',
-      text: `Greetings, Analyst! I'm **Orbit**, your SatQuery AI Earth Observation Copilot.
+      text: `Greetings! I'm **Orbit**, your SatQuery AI assistant.
 
-I am connected to multi-spectral Earth Observation streams including **ESA Copernicus Sentinel-2**, **USGS Landsat-9**, and **Sentinel-1 SAR C-Band radar**. 
+I am connected to satellite imagery from the **European Space Agency Sentinel-2**, **USGS & NASA Landsat-9**, and **Sentinel-1 radar**.
 
-You can query any planetary coordinate, request disturbance quantifications, compute bi-temporal spectral indices (NDVI, NDWI, NBR), or transition directly into our 3-Pane Geospatial Workspace for sub-meter vector inspection.`,
+You can search any location on Earth, check landscape changes, measure plant health (NDVI), or open areas directly in our Satellite Viewer.`,
       traces: [
         {
           id: 'tr-boot-1',
-          title: 'STAC Catalog Handshake',
+          title: 'Satellite Catalog Connected',
           status: 'completed',
           durationMs: 16,
-          details: 'Connected to AWS Earth Search & Copernicus Open Access Hub.'
+          details: 'Connected to European Space Agency and USGS satellite archives.'
         },
         {
           id: 'tr-boot-2',
-          title: 'Foundation Model Weights Loaded',
+          title: 'Analysis Models Ready',
           status: 'completed',
           durationMs: 24,
-          details: 'GeoSAM-MultiSpectral v3.4 TensorRT engine active on NVIDIA H100.'
+          details: 'Image recognition and segmentation engine active.'
         }
       ],
       groundedStats: [
-        { label: 'Active Constellations', value: '8', unit: 'sensors' },
-        { label: 'Inference Precision', value: '89.4%', unit: 'mIoU' },
-        { label: 'STAC Catalogs', value: '45M+', unit: 'scenes' }
+        { label: 'Active Satellites', value: '8', unit: 'sensors' },
+        { label: 'Analysis Accuracy', value: '89.4%', unit: 'accuracy' },
+        { label: 'Satellite Archive', value: '45M+', unit: 'scenes' }
       ]
     }
   ]);
@@ -82,23 +82,23 @@ You can query any planetary coordinate, request disturbance quantifications, com
 
   const samplePrompts = [
     {
-      title: 'Amazon Canopy Disturbance',
-      query: 'Quantify canopy loss in the Brazilian Amazon (Rondônia track) between June and August 2024.',
+      title: 'Amazon Tree Cover Loss',
+      query: 'Check tree cover loss in the Amazon between June and August 2024.',
       preset: MOCK_AOI_PRESETS[0]
     },
     {
-      title: 'Rhine Flood Plain SAR Analysis',
-      query: 'Analyze Sentinel-1 C-Band radar cross-polarization (VV/VH) for peak flood inundation in the Rhine basin.',
+      title: 'Rhine River Flooding',
+      query: 'Find flooded areas in the Rhine river basin.',
       preset: MOCK_AOI_PRESETS[1]
     },
     {
-      title: 'Wildfire Severity (dNBR)',
-      query: 'Calculate Normalized Burn Ratio (NBR) and detect high-severity char depth for the Sierra Nevada fire.',
+      title: 'Wildfire Severity',
+      query: 'Assess burn area severity for the Sierra Nevada wildfire.',
       preset: MOCK_AOI_PRESETS[2]
     },
     {
-      title: 'Multi-Spectral Band Algebra',
-      query: 'How does SatQuery calculate NDVI and EVI from Sentinel-2 bands B04, B08, and B02?',
+      title: 'Vegetation Health (NDVI)',
+      query: 'How does vegetation health (greenness) get calculated from satellite images?',
       preset: undefined
     }
   ];
@@ -154,84 +154,81 @@ You can query any planetary coordinate, request disturbance quantifications, com
 
       if (isAmazon) {
         targetPreset = MOCK_AOI_PRESETS[0];
-        responseText = `### Canopy Disturbance Quantification: Amazon Rainforest (Rondônia Track)
+        responseText = `### Tree Cover Analysis: Amazon Rainforest
 
-Using bi-temporal **Sentinel-2 L2A BOA Surface Reflectance** (June 12, 2024 vs August 28, 2024), the **GeoSAM-v3 Large** foundation model identified **48.2 hectares** of new canopy loss.
+Comparing satellite images from June 12, 2024 with August 28, 2024, our AI detected **48.2 hectares** of new tree cover loss.
 
 #### Key Findings:
-- **Mean NDVI Degradation**: Dropped from **0.84** to **0.31** across clear-cut tributary corridors.
-- **Disturbance Geometry**: 14 contiguous disturbance polygons detected along illegal secondary logging spurs.
-- **Atmospheric Confidence**: Filtered 2.1% cirrus clouds using *s2cloudless* with **98.6% model confidence**.`;
+- **Vegetation Health Drop**: Greenness dropped from **0.84** to **0.31** along forest clearing paths.
+- **Affected Areas**: 14 distinct clearing zones identified.
+- **Confidence**: High accuracy with **98.6% confidence** after filtering cloud cover.`;
         stats = [
-          { label: 'Deforested Area', value: '48.2', unit: 'hectares' },
-          { label: 'NDVI Delta', value: '-63.1%', unit: 'relative drop' },
-          { label: 'Disturbance Polygons', value: '14', unit: 'vectors' },
-          { label: 'Model Confidence', value: '98.6%', unit: 'F1: 0.958' }
+          { label: 'Cleared Area', value: '48.2', unit: 'hectares' },
+          { label: 'Greenness Change', value: '-63.1%', unit: 'drop' },
+          { label: 'Detected Zones', value: '14', unit: 'areas' },
+          { label: 'Accuracy', value: '98.6%', unit: 'high' }
         ];
       } else if (isFlood) {
         targetPreset = MOCK_AOI_PRESETS[1];
-        responseText = `### Radar Inundation Assessment: Lower Rhine Flood Basin
+        responseText = `### Flood Mapping: Rhine River Basin
 
-Penetrating storm cloud cover using **Sentinel-1 C-Band SAR (VV/VH dual-polarization)** at 5-meter resolution.
+Using all-weather radar images from Sentinel-1 that see through storm cloud cover.
 
 #### Key Findings:
-- **Submerged Extent**: **312.4 km²** of agricultural lowlands and riverine flood plains submerged.
-- **Water Depth Threshold**: Inundation depth exceeds **1.2 meters** across secondary dyke zones.
-- **SAR Scattering Index**: Specular reflection over standing water caused radar backscatter drop to **-22.4 dB** (normal: -11.2 dB).`;
+- **Flooded Area**: **312.4 km²** of low-lying farmland and riverbanks are underwater.
+- **Estimated Depth**: Water depth exceeds **1.2 meters** across low sections.
+- **Status**: Flood crest has peaked and water levels are being tracked.`;
         stats = [
-          { label: 'Submerged Extent', value: '312.4', unit: 'km²' },
-          { label: 'Mean Water Depth', value: '> 1.2', unit: 'meters' },
-          { label: 'SAR Backscatter', value: '-22.4', unit: 'dB (VH)' },
-          { label: 'Confidence Score', value: '96.2%', unit: 'radar-grounded' }
+          { label: 'Flooded Area', value: '312.4', unit: 'km²' },
+          { label: 'Water Depth', value: '> 1.2', unit: 'meters' },
+          { label: 'Radar Coverage', value: '100%', unit: 'clear view' },
+          { label: 'Confidence', value: '96.2%', unit: 'verified' }
         ];
       } else if (isFire) {
         targetPreset = MOCK_AOI_PRESETS[2];
-        responseText = `### Wildfire Severity Analysis: Sierra Nevada Fire Complex
+        responseText = `### Wildfire Burn Area: Sierra Nevada
 
-Processed **Landsat-9 OLI-2 calibrated SWIR1 (B06) and SWIR2 (B07)** surface reflectance passes.
+Analyzed infrared satellite images before and after the wildfire event.
 
 #### Key Findings:
-- **Normalized Burn Ratio (NBR)**: Pre-fire NBR = **0.68**, Post-fire NBR = **-0.06** (dNBR = **0.74**).
-- **Burn Severity Classification**: High Severity (Soil char depth > 4cm across 1,890 km² perimeter).
-- **Post-Fire Debris Flow Hazard**: Critical alert generated for steep gulch drainage zones.`;
+- **Burn Severity**: High severity across core areas with intense foliage damage.
+- **Burn Perimeter**: Total fire footprint covers **1,890 km²**.
+- **Regrowth Potential**: 14.2% of tree canopy within the perimeter survived intact.`;
         stats = [
-          { label: 'Total Scar Extent', value: '1,890', unit: 'km²' },
-          { label: 'Delta NBR (dNBR)', value: '0.74', unit: 'High Severity' },
-          { label: 'Unburned Islands', value: '14.2%', unit: 'canopy refugia' }
+          { label: 'Burned Area', value: '1,890', unit: 'km²' },
+          { label: 'Severity Level', value: 'High', unit: 'critical' },
+          { label: 'Surviving Trees', value: '14.2%', unit: 'intact' }
         ];
       } else if (isFormula) {
-        responseText = `### Multi-Spectral Vegetation Indices & Band Arithmetic
+        responseText = `### How Plant Health (NDVI) is Measured
 
-SatQuery AI computes vegetation vigour indices on calibrated Bottom-of-Atmosphere (BOA) surface reflectance:
+Satellites measure vegetation greenness using light reflected by plants:
 
-1. **Normalized Difference Vegetation Index (NDVI)**:
-   $$\\text{NDVI} = \\frac{\\text{NIR} - \\text{Red}}{\\text{NIR} + \\text{Red}} = \\frac{B08 - B04}{B08 + B04}$$
-   *Highlights healthy chlorophyll absorption in red and high reflection in near-infrared.*
+1. **Vegetation Greenness (NDVI)**:
+   $$\\text{NDVI} = \\frac{\\text{Near-Infrared} - \\text{Red}}{\\text{Near-Infrared} + \\text{Red}}$$
+   *Healthy green leaves absorb red light and reflect near-infrared light strongly.*
 
-2. **Enhanced Vegetation Index (EVI)**:
-   $$\\text{EVI} = 2.5 \\times \\frac{\\text{NIR} - \\text{Red}}{\\text{NIR} + 6 \\times \\text{Red} - 7.5 \\times \\text{Blue} + 1}$$
-   *Decouples canopy background signals and reduces atmospheric aerosol influences.*
-
-3. **Normalized Burn Ratio (NBR)**:
-   $$\\text{NBR} = \\frac{B08 - B12}{B08 + B12}$$
-   *Highlights fire scars and moisture deficits using Short-Wave Infrared.*`;
+2. **Interpreting the Scores**:
+   - **0.6 to 0.9**: Dense, thriving green vegetation (forests, healthy crops).
+   - **0.2 to 0.5**: Sparse grass, shrubs, or early-stage crops.
+   - **Below 0.1**: Bare soil, rock, sand, concrete, or water.`;
         stats = [
-          { label: 'Resolution (GSD)', value: '10', unit: 'meters (S2)' },
-          { label: 'Inference Latency', value: '18.2', unit: 'ms / tile' },
-          { label: 'Radiometric Bands', value: '13', unit: 'multi-spectral' }
+          { label: 'Resolution', value: '10', unit: 'meters' },
+          { label: 'Update Frequency', value: '5', unit: 'days' },
+          { label: 'Satellite Feeds', value: 'Sentinel-2', unit: 'Landsat-9' }
         ];
       } else {
-        responseText = `### Geospatial Query Analysis
+        responseText = `### Satellite Query Analysis
 
-SatQuery AI synthesized the query: "${query}" using foundation model **${selectedModel}**.
+SatQuery AI examined the query: "${query}".
 
-- **Spatial Coordinate Resolution**: Orthorectified target AOI bounds to WGS84 UTM projections.
-- **Zero-Shot Segmentation**: Identified candidate disturbance anomalies across calibrated multi-spectral tiles.
-- **STAC Provenance**: All raster tiles are linked to CEOS-certified Level-2A surface reflectance data.`;
+- **Location Match**: Identified target bounds and coordinates.
+- **Imagery Checked**: Located the newest cloud-free satellite imagery.
+- **Ready to Explore**: You can open this region in the Satellite Viewer to inspect high-resolution imagery.`;
         stats = [
-          { label: 'Processed Bounds', value: 'WGS84', unit: 'EPSG:4326' },
-          { label: 'Confidence Score', value: '97.8%', unit: 'grounded' },
-          { label: 'Latency', value: '28.4', unit: 'ms' }
+          { label: 'Analysis Status', value: 'Complete', unit: 'ready' },
+          { label: 'Confidence Score', value: '97.8%', unit: 'reliable' },
+          { label: 'Processing Speed', value: 'Fast', unit: '< 1s' }
         ];
       }
 
@@ -244,34 +241,29 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
         traces: [
           {
             id: `tr-${Date.now()}-1`,
-            title: '1. STAC Item Spatial Search & Co-Registration',
+            title: '1. Found Recent Satellite Imagery',
             status: 'completed',
             durationMs: 22,
-            details: 'Located multi-temporal COG rasters with cloud cover threshold < 5%.',
-            payload: {
-              model: selectedModel,
-              query_type: 'spatial-synthesis',
-              timestamp: new Date().toISOString()
-            }
+            details: 'Located cloud-free satellite photos for the target region.'
           },
           {
             id: `tr-${Date.now()}-2`,
-            title: '2. Atmospheric Masking & Band Calibration',
+            title: '2. Calibrated Image Bands',
             status: 'completed',
             durationMs: 18,
-            details: 'Computed radiometric surface reflectance BOA indices.'
+            details: 'Adjusted colors and lighting for surface accuracy.'
           },
           {
             id: `tr-${Date.now()}-3`,
-            title: '3. GeoSAM-MultiSpectral Neural Inference',
+            title: '3. Generated Insights',
             status: 'completed',
             durationMs: 32,
-            details: 'Executed tensor graph in 32ms on TensorRT-LLM H100.'
+            details: 'Processed area detection and summarized results.'
           }
         ],
         groundedStats: stats,
         suggestedAction: targetPreset ? {
-          label: `Open in 3-Pane Geospatial Canvas`,
+          label: `Open in Satellite Viewer`,
           actionType: 'open-workspace',
           targetAOIId: targetPreset.id
         } : undefined
@@ -298,31 +290,26 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 flex flex-col h-[calc(100vh-64px)] select-none relative">
-      {/* Surrounding Ambient Blue Atmospheric Glow Backdrops */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-4/5 h-96 bg-blue-500/10 blur-[130px] pointer-events-none rounded-full" />
-      <div className="absolute bottom-10 left-10 w-72 h-72 bg-cyan-500/10 blur-[100px] pointer-events-none rounded-full" />
-      <div className="absolute top-20 right-10 w-80 h-80 bg-blue-600/10 blur-[110px] pointer-events-none rounded-full" />
-
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 flex flex-col h-[calc(100vh-64px)] select-none relative bg-white">
       {/* Top Header Card */}
-      <div className="relative z-10 p-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-blue-400/50 dark:border-cyan-500/30 shadow-[0_0_30px_rgba(59,130,246,0.15)] dark:shadow-[0_0_30px_rgba(6,182,212,0.15)] ring-4 ring-blue-500/10 dark:ring-cyan-500/10 mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-slate-900 dark:text-white transition-colors duration-200">
+      <div className="relative z-10 p-4 rounded-2xl bg-white border border-slate-200 shadow-xs mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-slate-900 transition-colors duration-200">
         <div className="flex items-center gap-3.5">
           <OrbitMascot size="md" mood={isProcessing ? 'analyzing' : 'idle'} />
           <div>
             <div className="flex items-center gap-2">
-              <h1 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
-                SatQuery<span className="text-teal-500">AI</span> Copilot Terminal
+              <h1 className="text-base sm:text-lg font-bold text-slate-900">
+                SatQuery AI Assistant
               </h1>
-              <span className="px-2.5 py-0.5 rounded-full bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 text-[11px] font-bold border border-teal-200 dark:border-teal-800 flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-ping"></span>
-                Orbit AI Active
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-50 text-emerald-800 text-[11px] font-semibold border border-emerald-200 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                Active
               </span>
             </div>
-            <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              <span className="w-2 h-2 rounded-full bg-teal-500"></span>
-              <span>STAC Multi-Sensor Mesh Active</span>
+            <div className="flex items-center gap-2 text-xs text-slate-500 mt-0.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+              <span>Satellite Connected</span>
               <span>•</span>
-              <span>Sub-Meter Precision</span>
+              <span>High Accuracy</span>
             </div>
           </div>
         </div>
@@ -332,16 +319,16 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
           <select
             value={selectedModel}
             onChange={(e) => setSelectedModel(e.target.value)}
-            className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-xs font-medium text-slate-800 dark:text-slate-200 outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-teal-500"
+            className="px-3 py-1.5 rounded-xl bg-white border border-slate-200 text-xs font-medium text-slate-800 outline-none focus:border-blue-600"
           >
-            <option value="SatQuery-GeoLLM-v3 (Grounded STAC)">GeoLLM-v3 (Grounded STAC)</option>
-            <option value="SatQuery-SAR-RadarVision (C-Band / InSAR)">SAR-RadarVision (C-Band)</option>
-            <option value="SatQuery-HyperSpectral-Eco">HyperSpectral-Eco (Agriculture)</option>
+            <option value="Standard Satellite Assistant">Standard Satellite Assistant</option>
+            <option value="All-Weather Radar Assistant">All-Weather Radar Assistant</option>
+            <option value="Agriculture & Crops Assistant">Agriculture & Crops Assistant</option>
           </select>
 
           <button
             onClick={handleExportChat}
-            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-all duration-150 active:scale-[0.98]"
+            className="p-2 rounded-xl text-slate-500 hover:text-slate-900 bg-white hover:bg-slate-100 border border-slate-200 transition-all duration-150 active:scale-[0.98]"
             title="Export Conversation Transcript"
           >
             <Download className="w-4 h-4" />
@@ -349,7 +336,7 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
 
           <button
             onClick={handleClearHistory}
-            className="p-2 rounded-xl text-slate-500 hover:text-rose-500 dark:text-slate-400 dark:hover:text-rose-400 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 transition-all duration-150 active:scale-[0.98]"
+            className="p-2 rounded-xl text-slate-500 hover:text-rose-500 bg-white hover:bg-slate-100 border border-slate-200 transition-all duration-150 active:scale-[0.98]"
             title="Clear Chat"
           >
             <Trash2 className="w-4 h-4" />
@@ -358,26 +345,26 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
       </div>
 
       {/* Main Chat Conversation Container */}
-      <div className="relative z-10 flex-1 rounded-2xl bg-white dark:bg-slate-900 border-2 border-blue-400/50 dark:border-cyan-500/30 shadow-[0_0_40px_rgba(59,130,246,0.2)] dark:shadow-[0_0_40px_rgba(6,182,212,0.2)] ring-4 ring-blue-500/10 dark:ring-cyan-500/10 flex flex-col overflow-hidden text-slate-900 dark:text-white transition-colors duration-200">
-        {/* Top Radiant Blue Ambient Accent Line */}
-        <div className="h-1 w-full bg-gradient-to-r from-blue-600 via-cyan-400 to-indigo-600 shadow-[0_0_15px_rgba(56,189,248,0.5)]"></div>
+      <div className="relative z-10 flex-1 rounded-2xl bg-white border border-slate-200 shadow-sm flex flex-col overflow-hidden text-slate-900">
+        {/* Top Blue Ambient Accent Line */}
+        <div className="h-1 w-full bg-blue-600"></div>
 
         {/* Messages Scroll Area */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 bg-slate-50/60 dark:bg-slate-950/40">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 space-y-6 bg-slate-50/50">
           {/* Friendly Mascot Welcome Hero Banner */}
           {messages.length === 1 && (
-            <div className="p-5 rounded-2xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center gap-5 shadow-sm">
+            <div className="p-5 rounded-2xl bg-white border border-slate-200 flex flex-col sm:flex-row items-center gap-5 shadow-xs">
               <OrbitMascot size="lg" mood="greeting" className="flex-shrink-0" />
               <div className="space-y-1.5 text-center sm:text-left">
-                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-teal-50 dark:bg-teal-950/60 text-teal-700 dark:text-teal-300 text-xs font-semibold border border-teal-200 dark:border-teal-800">
-                  <Sparkles className="w-3.5 h-3.5 text-teal-500" />
-                  <span>Meet Orbit • Your SatQuery Copilot</span>
+                <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold border border-blue-200">
+                  <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+                  <span>Meet Orbit • Your SatQuery Assistant</span>
                 </div>
-                <h2 className="text-base font-bold text-slate-900 dark:text-white">
-                  "Ready to explore planetary Earth observation data?"
+                <h2 className="text-base font-bold text-slate-900">
+                  "Ready to explore satellite imagery?"
                 </h2>
-                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
-                  Ask me to inspect forest canopy loss, segment flood inundation perimeters, calculate NDVI health indices, or query raw STAC items from Sentinel-2, Landsat-9, and Sentinel-1 SAR.
+                <p className="text-xs text-slate-600 leading-relaxed max-w-2xl">
+                  Ask me to inspect forest loss, view flooded areas, calculate vegetation health, or search any location on Earth.
                 </p>
               </div>
             </div>
@@ -391,16 +378,16 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
               }`}
             >
               {/* Sender Header */}
-              <div className="flex items-center gap-2 text-xs text-slate-400 dark:text-slate-500 mb-1 px-1">
+              <div className="flex items-center gap-2 text-xs text-slate-400 mb-1 px-1">
                 {msg.sender === 'user' ? (
                   <>
-                    <span className="font-medium">You (Analyst)</span>
+                    <span className="font-medium text-slate-600">You</span>
                     <User className="w-3.5 h-3.5" />
                   </>
                 ) : (
                   <>
                     <OrbitMascot size="xs" mood={msg.groundedStats ? 'happy' : 'idle'} showHalo={false} />
-                    <span className="text-teal-600 dark:text-teal-400 font-semibold">Orbit AI Copilot</span>
+                    <span className="text-blue-600 font-semibold">Orbit AI</span>
                   </>
                 )}
                 <span>•</span>
@@ -411,8 +398,8 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
               <div
                 className={`p-4 sm:p-5 rounded-2xl max-w-[90%] sm:max-w-[80%] leading-relaxed ${
                   msg.sender === 'user'
-                    ? 'bg-teal-500 text-slate-950 font-medium rounded-tr-sm shadow-md'
-                    : 'bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-800 dark:text-slate-200 rounded-tl-sm shadow-sm'
+                    ? 'bg-blue-600 text-white font-medium rounded-tr-sm shadow-xs'
+                    : 'bg-white border border-slate-200 text-slate-800 rounded-tl-sm shadow-xs'
                 }`}
               >
                 <div className="text-xs sm:text-sm whitespace-pre-line font-sans">
@@ -421,14 +408,14 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
 
                 {/* Observable Execution Traces Dropdown */}
                 {msg.traces && msg.traces.length > 0 && (
-                  <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800">
+                  <div className="mt-4 pt-3 border-t border-slate-100">
                     <button
                       onClick={() => setExpandedTraceId(expandedTraceId === msg.id ? null : msg.id)}
-                      className="w-full flex items-center justify-between text-xs font-mono font-semibold text-teal-600 dark:text-teal-400 hover:underline active:scale-[0.98] py-1"
+                      className="w-full flex items-center justify-between text-xs font-semibold text-blue-600 hover:underline active:scale-[0.98] py-1"
                     >
                       <span className="flex items-center gap-1.5">
                         <Terminal className="w-4 h-4" />
-                        <span>Observable Pipeline Traces ({msg.traces.length} steps verified)</span>
+                        <span>Analysis Steps ({msg.traces.length} completed)</span>
                       </span>
                       {expandedTraceId === msg.id ? (
                         <ChevronUp className="w-4 h-4" />
@@ -438,23 +425,23 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
                     </button>
 
                     {expandedTraceId === msg.id && (
-                      <div className="mt-3 space-y-2 font-mono text-xs bg-slate-50 dark:bg-slate-950/70 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 animate-in fade-in">
+                      <div className="mt-3 space-y-2 text-xs bg-slate-50 p-3.5 rounded-xl border border-slate-200 animate-in fade-in">
                         {msg.traces.map((trace) => (
                           <div
                             key={trace.id}
-                            className="p-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1 shadow-xs"
+                            className="p-2.5 rounded-lg bg-white border border-slate-200 space-y-1 shadow-xs"
                           >
                             <div className="flex items-center justify-between">
-                              <span className="font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-                                <CheckCircle2 className="w-3.5 h-3.5 text-teal-500 flex-shrink-0" />
+                              <span className="font-semibold text-slate-800 flex items-center gap-1.5">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
                                 {trace.title}
                               </span>
-                              <span className="text-[11px] text-slate-400 dark:text-slate-500 flex items-center gap-1">
+                              <span className="text-[11px] text-slate-400 flex items-center gap-1">
                                 <Clock className="w-3 h-3" />
                                 {trace.durationMs}ms
                               </span>
                             </div>
-                            <p className="text-[11px] text-slate-500 dark:text-slate-400 pl-5 leading-relaxed">
+                            <p className="text-[11px] text-slate-500 pl-5 leading-relaxed">
                               {trace.details}
                             </p>
 
@@ -462,13 +449,13 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
                               <div className="pl-5 pt-1">
                                 <button
                                   onClick={() => setShowRawJsonId(showRawJsonId === trace.id ? null : trace.id)}
-                                  className="text-[10px] text-teal-600 dark:text-teal-400 hover:underline flex items-center gap-1"
+                                  className="text-[10px] text-blue-600 hover:underline flex items-center gap-1"
                                 >
                                   <FileCode2 className="w-3 h-3" />
-                                  {showRawJsonId === trace.id ? 'Hide STAC Payload' : 'Inspect STAC Payload'}
+                                  {showRawJsonId === trace.id ? 'Hide Technical Data' : 'Inspect Technical Data'}
                                 </button>
                                 {showRawJsonId === trace.id && (
-                                  <pre className="mt-1 p-2 rounded bg-slate-900 dark:bg-slate-950 border border-slate-800 text-teal-300 text-[10px] overflow-x-auto">
+                                  <pre className="mt-1 p-2 rounded bg-slate-900 border border-slate-800 text-blue-300 text-[10px] overflow-x-auto">
                                     {JSON.stringify(trace.payload, null, 2)}
                                   </pre>
                                 )}
@@ -483,16 +470,16 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
 
                 {/* Grounded Quantitative Metrics Grid */}
                 {msg.groundedStats && (
-                  <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                  <div className="mt-4 pt-3 border-t border-slate-100 grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                     {msg.groundedStats.map((stat, i) => (
                       <div
                         key={i}
-                        className="p-2.5 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60"
+                        className="p-2.5 rounded-xl bg-slate-50 border border-slate-200"
                       >
-                        <div className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">{stat.label}</div>
-                        <div className="text-sm font-bold font-mono text-teal-600 dark:text-teal-400 mt-0.5">
+                        <div className="text-[10px] text-slate-500">{stat.label}</div>
+                        <div className="text-sm font-bold text-blue-600 mt-0.5">
                           {stat.value}{' '}
-                          <span className="text-[10px] font-normal text-slate-400 dark:text-slate-500">
+                          <span className="text-[10px] font-normal text-slate-500">
                             {stat.unit}
                           </span>
                         </div>
@@ -503,13 +490,13 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
 
                 {/* Suggested Action to Open in Canvas */}
                 {msg.suggestedAction && (
-                  <div className="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center gap-3">
+                  <div className="mt-4 pt-3 border-t border-slate-100 flex items-center gap-3">
                     <button
                       onClick={() => {
                         const targetAOI = MOCK_AOI_PRESETS.find(p => p.id === msg.suggestedAction?.targetAOIId) || MOCK_AOI_PRESETS[0];
                         onNavigateToWorkspace(targetAOI);
                       }}
-                      className="px-4 py-2 rounded-xl bg-teal-500 text-slate-950 text-xs font-bold flex items-center gap-1.5 shadow-sm shadow-teal-500/20 hover:bg-teal-400 transition-all duration-150 active:scale-[0.98]"
+                      className="px-4 py-2 rounded-xl bg-blue-600 text-white text-xs font-semibold flex items-center gap-1.5 shadow-xs hover:bg-blue-700 transition-all duration-150 active:scale-[0.98]"
                     >
                       <Compass className="w-3.5 h-3.5" />
                       <span>{msg.suggestedAction.label}</span>
@@ -524,15 +511,15 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
           {/* Loading Pipeline State with Orbit Mascot */}
           {isProcessing && (
             <div className="flex flex-col items-start animate-in fade-in">
-              <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 rounded-tl-sm flex items-center gap-3.5 text-xs shadow-sm">
+              <div className="p-4 rounded-2xl bg-white border border-slate-200 text-slate-800 rounded-tl-sm flex items-center gap-3.5 text-xs shadow-xs">
                 <OrbitMascot size="sm" mood="analyzing" showHalo={false} />
                 <div>
-                  <div className="flex items-center gap-2 font-semibold text-teal-600 dark:text-teal-400">
+                  <div className="flex items-center gap-2 font-semibold text-blue-600">
                     <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                    <span>Orbit is analyzing multi-spectral imagery...</span>
+                    <span>Analyzing satellite data...</span>
                   </div>
-                  <p className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
-                    Querying STAC raster assets & executing GeoSAM neural inference
+                  <p className="text-[11px] text-slate-500 mt-0.5">
+                    Querying images and calculating insights
                   </p>
                 </div>
               </div>
@@ -543,9 +530,9 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
         </div>
 
         {/* Rapid Starter Prompts Pills */}
-        <div className="p-3 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-x-auto flex items-center gap-2">
-          <span className="text-[11px] font-semibold uppercase text-slate-400 dark:text-slate-500 flex items-center gap-1 flex-shrink-0">
-            <Sparkles className="w-3.5 h-3.5 text-teal-500" />
+        <div className="p-3 border-t border-slate-200 bg-white overflow-x-auto flex items-center gap-2">
+          <span className="text-[11px] font-semibold uppercase text-slate-400 flex items-center gap-1 flex-shrink-0">
+            <Sparkles className="w-3.5 h-3.5 text-blue-600" />
             Quick Prompts:
           </span>
           {samplePrompts.map((p, idx) => (
@@ -553,22 +540,22 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
               key={idx}
               onClick={() => handleSendMessage(p.query, p.preset)}
               disabled={isProcessing}
-              className="px-3 py-1.5 rounded-xl bg-slate-50 dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 hover:border-teal-500 dark:hover:border-teal-400 text-xs font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 whitespace-nowrap transition-all duration-150 active:scale-[0.98] shadow-xs flex items-center gap-1"
+              className="px-3 py-1.5 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 hover:border-blue-300 text-xs font-medium text-slate-700 hover:text-blue-700 whitespace-nowrap transition-all duration-150 active:scale-[0.98] shadow-xs flex items-center gap-1"
             >
               <span>{p.title}</span>
-              <ArrowRight className="w-3 h-3 text-slate-400 dark:text-slate-500" />
+              <ArrowRight className="w-3 h-3 text-slate-400" />
             </button>
           ))}
         </div>
 
         {/* Query Input Bar */}
-        <div className="p-4 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+        <div className="p-4 border-t border-slate-200 bg-white">
           {attachedFile && (
-            <div className="mb-2 p-2 rounded-lg bg-teal-50 dark:bg-teal-950/60 border border-teal-200 dark:border-teal-800 text-xs text-teal-700 dark:text-teal-300 flex items-center justify-between">
+            <div className="mb-2 p-2 rounded-lg bg-blue-50 border border-blue-200 text-xs text-blue-700 flex items-center justify-between">
               <span>Attached: {attachedFile}</span>
               <button
                 onClick={() => setAttachedFile(null)}
-                className="text-slate-400 dark:text-slate-500 hover:text-rose-500"
+                className="text-slate-400 hover:text-rose-500"
               >
                 Remove
               </button>
@@ -582,12 +569,12 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
             }}
             className="flex items-center gap-2"
           >
-            {/* Attach raster trigger */}
+            {/* Attach trigger */}
             <button
               type="button"
-              onClick={() => setAttachedFile('Amazon_Deforestation_Sector04_B08.tif (COG)')}
-              className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 hover:text-teal-600 dark:hover:text-teal-400 hover:border-teal-500/40 hover:bg-slate-100 dark:hover:bg-slate-700 transition-all duration-150 active:scale-[0.98]"
-              title="Attach Sample GeoTIFF or Coordinates"
+              onClick={() => setAttachedFile('Amazon_Deforestation_Sector04.tif')}
+              className="p-2.5 rounded-xl border border-slate-200 bg-white text-slate-500 hover:text-blue-600 hover:border-blue-400 hover:bg-slate-50 transition-all duration-150 active:scale-[0.98]"
+              title="Attach Sample File or Coordinates"
             >
               <Paperclip className="w-4 h-4" />
             </button>
@@ -596,15 +583,15 @@ SatQuery AI synthesized the query: "${query}" using foundation model **${selecte
               type="text"
               value={inputQuery}
               onChange={(e) => setInputQuery(e.target.value)}
-              placeholder="Ask SatQuery Copilot about any coordinate, sensor band, or disturbance..."
+              placeholder="Ask about any location, satellite image, or environmental change..."
               disabled={isProcessing}
-              className="flex-1 px-4 py-2.5 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-2 focus:ring-teal-500/20 text-xs sm:text-sm"
+              className="flex-1 px-4 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-900 placeholder-slate-400 outline-none focus:border-blue-600 text-xs sm:text-sm"
             />
 
             <button
               type="submit"
               disabled={!inputQuery.trim() || isProcessing}
-              className="px-4 py-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold text-xs flex items-center gap-1.5 shadow-md shadow-teal-500/20 transition-all duration-150 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 disabled:opacity-40"
+              className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs flex items-center gap-1.5 shadow-xs transition-all duration-150 active:scale-[0.98] focus:outline-none disabled:opacity-40"
             >
               <Send className="w-4 h-4" />
               <span className="hidden sm:inline">Send Query</span>

@@ -87,36 +87,36 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
 
   return (
     <div className="space-y-4">
-      {/* Evidence Viewer Controls Bar (Section 21: Zoom, Pan, Layer visibility, Image comparison) */}
-      <div className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+      {/* Evidence Viewer Controls Bar */}
+      <div className="p-3 rounded-xl bg-white border border-slate-200 flex flex-wrap items-center justify-between gap-3 text-xs">
         {/* Comparison Mode Switcher */}
-        <div className="flex items-center gap-1.5 p-1 rounded-lg bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+        <div className="flex items-center gap-1.5 p-1 rounded-lg bg-slate-100 border border-slate-200">
           <button
             onClick={() => setViewMode('split')}
-            className={`px-3 py-1 rounded-md transition-all ${
+            className={`px-3 py-1 rounded-md transition-all cursor-pointer ${
               viewMode === 'split'
-                ? 'bg-cyan-400 text-slate-950 font-bold shadow-xs'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                ? 'bg-blue-600 text-white font-bold shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Split Slider
           </button>
           <button
             onClick={() => setViewMode('side-by-side')}
-            className={`px-3 py-1 rounded-md transition-all ${
+            className={`px-3 py-1 rounded-md transition-all cursor-pointer ${
               viewMode === 'side-by-side'
-                ? 'bg-cyan-400 text-slate-950 font-bold shadow-xs'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                ? 'bg-blue-600 text-white font-bold shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Side-by-Side
           </button>
           <button
             onClick={() => setViewMode('mask-overlay')}
-            className={`px-3 py-1 rounded-md transition-all ${
+            className={`px-3 py-1 rounded-md transition-all cursor-pointer ${
               viewMode === 'mask-overlay'
-                ? 'bg-cyan-400 text-slate-950 font-bold shadow-xs'
-                : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                ? 'bg-blue-600 text-white font-bold shadow-xs'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             Mask Overlay
@@ -126,27 +126,27 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
         {/* Zoom & Layer Toggles */}
         <div className="flex items-center gap-2">
           {/* Zoom Buttons */}
-          <div className="flex items-center gap-1 p-1 rounded-lg bg-slate-100 dark:bg-slate-950 border border-slate-200 dark:border-slate-800">
+          <div className="flex items-center gap-1 p-1 rounded-lg bg-slate-100 border border-slate-200">
             <button
               onClick={() => setZoom(prev => Math.min(3, Number((prev + 0.25).toFixed(2))))}
-              className="p-1.5 rounded text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+              className="p-1.5 rounded text-slate-600 hover:text-slate-900 cursor-pointer"
               title="Zoom In"
             >
               <ZoomIn className="w-3.5 h-3.5" />
             </button>
-            <span className="px-1.5 text-[11px] font-bold text-slate-700 dark:text-slate-300">
+            <span className="px-1.5 text-[11px] font-bold text-slate-700">
               {Math.round(zoom * 100)}%
             </span>
             <button
               onClick={() => setZoom(prev => Math.max(0.5, Number((prev - 0.25).toFixed(2))))}
-              className="p-1.5 rounded text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+              className="p-1.5 rounded text-slate-600 hover:text-slate-900 cursor-pointer"
               title="Zoom Out"
             >
               <ZoomOut className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => setZoom(1)}
-              className="p-1.5 rounded text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white"
+              className="p-1.5 rounded text-slate-600 hover:text-slate-900 cursor-pointer"
               title="Reset Zoom"
             >
               <RotateCcw className="w-3.5 h-3.5" />
@@ -156,21 +156,21 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
           {/* Mask Visibility Toggle */}
           <button
             onClick={() => setMaskVisible(!maskVisible)}
-            className={`px-2.5 py-1.5 rounded-lg border flex items-center gap-1.5 transition-all ${
+            className={`px-2.5 py-1.5 rounded-lg border flex items-center gap-1.5 transition-all cursor-pointer ${
               maskVisible
-                ? 'bg-cyan-500/10 border-cyan-400 text-cyan-700 dark:text-cyan-300 font-bold'
-                : 'bg-slate-100 dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-400'
+                ? 'bg-blue-50 border-blue-300 text-blue-700 font-bold'
+                : 'bg-slate-100 border-slate-200 text-slate-400'
             }`}
           >
             {maskVisible ? <Eye className="w-3.5 h-3.5" /> : <EyeOff className="w-3.5 h-3.5" />}
-            <span>AI Mask</span>
+            <span>Highlight Mask</span>
           </button>
 
           {/* Download Evidence JSON */}
           <button
             onClick={handleDownloadEvidence}
-            className="p-1.5 rounded-lg border border-slate-200 dark:border-slate-800 hover:border-cyan-400 text-slate-600 dark:text-slate-400 hover:text-cyan-500 transition-colors"
-            title="Download Evidence Package"
+            className="p-1.5 rounded-lg border border-slate-200 hover:border-blue-400 text-slate-600 hover:text-blue-600 transition-colors cursor-pointer"
+            title="Download Evidence"
           >
             <Download className="w-3.5 h-3.5" />
           </button>
@@ -265,17 +265,17 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
 
             {/* Draggable Divider Handle */}
             <div
-              className="absolute top-0 bottom-0 w-1 bg-cyan-400 z-30 shadow-[0_0_12px_rgba(34,211,238,0.8)]"
+              className="absolute top-0 bottom-0 w-1 bg-blue-600 z-30 shadow-sm"
               style={{ left: `${splitPos}%` }}
             >
-              <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-cyan-400 text-slate-950 border-2 border-white shadow-xl flex items-center justify-center cursor-ew-resize hover:scale-110 active:scale-95 transition-transform">
+              <div className="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-blue-600 text-white border-2 border-white shadow-md flex items-center justify-center cursor-ew-resize hover:scale-110 active:scale-95 transition-transform">
                 <Sliders className="w-4 h-4 rotate-90" />
               </div>
             </div>
 
-            {/* Top Telemetry Chip */}
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-slate-950/80 border border-slate-700 text-[11px] font-mono text-slate-300 backdrop-blur-sm pointer-events-none flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+            {/* Top Chip */}
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-20 px-3 py-1 rounded-full bg-slate-950/80 border border-slate-700 text-[11px] text-slate-300 backdrop-blur-sm pointer-events-none flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
               <span>Split: {splitPos}% / {100 - splitPos}%</span>
               <span>•</span>
               <span>Zoom: {Math.round(zoom * 100)}%</span>
@@ -292,24 +292,24 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
               style={{ background: getVisualBackground(evidence.imageA?.visual, 'linear-gradient(135deg, #1e293b, #334155)') }}
             >
               <div className="absolute inset-0 geo-grid-pattern opacity-30 pointer-events-none" />
-              <span className="relative z-10 px-2.5 py-1 rounded bg-slate-950/80 text-xs font-mono text-slate-300 self-start">
+              <span className="relative z-10 px-2.5 py-1 rounded bg-slate-950/80 text-xs text-slate-300 self-start">
                 {evidence.imageA?.label || 'Input Image A'}
               </span>
-              <span className="relative z-10 text-[11px] font-mono text-slate-400">
+              <span className="relative z-10 text-[11px] text-slate-400">
                 Date: {evidence.imageA?.date || 'Historical Baseline'}
               </span>
             </div>
 
             {/* Right Image */}
             <div
-              className="h-full rounded-xl relative overflow-hidden border-2 border-cyan-400/50 flex flex-col justify-between p-4"
+              className="h-full rounded-xl relative overflow-hidden border border-blue-300 flex flex-col justify-between p-4"
               style={{ background: getVisualBackground(evidence.changeMap?.visual || evidence.fusedResult?.visual || evidence.imageB?.visual, 'linear-gradient(135deg, #0f172a, #0369a1)') }}
             >
               <div className="absolute inset-0 geo-grid-pattern opacity-30 pointer-events-none" />
-              <span className="relative z-10 px-2.5 py-1 rounded bg-cyan-950/90 border border-cyan-400/40 text-xs font-mono text-cyan-200 font-bold self-start">
+              <span className="relative z-10 px-2.5 py-1 rounded bg-blue-50 border border-blue-200 text-xs text-blue-700 font-bold self-start">
                 {evidence.changeMap?.label || evidence.fusedResult?.label || evidence.imageB?.label || 'Evidence Mask'}
               </span>
-              <span className="relative z-10 text-[11px] font-mono text-cyan-300 font-semibold">
+              <span className="relative z-10 text-[11px] text-blue-600 font-semibold">
                 Confidence: {result.confidence}% Verified
               </span>
             </div>
@@ -324,24 +324,24 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
           >
             <div className="absolute inset-0 geo-grid-pattern opacity-30 pointer-events-none" />
 
-            {/* Simulated AI Overlaid Mask with custom opacity */}
+            {/* Overlay Mask */}
             {maskVisible && (
               <div
                 className="absolute inset-0 pointer-events-none transition-opacity duration-200"
                 style={{
-                  background: getVisualBackground(evidence.changeMap?.visual || evidence.fusedResult?.visual, 'linear-gradient(135deg, rgba(6,182,212,0.3), rgba(245,158,11,0.3))'),
+                  background: getVisualBackground(evidence.changeMap?.visual || evidence.fusedResult?.visual, 'linear-gradient(135deg, rgba(37,99,235,0.3), rgba(245,158,11,0.3))'),
                   opacity: maskOpacity / 100
                 }}
               />
             )}
 
             <div className="relative z-10 flex items-center justify-between">
-              <span className="px-2.5 py-1 rounded bg-slate-950/80 text-xs font-mono text-slate-300">
-                Direct Mask Blending Mode
+              <span className="px-2.5 py-1 rounded bg-slate-950/80 text-xs text-slate-300">
+                Overlay Mode
               </span>
 
               {/* Opacity slider */}
-              <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-950/90 border border-slate-700 text-xs font-mono text-slate-300">
+              <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-slate-950/90 border border-slate-700 text-xs text-slate-300">
                 <span>Opacity: {maskOpacity}%</span>
                 <input
                   type="range"
@@ -349,13 +349,13 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
                   max="100"
                   value={maskOpacity}
                   onChange={(e) => setMaskOpacity(Number(e.target.value))}
-                  className="w-20 accent-cyan-400"
+                  className="w-20 accent-blue-600"
                 />
               </div>
             </div>
 
-            <div className="relative z-10 p-3 rounded-xl bg-slate-950/90 border border-slate-700 text-xs font-mono text-slate-300">
-              {evidence.changeMap?.legend || 'AI Segmentation Mask seamlessly blended over orthorectified surface reflectance'}
+            <div className="relative z-10 p-3 rounded-xl bg-slate-950/90 border border-slate-700 text-xs text-slate-300">
+              {evidence.changeMap?.legend || 'AI Detection Mask displayed over satellite imagery'}
             </div>
           </div>
         )}
@@ -367,14 +367,14 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
           {evidence.stats.map((st, i) => (
             <div
               key={i}
-              className="p-3 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-xs font-mono"
+              className="p-3 rounded-xl bg-white border border-slate-200 text-xs"
             >
-              <div className="text-[10px] uppercase text-slate-400">{st.label}</div>
-              <div className="text-base font-extrabold text-slate-900 dark:text-white mt-0.5">
+              <div className="text-[10px] uppercase text-slate-400 font-semibold">{st.label}</div>
+              <div className="text-base font-extrabold text-slate-900 mt-0.5">
                 {st.value}
               </div>
               {st.delta && (
-                <div className="text-[10px] text-cyan-600 dark:text-cyan-400 font-semibold mt-0.5">
+                <div className="text-[10px] text-blue-600 font-semibold mt-0.5">
                   {st.delta}
                 </div>
               )}
@@ -385,10 +385,10 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
 
       {/* Generated Prediction Artifacts & Deliverables */}
       {(result.urls || result.artifacts) && (
-        <div className="p-4 rounded-xl bg-slate-900/90 border border-cyan-500/30 text-xs font-mono space-y-2 shadow-lg">
+        <div className="p-4 rounded-xl bg-white border border-slate-200 text-xs space-y-2 shadow-xs">
           <div className="flex items-center justify-between">
-            <span className="font-bold text-cyan-400">📁 GENERATED PREDICTION ARTIFACTS:</span>
-            <span className="text-[10px] text-slate-400">Stored in data/outputs/</span>
+            <span className="font-bold text-slate-800">Generated Analysis Files:</span>
+            <span className="text-[10px] text-slate-500">Ready for download</span>
           </div>
           <div className="flex flex-wrap gap-2 pt-1">
             {result.urls?.overlay_url && (
@@ -396,7 +396,7 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
                 href={getFullArtifactUrl(result.urls.overlay_url)}
                 target="_blank"
                 rel="noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-cyan-950 border border-cyan-500/50 text-cyan-300 hover:bg-cyan-900 transition-colors flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg bg-blue-50 border border-blue-200 text-blue-700 hover:bg-blue-100 transition-colors flex items-center gap-1.5 font-medium"
               >
                 <span>🖼️</span> <span>Visual Overlay</span>
               </a>
@@ -406,7 +406,7 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
                 href={getFullArtifactUrl(result.urls.heatmap_url)}
                 target="_blank"
                 rel="noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-purple-950 border border-purple-500/50 text-purple-300 hover:bg-purple-900 transition-colors flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg bg-purple-50 border border-purple-200 text-purple-700 hover:bg-purple-100 transition-colors flex items-center gap-1.5 font-medium"
               >
                 <span>🔥</span> <span>Confidence Heatmap</span>
               </a>
@@ -416,9 +416,9 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
                 href={getFullArtifactUrl(result.urls.mask_url)}
                 target="_blank"
                 rel="noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-blue-950 border border-blue-500/50 text-blue-300 hover:bg-blue-900 transition-colors flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100 transition-colors flex items-center gap-1.5 font-medium"
               >
-                <span>⬛</span> <span>Binary Mask</span>
+                <span>⬛</span> <span>Detection Mask</span>
               </a>
             )}
             {result.urls?.report_markdown_url && (
@@ -426,7 +426,7 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
                 href={getFullArtifactUrl(result.urls.report_markdown_url)}
                 target="_blank"
                 rel="noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-emerald-950 border border-emerald-500/50 text-emerald-300 hover:bg-emerald-900 transition-colors flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 hover:bg-emerald-100 transition-colors flex items-center gap-1.5 font-medium"
               >
                 <span>📄</span> <span>Inspection Report (.md)</span>
               </a>
@@ -436,9 +436,9 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
                 href={getFullArtifactUrl(result.urls.geojson_url)}
                 target="_blank"
                 rel="noreferrer"
-                className="px-3 py-1.5 rounded-lg bg-amber-950 border border-amber-500/50 text-amber-300 hover:bg-amber-900 transition-colors flex items-center gap-1.5"
+                className="px-3 py-1.5 rounded-lg bg-amber-50 border border-amber-200 text-amber-800 hover:bg-amber-100 transition-colors flex items-center gap-1.5 font-medium"
               >
-                <span>🗺️</span> <span>RFC 7946 GeoJSON</span>
+                <span>🗺️</span> <span>GeoJSON Map Data</span>
               </a>
             )}
           </div>

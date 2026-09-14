@@ -82,7 +82,7 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ initialAOI }) => {
   };
 
   return (
-    <div className="flex flex-col h-[calc(100vh-64px)] w-full overflow-hidden bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
+    <div className="flex flex-col h-[calc(100vh-53px)] w-full overflow-hidden bg-white text-slate-900">
       {/* Top Header */}
       <WorkspaceHeader
         activeAOI={activeAOI}
@@ -123,8 +123,8 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ initialAOI }) => {
           {/* Toggle Button for Left Pane */}
           <button
             onClick={() => setLeftPaneOpen(!leftPaneOpen)}
-            className="absolute -right-3 top-4 z-30 w-6 h-6 rounded-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform"
-            title={leftPaneOpen ? 'Collapse Staging Panel' : 'Expand Staging Panel'}
+            className="absolute -right-3 top-4 z-30 w-6 h-6 rounded-full bg-white border border-slate-300 text-slate-600 flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform cursor-pointer"
+            title={leftPaneOpen ? 'Collapse Panel' : 'Expand Panel'}
           >
             {leftPaneOpen ? (
               <ChevronLeft className="w-3.5 h-3.5" />
@@ -155,8 +155,8 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ initialAOI }) => {
           {/* Toggle Button for Right Pane */}
           <button
             onClick={() => setRightPaneOpen(!rightPaneOpen)}
-            className="absolute -left-3 top-4 z-30 w-6 h-6 rounded-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform"
-            title={rightPaneOpen ? 'Collapse Agent Chat' : 'Expand Agent Chat'}
+            className="absolute -left-3 top-4 z-30 w-6 h-6 rounded-full bg-white border border-slate-300 text-slate-600 flex items-center justify-center shadow-md hover:scale-110 active:scale-95 transition-transform cursor-pointer"
+            title={rightPaneOpen ? 'Collapse Chat' : 'Expand Chat'}
           >
             {rightPaneOpen ? (
               <ChevronRight className="w-3.5 h-3.5" />
@@ -168,7 +168,7 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ initialAOI }) => {
           {rightPaneOpen && (
             <AgentChatbox
               activeAOI={activeAOI}
-              onHighlightFeature={() => showToast('Highlighted active anomaly corridor in canvas')}
+              onHighlightFeature={() => showToast('Highlighted active area in viewer')}
               onExportGeoJSON={() => {
                 const geoJsonData = {
                   type: 'FeatureCollection',
@@ -180,7 +180,7 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ initialAOI }) => {
                         aoi: activeAOI.name,
                         area_ha: 48.2,
                         confidence: 0.986,
-                        class: 'Canopy Deforestation Scar'
+                        class: 'Canopy Loss Area'
                       },
                       geometry: {
                         type: 'Polygon',
@@ -203,7 +203,7 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ initialAOI }) => {
                 a.href = url;
                 a.download = `SatQuery_${activeAOI.id}_Features.geojson`;
                 a.click();
-                showToast('Exported GeoJSON feature collection');
+                showToast('Exported GeoJSON feature data');
               }}
             />
           )}
@@ -212,8 +212,8 @@ export const WorkspaceView: React.FC<WorkspaceViewProps> = ({ initialAOI }) => {
 
       {/* Floating Toast Notification */}
       {toastMessage && (
-        <div className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-slate-900/95 border border-teal-500/50 text-white font-mono text-xs shadow-2xl flex items-center gap-2 backdrop-blur-md animate-in slide-in-from-bottom-2">
-          <CheckCircle2 className="w-4 h-4 text-teal-400" />
+        <div className="fixed bottom-6 right-6 z-50 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white text-xs shadow-2xl flex items-center gap-2 animate-in slide-in-from-bottom-2">
+          <CheckCircle2 className="w-4 h-4 text-emerald-400" />
           <span>{toastMessage}</span>
         </div>
       )}

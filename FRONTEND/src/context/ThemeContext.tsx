@@ -10,49 +10,34 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<Theme>(() => {
-    const saved = localStorage.getItem('satquery_theme');
-    if (saved === 'light' || saved === 'dark') {
-      return saved;
-    }
-    return 'dark'; // Clean Dark default
-  });
+  const [theme] = useState<Theme>('light');
 
   useEffect(() => {
     const root = document.documentElement;
     const body = document.body;
-    if (theme === 'dark') {
-      root.classList.add('dark');
-      root.classList.remove('light');
-      if (body) {
-        body.classList.add('dark');
-        body.classList.remove('light');
-      }
-    } else {
-      root.classList.remove('dark');
-      root.classList.add('light');
-      if (body) {
-        body.classList.remove('dark');
-        body.classList.add('light');
-      }
+    root.classList.remove('dark');
+    root.classList.add('light');
+    if (body) {
+      body.classList.remove('dark');
+      body.classList.add('light');
     }
     try {
-      localStorage.setItem('satquery_theme', theme);
+      localStorage.setItem('satquery_theme', 'light');
     } catch {
       // safe fallback
     }
-  }, [theme]);
+  }, []);
 
   const toggleTheme = () => {
-    setThemeState((prev) => (prev === 'dark' ? 'light' : 'dark'));
+    // Light mode locked
   };
 
-  const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
+  const setTheme = () => {
+    // Light mode locked
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme }}>
+    <ThemeContext.Provider value={{ theme: 'light', toggleTheme, setTheme }}>
       {children}
     </ThemeContext.Provider>
   );

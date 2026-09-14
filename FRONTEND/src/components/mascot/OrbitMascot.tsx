@@ -36,18 +36,9 @@ export const OrbitMascot: React.FC<OrbitMascotProps> = ({
       role="img"
       aria-label="Orbit, the SatQuery AI Satellite Mascot"
     >
-      {/* Beautiful Soft Futuristic Glowing Light Effect Around Mascot */}
+      {/* Soft Light Accent Around Mascot */}
       {showHalo && (
-        <>
-          {/* Layer 1: Volumetric Soft Atmospheric Light Bloom (Cyan, Blue, Purple) */}
-          <div className="absolute -inset-3 sm:-inset-4 rounded-full bg-gradient-to-tr from-cyan-400/40 via-blue-500/35 to-purple-500/30 blur-xl pointer-events-none animate-mascot-glow transform scale-110" />
-          
-          {/* Layer 2: Radiant Inner Cyan Corona */}
-          <div className="absolute -inset-1 sm:-inset-1.5 rounded-full bg-gradient-to-br from-cyan-400/30 via-teal-400/25 to-blue-500/30 blur-md pointer-events-none" />
-
-          {/* Layer 3: Soft Core Aura */}
-          <div className="absolute inset-0 rounded-full bg-blue-500/20 blur-sm pointer-events-none" />
-        </>
+        <div className="absolute inset-0 rounded-full bg-blue-50 blur-xs pointer-events-none" />
       )}
 
       {/* SVG Simple, Clean, Circular Satellite Mascot */}
@@ -55,7 +46,7 @@ export const OrbitMascot: React.FC<OrbitMascotProps> = ({
         viewBox="0 0 100 100"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="w-full h-full drop-shadow-[0_4px_16px_rgba(56,189,248,0.35)] overflow-visible relative z-10"
+        className="w-full h-full drop-shadow-sm overflow-visible relative z-10"
       >
         <defs>
           {/* Main Pure White Spherical Body Gradient */}
@@ -68,9 +59,9 @@ export const OrbitMascot: React.FC<OrbitMascotProps> = ({
 
           {/* Blue Side Body Armor Gradient */}
           <linearGradient id="orbit-side-body-grad" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="#38bdf8" />
-            <stop offset="45%" stopColor="#0284c7" />
-            <stop offset="100%" stopColor="#0369a1" />
+            <stop offset="0%" stopColor="#3b82f6" />
+            <stop offset="45%" stopColor="#2563eb" />
+            <stop offset="100%" stopColor="#1d4ed8" />
           </linearGradient>
 
           {/* Visor Screen Dark Glass Gradient */}
@@ -81,21 +72,21 @@ export const OrbitMascot: React.FC<OrbitMascotProps> = ({
 
           {/* Planetary Orbital Ring Gradient */}
           <linearGradient id="orbit-ring-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.95" />
-            <stop offset="50%" stopColor="#0284c7" stopOpacity="0.5" />
-            <stop offset="100%" stopColor="#818cf8" stopOpacity="0.9" />
+            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.9" />
+            <stop offset="50%" stopColor="#2563eb" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#60a5fa" stopOpacity="0.9" />
           </linearGradient>
 
           {/* Thruster / Beacon Glow Gradient */}
           <radialGradient id="orbit-beacon-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.95" />
-            <stop offset="100%" stopColor="#38bdf8" stopOpacity="0" />
+            <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
           </radialGradient>
         </defs>
 
         {/* 1. Sub-Orbital Thruster Beacon (Bottom Glow) */}
-        <ellipse cx="50" cy="85" rx="8" ry="3" fill="url(#orbit-beacon-glow)" className="animate-pulse" />
-        <circle cx="50" cy="84" r="2.2" fill="#38bdf8" />
+        <ellipse cx="50" cy="85" rx="8" ry="3" fill="url(#orbit-beacon-glow)" />
+        <circle cx="50" cy="84" r="2.2" fill="#2563eb" />
 
         {/* 2. Top Telemetry Antenna Mast with Signal Beacon */}
         <g id="top-antenna">
@@ -158,25 +149,25 @@ export const OrbitMascot: React.FC<OrbitMascotProps> = ({
         {/* 7. Expressive Digital Eyes & Face Moods */}
         {mood === 'happy' || mood === 'greeting' ? (
           /* Joyful Arched Eyes */
-          <g id="happy-eyes" stroke="#2dd4bf" strokeWidth="2.8" strokeLinecap="round">
+          <g id="happy-eyes" stroke="#3b82f6" strokeWidth="2.8" strokeLinecap="round">
             <path d="M 38 50 Q 42 44 46 50" />
             <path d="M 54 50 Q 58 44 62 50" />
           </g>
         ) : mood === 'analyzing' ? (
           /* High-Tech Radar Sensor Scan Eyes */
           <g id="analyzing-eyes">
-            <rect x="35" y="47.5" width="9" height="4.5" rx="2" fill="#38bdf8" />
-            <rect x="56" y="47.5" width="9" height="4.5" rx="2" fill="#38bdf8" />
-            <line x1="33" y1="49.5" x2="67" y2="49.5" stroke="#2dd4bf" strokeWidth="1.8" className="animate-pulse" />
+            <rect x="35" y="47.5" width="9" height="4.5" rx="2" fill="#3b82f6" />
+            <rect x="56" y="47.5" width="9" height="4.5" rx="2" fill="#3b82f6" />
+            <line x1="33" y1="49.5" x2="67" y2="49.5" stroke="#60a5fa" strokeWidth="1.8" />
           </g>
         ) : (
           /* Standard Friendly Awake Eyes (Idle) */
           <g id="idle-eyes">
             {/* Left Eye */}
-            <ellipse cx="42" cy="49.5" rx="3.3" ry="5" fill="#2dd4bf" />
+            <ellipse cx="42" cy="49.5" rx="3.3" ry="5" fill="#3b82f6" />
             <circle cx="43.2" cy="47.8" r="1.3" fill="#ffffff" />
             {/* Right Eye */}
-            <ellipse cx="58" cy="49.5" rx="3.3" ry="5" fill="#2dd4bf" />
+            <ellipse cx="58" cy="49.5" rx="3.3" ry="5" fill="#3b82f6" />
             <circle cx="59.2" cy="47.8" r="1.3" fill="#ffffff" />
           </g>
         )}
