@@ -41,7 +41,7 @@ from satquery_core.src.engine import SatQueryEngine
 
 # Initialize Flask application
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Standardized folder paths
 DATA_DIR = REPO_ROOT / "data"
@@ -172,6 +172,18 @@ def warm_sample_previews():
 
 
 warm_sample_previews()
+
+
+@app.route("/", methods=["GET"])
+def index():
+    """Root entry point providing service metadata and health URL."""
+    return jsonify({
+        "service": "SatQuery AI Backend Engine",
+        "status": "online",
+        "version": "2.0.0-offline",
+        "health": "/api/health",
+        "docs": "https://github.com/rajdeep1022/SatQuery-AI"
+    })
 
 
 @app.route("/api/health", methods=["GET"])

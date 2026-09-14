@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: satquery-backend
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn satquery_server:app --bind 0.0.0.0:$PORT --workers 1 --threads 2 --timeout 180"
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
