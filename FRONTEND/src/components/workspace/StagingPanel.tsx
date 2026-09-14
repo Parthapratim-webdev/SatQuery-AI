@@ -170,26 +170,26 @@ export const StagingPanel: React.FC<StagingPanelProps> = ({
   };
 
   return (
-    <div className="w-full h-full flex flex-col bg-slate-50 dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 text-xs overflow-y-auto">
+    <div className="w-full h-full flex flex-col bg-white border-r border-slate-200 text-xs overflow-y-auto">
       {/* Panel Title */}
-      <div className="p-3.5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+      <div className="p-3.5 border-b border-slate-200 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Layers className="w-4 h-4 text-teal-500" />
-          <span className="font-bold text-slate-900 dark:text-white font-mono uppercase tracking-wider">
-            Staging & Spectral Controls
+          <Layers className="w-4 h-4 text-blue-600" />
+          <span className="font-bold text-slate-900 uppercase tracking-wider">
+            Image Layers & Controls
           </span>
         </div>
-        <span className="px-2 py-0.5 rounded bg-teal-500/10 text-teal-600 dark:text-teal-400 font-mono text-[10px] font-semibold">
-          STAC Live
+        <span className="px-2 py-0.5 rounded bg-blue-50 text-blue-700 text-[10px] font-semibold">
+          Live Data
         </span>
       </div>
 
       <div className="p-3.5 space-y-5">
         {/* Section 1: AOI Presets Quick Picker */}
         <div>
-          <label className="block text-[11px] font-mono font-semibold uppercase text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5">
-            <MapPin className="w-3.5 h-3.5 text-teal-500" />
-            Area of Interest (AOI)
+          <label className="block text-[11px] font-semibold uppercase text-slate-600 mb-2 flex items-center gap-1.5">
+            <MapPin className="w-3.5 h-3.5 text-blue-600" />
+            Preset Location
           </label>
           <div className="space-y-1.5">
             {MOCK_AOI_PRESETS.map((preset) => {
@@ -198,20 +198,20 @@ export const StagingPanel: React.FC<StagingPanelProps> = ({
                 <button
                   key={preset.id}
                   onClick={() => onSelectAOI(preset)}
-                  className={`w-full text-left p-2 rounded-xl transition-all duration-150 active:scale-[0.98] border flex items-center justify-between ${
+                  className={`w-full text-left p-2 rounded-xl transition-all duration-150 active:scale-[0.98] border flex items-center justify-between cursor-pointer ${
                     isSelected
-                      ? 'bg-teal-500/10 border-teal-500/50 text-teal-700 dark:text-teal-300 font-semibold shadow-sm'
-                      : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700'
+                      ? 'bg-blue-50 border-blue-400 text-blue-900 font-semibold shadow-xs'
+                      : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300'
                   }`}
                 >
                   <div className="truncate pr-2">
                     <div className="truncate text-xs">{preset.name.split(' (')[0]}</div>
-                    <div className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
+                    <div className="text-[10px] text-slate-500">
                       {preset.location}
                     </div>
                   </div>
                   {isSelected && (
-                    <CheckCircle2 className="w-3.5 h-3.5 text-teal-500 flex-shrink-0" />
+                    <CheckCircle2 className="w-3.5 h-3.5 text-blue-600 flex-shrink-0" />
                   )}
                 </button>
               );
@@ -221,9 +221,9 @@ export const StagingPanel: React.FC<StagingPanelProps> = ({
 
         {/* Section 2: Sensor & Constellation Picker */}
         <div>
-          <label className="block text-[11px] font-mono font-semibold uppercase text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5">
-            <Satellite className="w-3.5 h-3.5 text-teal-500" />
-            Sensor Platform
+          <label className="block text-[11px] font-semibold uppercase text-slate-600 mb-2 flex items-center gap-1.5">
+            <Satellite className="w-3.5 h-3.5 text-blue-600" />
+            Satellite Source
           </label>
           <div className="grid grid-cols-1 gap-1.5">
             {sensors.map((sensor) => {
@@ -232,19 +232,19 @@ export const StagingPanel: React.FC<StagingPanelProps> = ({
                 <button
                   key={sensor.id}
                   onClick={() => onChangeSensor(sensor.id)}
-                  className={`p-2 rounded-xl text-left transition-all duration-150 active:scale-[0.98] border flex items-center justify-between ${
+                  className={`p-2 rounded-xl text-left transition-all duration-150 active:scale-[0.98] border flex items-center justify-between cursor-pointer ${
                     isSelected
-                      ? 'bg-teal-500/15 border-teal-500/60 text-slate-900 dark:text-white font-semibold'
-                      : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700'
+                      ? 'bg-blue-50 border-blue-400 text-slate-900 font-semibold'
+                      : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
                   }`}
                 >
                   <div>
                     <div className="text-xs font-semibold">{sensor.label}</div>
-                    <div className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
+                    <div className="text-[10px] text-slate-500">
                       {sensor.desc}
                     </div>
                   </div>
-                  <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-100 dark:bg-slate-800 text-slate-500">
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-100 text-slate-500">
                     {sensor.gsd}
                   </span>
                 </button>
@@ -253,11 +253,11 @@ export const StagingPanel: React.FC<StagingPanelProps> = ({
           </div>
         </div>
 
-        {/* Section 3: Spectral Band Index Algebra */}
+        {/* Section 3: Spectral Band Index */}
         <div>
-          <label className="block text-[11px] font-mono font-semibold uppercase text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5">
-            <Sliders className="w-3.5 h-3.5 text-teal-500" />
-            Spectral Index & Band Algebra
+          <label className="block text-[11px] font-semibold uppercase text-slate-600 mb-2 flex items-center gap-1.5">
+            <Sliders className="w-3.5 h-3.5 text-blue-600" />
+            Color & Filter Modes
           </label>
           <div className="grid grid-cols-2 gap-1.5">
             {bandModes.map((mode) => {
@@ -266,15 +266,15 @@ export const StagingPanel: React.FC<StagingPanelProps> = ({
                 <button
                   key={mode.id}
                   onClick={() => onChangeBandMode(mode.id)}
-                  className={`p-2 rounded-xl text-left transition-all duration-150 active:scale-[0.98] border flex flex-col justify-between ${
+                  className={`p-2 rounded-xl text-left transition-all duration-150 active:scale-[0.98] border flex flex-col justify-between cursor-pointer ${
                     isSelected
-                      ? 'bg-teal-500 text-slate-950 font-bold border-teal-400 shadow-sm'
-                      : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-700'
+                      ? 'bg-blue-600 text-white font-bold border-blue-600 shadow-xs'
+                      : 'bg-white border-slate-200 text-slate-700 hover:border-slate-300'
                   }`}
                 >
                   <span className="text-xs">{mode.label}</span>
-                  <span className={`text-[9px] font-mono mt-1 truncate ${
-                    isSelected ? 'text-slate-900' : 'text-slate-400'
+                  <span className={`text-[9px] mt-1 truncate ${
+                    isSelected ? 'text-blue-100' : 'text-slate-400'
                   }`}>
                     {mode.formula}
                   </span>
@@ -284,43 +284,43 @@ export const StagingPanel: React.FC<StagingPanelProps> = ({
           </div>
         </div>
 
-        {/* Section 4: Server Satellite Rasters Quick Stage */}
+        {/* Section 4: Sample Satellite Images */}
         {serverSamples.length > 0 && (
           <div>
-            <label className="block text-[11px] font-mono font-semibold uppercase text-slate-500 dark:text-slate-400 mb-2 flex items-center gap-1.5">
-              <Satellite className="w-3.5 h-3.5 text-teal-500" />
-              Server Satellite Samples
+            <label className="block text-[11px] font-mono font-semibold uppercase text-slate-500 mb-2 flex items-center gap-1.5">
+              <Satellite className="w-3.5 h-3.5 text-blue-600" />
+              Sample Satellite Images
             </label>
             <div className="space-y-1.5 max-h-44 overflow-y-auto pr-1">
               {serverSamples.map((sample) => (
                 <button
                   key={sample.id}
                   onClick={() => handleStageServerSample(sample)}
-                  className="w-full text-left p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-teal-500/50 transition-all flex items-center justify-between group active:scale-[0.98]"
+                  className="w-full text-left p-2 rounded-xl bg-white border border-slate-200 hover:border-blue-300 hover:bg-slate-50 transition-all flex items-center justify-between group active:scale-[0.98]"
                 >
                   <div className="flex items-center gap-2 truncate">
                     {sample.preview_url ? (
                       <img
                         src={sample.preview_url}
                         alt={sample.label}
-                        className="w-8 h-8 rounded-lg object-cover border border-slate-200 dark:border-slate-700 flex-shrink-0"
+                        className="w-8 h-8 rounded-lg object-cover border border-slate-200 flex-shrink-0"
                       />
                     ) : (
-                      <div className="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-500 flex items-center justify-center font-bold text-[10px] flex-shrink-0">
+                      <div className="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-[10px] flex-shrink-0">
                         SAT
                       </div>
                     )}
                     <div className="truncate">
-                      <div className="text-xs font-semibold text-slate-900 dark:text-white truncate">
+                      <div className="text-xs font-semibold text-slate-900 truncate">
                         {sample.label}
                       </div>
-                      <div className="text-[10px] text-slate-500 dark:text-slate-400 font-mono truncate">
+                      <div className="text-[10px] text-slate-500 font-mono truncate">
                         {sample.modality}
                       </div>
                     </div>
                   </div>
-                  <span className="text-[10px] font-mono text-teal-600 dark:text-teal-400 opacity-0 group-hover:opacity-100 transition-opacity font-semibold ml-1">
-                    Stage +
+                  <span className="text-[10px] font-mono text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity font-semibold ml-1">
+                    Load +
                   </span>
                 </button>
               ))}
@@ -331,19 +331,19 @@ export const StagingPanel: React.FC<StagingPanelProps> = ({
         {/* Section 5: Stage Local File Dropzone */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="text-[11px] font-mono font-semibold uppercase text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
-              <UploadCloud className="w-3.5 h-3.5 text-teal-500" />
-              Stage Raster / Vectors
+            <label className="text-[11px] font-mono font-semibold uppercase text-slate-500 flex items-center gap-1.5">
+              <UploadCloud className="w-3.5 h-3.5 text-blue-600" />
+              Upload Images
             </label>
             {isUploading ? (
-              <span className="text-[10px] font-mono text-cyan-500 flex items-center gap-1 animate-pulse">
+              <span className="text-[10px] font-mono text-blue-600 flex items-center gap-1">
                 <RefreshCw className="w-3 h-3 animate-spin" />
                 Uploading...
               </span>
             ) : uploadSuccess ? (
-              <span className="text-[10px] font-mono text-teal-600 dark:text-teal-400 flex items-center gap-1">
+              <span className="text-[10px] font-mono text-emerald-600 flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" />
-                Staged
+                Uploaded
               </span>
             ) : null}
           </div>
@@ -378,16 +378,16 @@ export const StagingPanel: React.FC<StagingPanelProps> = ({
             }}
             className={`p-4 rounded-2xl border-2 border-dashed text-center cursor-pointer transition-all duration-150 active:scale-[0.98] ${
               isDraggingFile
-                ? 'border-teal-400 bg-teal-500/10'
-                : 'border-slate-300 dark:border-slate-800 bg-white dark:bg-slate-900/60 hover:border-teal-500/50'
+                ? 'border-blue-500 bg-blue-50'
+                : 'border-slate-300 bg-white hover:border-blue-400 hover:bg-slate-50'
             }`}
           >
-            <UploadCloud className="w-6 h-6 mx-auto text-teal-500 mb-1" />
-            <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-              Drop GeoTIFF, GeoJSON, or Raster
+            <UploadCloud className="w-6 h-6 mx-auto text-blue-600 mb-1" />
+            <p className="text-xs font-semibold text-slate-800">
+              Drop satellite or aerial images here
             </p>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">
-              Click to browse local files or upload to engine
+            <p className="text-[10px] text-slate-500 mt-0.5">
+              Click to browse files (.tif, .png, .jpg, .geojson)
             </p>
           </div>
 
@@ -396,17 +396,17 @@ export const StagingPanel: React.FC<StagingPanelProps> = ({
             {stagedFiles.map((file, i) => (
               <div
                 key={i}
-                className="p-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-between font-mono text-[10px]"
+                className="p-2 rounded-xl bg-white border border-slate-200 flex items-center justify-between font-mono text-[10px]"
               >
                 <div className="truncate pr-2">
-                  <div className="font-semibold text-slate-900 dark:text-white truncate">
+                  <div className="font-semibold text-slate-900 truncate">
                     {file.name}
                   </div>
                   <div className="text-slate-400">
-                    {file.type} • {file.size} • {file.crs}
+                    {file.type} • {file.size}
                   </div>
                 </div>
-                <span className="px-1.5 py-0.5 rounded bg-teal-500/10 text-teal-600 dark:text-teal-400 font-bold">
+                <span className="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 font-bold">
                   {file.status}
                 </span>
               </div>
@@ -414,16 +414,16 @@ export const StagingPanel: React.FC<StagingPanelProps> = ({
           </div>
         </div>
 
-        {/* Section 5: Active Layer Manager */}
+        {/* Section 6: Active Layer Manager */}
         <div>
           <div className="flex items-center justify-between mb-2">
-            <label className="text-[11px] font-mono font-semibold uppercase text-slate-500 dark:text-slate-400 flex items-center gap-1.5">
-              <Layers className="w-3.5 h-3.5 text-teal-500" />
-              Layer Stack & Opacity
+            <label className="text-[11px] font-mono font-semibold uppercase text-slate-500 flex items-center gap-1.5">
+              <Layers className="w-3.5 h-3.5 text-blue-600" />
+              Map Layers & Visibility
             </label>
             <button
-              onClick={() => onAddLayer('Custom InSAR Deformation', 'heatmap')}
-              className="text-[10px] font-mono text-teal-600 dark:text-teal-400 hover:underline flex items-center gap-0.5 active:scale-[0.98]"
+              onClick={() => onAddLayer('Analysis Overlay', 'heatmap')}
+              className="text-[10px] font-mono text-blue-600 hover:underline flex items-center gap-0.5 active:scale-[0.98]"
             >
               <Plus className="w-3 h-3" />
               Add
@@ -436,24 +436,24 @@ export const StagingPanel: React.FC<StagingPanelProps> = ({
                 key={layer.id}
                 className={`p-2.5 rounded-xl border transition-all ${
                   layer.visible
-                    ? 'bg-white dark:bg-slate-900 border-slate-200 dark:border-slate-800'
-                    : 'bg-slate-100 dark:bg-slate-950/40 border-slate-200/60 dark:border-slate-900 opacity-60'
+                    ? 'bg-white border-slate-200'
+                    : 'bg-slate-50 border-slate-200 opacity-60'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1.5">
                   <div className="flex items-center gap-2 truncate">
                     <button
                       onClick={() => onToggleLayer(layer.id)}
-                      className="text-slate-500 hover:text-teal-500 transition-colors active:scale-[0.98]"
+                      className="text-slate-500 hover:text-blue-600 transition-colors active:scale-[0.98]"
                       title={layer.visible ? 'Hide layer' : 'Show layer'}
                     >
                       {layer.visible ? (
-                        <Eye className="w-3.5 h-3.5 text-teal-500" />
+                        <Eye className="w-3.5 h-3.5 text-blue-600" />
                       ) : (
                         <EyeOff className="w-3.5 h-3.5" />
                       )}
                     </button>
-                    <span className="text-xs font-medium text-slate-800 dark:text-slate-200 truncate">
+                    <span className="text-xs font-medium text-slate-800 truncate">
                       {layer.name}
                     </span>
                   </div>
@@ -479,7 +479,7 @@ export const StagingPanel: React.FC<StagingPanelProps> = ({
                       max="100"
                       value={layer.opacity}
                       onChange={(e) => onChangeOpacity(layer.id, Number(e.target.value))}
-                      className="flex-1 h-1 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-teal-500"
+                      className="flex-1 h-1 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
                     />
                   </div>
                 )}

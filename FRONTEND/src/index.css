@@ -4,14 +4,14 @@
 
 @layer base {
   :root {
-    --bg-primary: #F8FAFC;
-    --bg-secondary: #F1F5F9;
-    --bg-purple: #F3F4F6;
-    --bg-accent-blue: #E2E8F0;
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #FFFFFF;
+    --bg-purple: #FFFFFF;
+    --bg-accent-blue: #F8FAFC;
     --surface: #FFFFFF;
     --surface-hover: #F8FAFC;
     --primary-blue: #2563EB;
-    --primary-purple: #6366F1;
+    --primary-purple: #4F46E5;
     --cyan-accent: #0284C7;
     --text-main: #0F172A;
     --text-secondary: #475569;
@@ -24,23 +24,23 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
   .dark {
-    --bg-primary: #080E21;
-    --bg-secondary: #0D1636;
-    --bg-purple: #171138;
-    --bg-accent-blue: #1D3567;
-    --surface: #101F38;
-    --surface-hover: #152A48;
-    --primary-blue: #5B8CFF;
-    --primary-purple: #7C6CFF;
-    --cyan-accent: #22D3EE;
-    --text-main: #F5F7FF;
-    --text-secondary: #A8B6CF;
-    --text-muted: #71819B;
-    --border: #263B5C;
-    --active: #2DD4BF;
-    --warning: #F5B942;
+    --bg-primary: #FFFFFF;
+    --bg-secondary: #FFFFFF;
+    --bg-purple: #FFFFFF;
+    --bg-accent-blue: #F8FAFC;
+    --surface: #FFFFFF;
+    --surface-hover: #F8FAFC;
+    --primary-blue: #2563EB;
+    --primary-purple: #4F46E5;
+    --cyan-accent: #0284C7;
+    --text-main: #0F172A;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
+    --border: #E2E8F0;
+    --active: #0D9488;
+    --warning: #D97706;
 
-    color-scheme: dark;
+    color-scheme: light;
   }
   
   *, ::before, ::after {
@@ -64,20 +64,14 @@
     height: 6px;
   }
   ::-webkit-scrollbar-track {
-    background: #F1F5F9;
-  }
-  .dark ::-webkit-scrollbar-track {
-    background: #071426;
+    background: #F8FAFC;
   }
   ::-webkit-scrollbar-thumb {
     background: #CBD5E1;
     border-radius: 9999px;
   }
-  .dark ::-webkit-scrollbar-thumb {
-    background: #263B5C;
-  }
   ::-webkit-scrollbar-thumb:hover {
-    background: #5B8CFF;
+    background: #94A3B8;
   }
 }
 
@@ -105,95 +99,77 @@
            text-[#F5F7FF] font-semibold shadow-lg shadow-[#5B8CFF]/20 hover:shadow-xl hover:shadow-[#5B8CFF]/35;
   }
 
-  /* Clean Heading Gradient with Animated Shimmer */
+  /* Clean Heading Gradient (Deep Royal Blue to Indigo, high-contrast on white) */
   .theme-heading-gradient {
-    background-image: linear-gradient(135deg, #5B8CFF 0%, #8A7BFF 28%, #22D3EE 58%, #5B8CFF 90%);
-    background-size: 200% auto;
+    background-image: linear-gradient(135deg, #1D4ED8 0%, #2563EB 50%, #4F46E5 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    animation: text-gradient-shimmer 7s ease infinite;
   }
 
   .dark .theme-heading-gradient {
-    background-image: linear-gradient(135deg, #5B8CFF 0%, #8A7BFF 28%, #22D3EE 58%, #5B8CFF 90%);
-    background-size: 200% auto;
-    animation: text-gradient-shimmer 7s ease infinite;
-  }
-
-  /* SatQueryAI 'AI' Bright Blue/Purple Brand Gradient */
-  .text-ai-gradient {
-    background-image: linear-gradient(135deg, #5B8CFF 0%, #7C6CFF 60%, #A78BFA 100%);
+    background-image: linear-gradient(135deg, #1D4ED8 0%, #2563EB 50%, #4F46E5 100%);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
   }
 
-  /* Clean Daylight Aerospace Gradient (Light) & Deep Space Void (Dark) */
+  /* SatQueryAI 'AI' Brand Gradient */
+  .text-ai-gradient {
+    background-image: linear-gradient(135deg, #1D4ED8 0%, #2563EB 60%, #4F46E5 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Pure White Background */
   .bg-modern-gradient {
-    background-color: #F8FAFC;
-    background-image: 
-      radial-gradient(ellipse 90% 55% at 50% -8%, rgba(59, 130, 246, 0.08), transparent 70%),
-      radial-gradient(ellipse 65% 50% at 88% 28%, rgba(14, 165, 233, 0.06), transparent 70%),
-      radial-gradient(ellipse 55% 50% at 12% 65%, rgba(99, 102, 241, 0.06), transparent 70%),
-      linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 40%, #F8FAFC 75%, #EFF6FF 100%);
-    background-attachment: fixed;
-    transition: background-color 0.3s ease;
+    background-color: #FFFFFF;
+    background-image: none;
   }
 
   .dark .bg-modern-gradient {
-    background-color: #050811;
-    background-image: 
-      radial-gradient(ellipse 90% 55% at 50% -8%, rgba(79, 172, 254, 0.18), transparent 70%),
-      radial-gradient(ellipse 65% 50% at 88% 28%, rgba(0, 242, 254, 0.14), transparent 70%),
-      radial-gradient(ellipse 55% 50% at 12% 65%, rgba(124, 108, 255, 0.14), transparent 70%),
-      radial-gradient(ellipse 75% 45% at 50% 108%, rgba(79, 172, 254, 0.15), transparent 70%),
-      linear-gradient(180deg, #050811 0%, #070E22 22%, #0B132B 48%, #111135 74%, #050811 100%);
-    background-attachment: fixed;
+    background-color: #FFFFFF;
+    background-image: none;
   }
 
-  /* Subtle Logo Glow and Hover Elevation */
+  /* Subtle Logo Elevation */
   .logo-hover-glow {
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: all 0.2s ease;
   }
   .logo-hover-glow:hover {
-    box-shadow: 0 0 20px rgba(79, 172, 254, 0.4), 0 0 40px rgba(0, 242, 254, 0.2);
-    border-color: rgba(0, 242, 254, 0.7);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    border-color: rgba(37, 99, 235, 0.4);
   }
 
   .btn-secondary {
-    @apply btn-tactile bg-white dark:bg-[#101F38]/90 hover:bg-slate-100 dark:hover:bg-[#152A48]
-           text-slate-800 dark:text-[#F5F7FF] border border-slate-200 dark:border-[#263B5C]
-           hover:border-[#5B8CFF]/60 shadow-sm hover:shadow transition-colors duration-200;
+    @apply btn-tactile bg-white hover:bg-slate-50
+           text-slate-800 border border-slate-200
+           hover:border-slate-300 shadow-xs hover:shadow transition-colors duration-200;
   }
 
   .surface-card {
-    @apply bg-white dark:bg-[#101F38] hover:bg-slate-50 dark:hover:bg-[#152A48] border border-slate-200 dark:border-[#263B5C] hover:border-[#5B8CFF]/40 transition-colors duration-200;
+    @apply bg-white hover:bg-slate-50 border border-slate-200 hover:border-slate-300 transition-colors duration-200;
   }
 
   /* Vibrant Earth Observation Emerald Button */
   .btn-outline-teal {
-    @apply btn-tactile border border-emerald-500/50 text-emerald-700 dark:text-emerald-400
-           hover:bg-emerald-500/10 hover:border-emerald-500 shadow-sm;
+    @apply btn-tactile border border-emerald-500/50 text-emerald-700
+           hover:bg-emerald-50 hover:border-emerald-500 shadow-xs;
   }
 
   .btn-ghost {
-    @apply btn-tactile text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white
-           hover:bg-slate-100/90 dark:hover:bg-slate-800/90;
+    @apply btn-tactile text-slate-600 hover:text-slate-900
+           hover:bg-slate-100/90;
   }
 
-  /* Geospatial Grid / Radar Overlay */
+  /* Geospatial Grid / Radar Overlay - Cleaned of pattern */
   .geo-grid-pattern {
-    background-size: 24px 24px;
-    background-image: 
-      linear-gradient(to right, rgba(37, 99, 235, 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(37, 99, 235, 0.04) 1px, transparent 1px);
+    background-image: none;
   }
 
   .dark .geo-grid-pattern {
-    background-image: 
-      linear-gradient(to right, rgba(59, 130, 246, 0.06) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(59, 130, 246, 0.06) 1px, transparent 1px);
+    background-image: none;
   }
 
   /* Crisp Professional Elevation Shadow (No fuzzy neon blur) */
@@ -463,38 +439,21 @@
   }
 
   .telemetry-scan-laser {
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 2px;
-    background: linear-gradient(
-      90deg,
-      transparent 0%,
-      rgba(34, 211, 238, 0.15) 15%,
-      rgba(34, 211, 238, 0.85) 50%,
-      rgba(34, 211, 238, 0.15) 85%,
-      transparent 100%
-    );
-    box-shadow: 0 0 10px rgba(34, 211, 238, 0.6), 0 0 20px rgba(79, 172, 254, 0.4);
-    pointer-events: none;
-    z-index: 25;
-    animation: telemetry-laser-scan 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-    will-change: top, opacity;
+    display: none !important;
   }
 
   /* Interactive Pipeline Stage Step Cards */
   .pipeline-step-card {
-    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color 0.25s ease,
-                box-shadow 0.25s ease,
+    transition: transform 0.2s ease,
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
                 background-color 0.2s ease;
-    will-change: transform;
   }
 
   .pipeline-step-card:hover {
-    transform: translateY(-4px);
-    border-color: rgba(99, 102, 241, 0.6) !important;
-    box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.25), 0 0 14px rgba(99, 102, 241, 0.15);
+    transform: translateY(-2px);
+    border-color: #2563EB !important;
+    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
   }
 
   /* ========================================================================= */
@@ -697,157 +656,105 @@ html:not(.dark) {
 }
 
 html.light body,
-html:not(.dark) body {
-  background-color: #F8FAFC !important;
+html:not(.dark) body,
+html.dark body {
+  background-color: #FFFFFF !important;
   color: #0F172A !important;
 }
 
-/* Global transitions for buttery-smooth theme toggling */
-html.light *,
-html.light *::before,
-html.light *::after,
-html.dark *,
-html.dark *::before,
-html.dark *::after {
+/* Global transitions */
+html *,
+html *::before,
+html *::after {
   transition-property: background-color, border-color, color, fill, stroke;
-  transition-duration: 250ms;
+  transition-duration: 150ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Light mode dark-hex backgrounds mapped to clean surfaces */
-html.light .bg-\[\#050811\],
-html:not(.dark) .bg-\[\#050811\],
-html.light .bg-\[\#040714\],
-html:not(.dark) .bg-\[\#040714\] {
-  background-color: #F8FAFC !important;
-}
-
-html.light .bg-\[\#071426\],
-html:not(.dark) .bg-\[\#071426\],
-html.light .bg-\[\#071026\],
-html:not(.dark) .bg-\[\#071026\],
-html.light .bg-\[\#080E21\],
-html:not(.dark) .bg-\[\#080E21\],
-html.light .bg-\[\#0B1530\],
-html:not(.dark) .bg-\[\#0B1530\] {
-  background-color: #F1F5F9 !important;
-}
-
-html.light .bg-\[\#0B1930\],
-html:not(.dark) .bg-\[\#0B1930\],
-html.light .bg-\[\#101F38\],
-html:not(.dark) .bg-\[\#101F38\],
-html.light .bg-\[\#152A48\],
-html:not(.dark) .bg-\[\#152A48\] {
+/* Map dark-hex backgrounds to pure white #FFFFFF */
+.bg-\[\#050811\],
+.bg-\[\#040714\],
+.bg-\[\#071426\],
+.bg-\[\#071026\],
+.bg-\[\#080E21\],
+.bg-\[\#0B1530\],
+.bg-\[\#0B1930\],
+.bg-\[\#101F38\],
+.bg-\[\#152A48\] {
   background-color: #FFFFFF !important;
 }
 
-/* Translucent surfaces */
-html.light .bg-\[\#101F38\]\/80,
-html:not(.dark) .bg-\[\#101F38\]\/80,
-html.light .bg-\[\#101F38\]\/90,
-html:not(.dark) .bg-\[\#101F38\]\/90,
-html.light .bg-\[\#101F38\]\/70,
-html:not(.dark) .bg-\[\#101F38\]\/70,
-html.light .bg-\[\#101F38\]\/60,
-html:not(.dark) .bg-\[\#101F38\]\/60,
-html.light .bg-\[\#0B1930\]\/90,
-html:not(.dark) .bg-\[\#0B1930\]\/90,
-html.light .bg-\[\#0B1930\]\/95,
-html:not(.dark) .bg-\[\#0B1930\]\/95,
-html.light .bg-\[\#080E21\]\/90,
-html:not(.dark) .bg-\[\#080E21\]\/90,
-html.light .bg-\[\#080E21\]\/98,
-html:not(.dark) .bg-\[\#080E21\]\/98,
-html.light .bg-\[\#071426\]\/70,
-html:not(.dark) .bg-\[\#071426\]\/70 {
-  background-color: rgba(255, 255, 255, 0.92) !important;
+/* Translucent surfaces mapped to clean white */
+.bg-\[\#101F38\]\/80,
+.bg-\[\#101F38\]\/90,
+.bg-\[\#101F38\]\/70,
+.bg-\[\#101F38\]\/60,
+.bg-\[\#0B1930\]\/90,
+.bg-\[\#0B1930\]\/95,
+.bg-\[\#080E21\]\/90,
+.bg-\[\#080E21\]\/98,
+.bg-\[\#071426\]\/70 {
+  background-color: #FFFFFF !important;
 }
 
-/* Hover surfaces in light mode */
-html.light .hover\:bg-\[\#152A48\]:hover,
-html:not(.dark) .hover\:bg-\[\#152A48\]:hover,
-html.light .hover\:bg-\[\#101F38\]:hover,
-html:not(.dark) .hover\:bg-\[\#101F38\]:hover {
-  background-color: #F1F5F9 !important;
+/* Hover surfaces */
+.hover\:bg-\[\#152A48\]:hover,
+.hover\:bg-\[\#101F38\]:hover {
+  background-color: #F8FAFC !important;
 }
 
-/* Borders in light mode */
-html.light .border-\[\#263B5C\],
-html:not(.dark) .border-\[\#263B5C\],
-html.light .border-\[\#263B5C\]\/80,
-html:not(.dark) .border-\[\#263B5C\]\/80,
-html.light .border-\[\#263B5C\]\/50,
-html:not(.dark) .border-\[\#263B5C\]\/50,
-html.light .border-\[\#263B5C\]\/40,
-html:not(.dark) .border-\[\#263B5C\]\/40,
-html.light .border-\[\#263B5C\]\/25,
-html:not(.dark) .border-\[\#263B5C\]\/25,
-html.light .border-\[\#101F38\],
-html:not(.dark) .border-\[\#101F38\] {
+/* Clean neutral borders */
+.border-\[\#263B5C\],
+.border-\[\#263B5C\]\/80,
+.border-\[\#263B5C\]\/50,
+.border-\[\#263B5C\]\/40,
+.border-\[\#263B5C\]\/25,
+.border-\[\#101F38\] {
   border-color: #E2E8F0 !important;
 }
 
-/* Dark text hierarchy in light mode */
-html.light .text-\[\#F5F7FF\],
-html:not(.dark) .text-\[\#F5F7FF\] {
+/* Text hierarchy */
+.text-\[\#F5F7FF\] {
   color: #0F172A !important;
 }
 
-html.light .text-\[\#A8B6CF\],
-html:not(.dark) .text-\[\#A8B6CF\] {
+.text-\[\#A8B6CF\] {
   color: #475569 !important;
 }
 
-html.light .text-\[\#71819B\],
-html:not(.dark) .text-\[\#71819B\] {
+.text-\[\#71819B\] {
   color: #64748B !important;
 }
 
-/* High-contrast base typography in Light Mode */
-html.light,
-html:not(.dark) {
+/* High-contrast base typography */
+h1:not(.theme-heading-gradient),
+h2:not(.theme-heading-gradient),
+h3:not(.theme-heading-gradient),
+h4,
+h5,
+h6 {
   color: #0F172A;
 }
 
-html.light h1:not(.theme-heading-gradient),
-html:not(.dark) h1:not(.theme-heading-gradient),
-html.light h2:not(.theme-heading-gradient),
-html:not(.dark) h2:not(.theme-heading-gradient),
-html.light h3:not(.theme-heading-gradient),
-html:not(.dark) h3:not(.theme-heading-gradient),
-html.light h4,
-html:not(.dark) h4,
-html.light h5,
-html:not(.dark) h5,
-html.light h6,
-html:not(.dark) h6 {
-  color: #0F172A;
-}
-
-html.light p,
-html:not(.dark) p {
+p {
   color: #334155;
 }
 
-/* Specific button text styling: ONLY actual primary/gradient action buttons get white text */
-html.light .btn-primary,
-html:not(.dark) .btn-primary,
-html.light .btn-gradient,
-html:not(.dark) .btn-gradient,
-html.light button.btn-gradient,
-html.light button.btn-primary,
-html.light a.btn-gradient,
-html.light a.btn-primary,
-html.light .btn-primary > *,
-html.light .btn-gradient > * {
+/* Specific button text styling: primary action buttons get white text */
+.btn-primary,
+.btn-gradient,
+button.btn-gradient,
+button.btn-primary,
+a.btn-gradient,
+a.btn-primary,
+.btn-primary > *,
+.btn-gradient > * {
   color: #FFFFFF !important;
 }
 
-/* Ensure Heading gradient in light mode is vibrant and fully visible */
-html.light .theme-heading-gradient,
-html:not(.dark) .theme-heading-gradient {
-  background-image: linear-gradient(135deg, #1D4ED8 0%, #4F46E5 32%, #0284C7 65%, #1D4ED8 100%) !important;
+/* Clean Heading gradient in vibrant blue */
+.theme-heading-gradient {
+  background-image: linear-gradient(135deg, #1D4ED8 0%, #2563EB 50%, #4F46E5 100%) !important;
   -webkit-background-clip: text !important;
   background-clip: text !important;
   -webkit-text-fill-color: transparent !important;

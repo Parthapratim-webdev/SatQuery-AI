@@ -157,10 +157,10 @@ export interface UploadedImageMeta {
   name: string;
   format: 'GeoTIFF' | 'TIFF' | 'PNG' | 'JPEG';
   dimensions: string;
-  modality: 'Optical BOA' | 'SAR VV/VH' | 'Panchromatic' | 'SWIR / NBR';
+  modality: 'Optical' | 'Radar' | 'Optical BOA' | 'SAR VV/VH' | 'Panchromatic' | 'SWIR / NBR' | string;
   acquisitionDate: string;
   sizeMb: number;
-  validationStatus: 'Valid GeoTIFF' | 'Valid SAR C-Band' | 'Valid Benchmark Image' | 'Error';
+  validationStatus: 'Valid Satellite Image' | 'Valid Radar Image' | 'Valid Image' | 'Valid GeoTIFF' | 'Valid SAR C-Band' | 'Valid Benchmark Image' | 'Error' | string;
   previewVisual?: string;
   previewUrl?: string;
   fileObject?: File;

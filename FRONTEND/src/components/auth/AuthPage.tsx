@@ -9,8 +9,6 @@ import {
   LogIn, 
   UserPlus, 
   ArrowLeft,
-  Sun,
-  Moon,
   KeyRound,
   Eye,
   EyeOff,
@@ -27,8 +25,6 @@ import {
   OAuthProvider 
 } from '../../services/oauthService';
 import { OAuthModal } from './OAuthModal';
-import { useTheme } from '../../context/ThemeContext';
-import { SimpleSpaceBackground } from './SimpleSpaceBackground';
 
 export type AuthMode = 'login' | 'signup' | 'forgot-password';
 
@@ -43,9 +39,6 @@ export const AuthPage: React.FC<AuthPageProps> = ({
   onLoginSuccess,
   onBackToLanding
 }) => {
-  const { theme, toggleTheme } = useTheme();
-  const isDark = theme === 'dark';
-
   const [mode, setMode] = useState<AuthMode>(initialMode);
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(true);
@@ -89,11 +82,11 @@ export const AuthPage: React.FC<AuthPageProps> = ({
     }
 
     const resolvedUser: UserProfile = {
-      name: name.trim() || (mode === 'signup' ? 'Earth Observation Scientist' : DEFAULT_PROFILE.name),
+      name: name.trim() || (mode === 'signup' ? 'Satellite Analyst' : DEFAULT_PROFILE.name),
       email: email.trim() || DEFAULT_PROFILE.email,
-      organization: organization.trim() || (mode === 'signup' ? 'Space Applications Centre' : DEFAULT_PROFILE.organization),
-      role: mode === 'signup' ? 'Earth Observation Scientist' : DEFAULT_PROFILE.role,
-      stacTier: 'Academic Researcher Tier',
+      organization: organization.trim() || (mode === 'signup' ? 'Satellite Research Lab' : DEFAULT_PROFILE.organization),
+      role: mode === 'signup' ? 'Satellite Analyst' : DEFAULT_PROFILE.role,
+      stacTier: 'Standard Plan',
       quotaUsedGb: mode === 'signup' ? 120 : 840,
       quotaMaxGb: 2000
     };
@@ -122,38 +115,24 @@ export const AuthPage: React.FC<AuthPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col justify-between bg-slate-50 dark:bg-[#050811] text-slate-900 dark:text-[#F5F7FF] font-sans transition-colors duration-300 p-4 sm:p-6 select-none relative overflow-hidden">
-      {/* ========================================================================= */}
-      {/* CLEAN USER-FRIENDLY SPACE BACKGROUND                                     */}
-      {/* ========================================================================= */}
-      <SimpleSpaceBackground />
-      
+    <div className="min-h-screen w-full flex flex-col justify-between bg-white text-slate-900 font-sans p-4 sm:p-6 select-none relative overflow-hidden">
       {/* Top Simple Utility Bar */}
       <header className="max-w-md w-full mx-auto flex items-center justify-between py-2 z-20">
         <button
           onClick={onBackToLanding}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-[#A8B6CF] hover:text-[#5B8CFF] hover:bg-slate-100 dark:hover:bg-[#101F38] border border-slate-200 dark:border-[#263B5C] bg-white/80 dark:bg-[#071426]/70 backdrop-blur-md transition-all active:scale-95 hover:scale-105 shadow-sm"
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold text-slate-700 hover:text-blue-600 hover:bg-slate-50 border border-slate-200 bg-white transition-all active:scale-95 shadow-xs"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Home</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={toggleTheme}
-          className="p-2 rounded-xl border border-slate-200 dark:border-[#263B5C] bg-white/80 dark:bg-[#071426]/70 backdrop-blur-md text-slate-700 dark:text-[#A8B6CF] hover:text-[#5B8CFF] hover:border-[#5B8CFF]/40 hover:scale-105 transition-all duration-150 shadow-sm cursor-pointer"
-          title={`Switch to ${isDark ? 'Light' : 'Dark'} Mode`}
-        >
-          {isDark ? <Sun className="w-4 h-4 text-[#F5B942]" /> : <Moon className="w-4 h-4 text-indigo-600" />}
         </button>
       </header>
 
       {/* Main Single Centered Auth Card Container */}
       <main className="flex-1 flex items-center justify-center py-6 z-20">
-        <div className="w-full max-w-[420px] bg-white/95 dark:bg-[#0B1930]/90 backdrop-blur-xl border border-slate-200 dark:border-[#263B5C] rounded-2xl p-6 sm:p-8 shadow-2xl shadow-slate-200/60 dark:shadow-[#050811]/90 relative overflow-hidden transition-all duration-300">
+        <div className="w-full max-w-[420px] bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-xl relative overflow-hidden transition-all duration-300">
           
-          {/* Top Radiant Accent Strip */}
-          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#5B8CFF] via-[#7C6CFF] to-[#22D3EE]" />
+          {/* Top Accent Strip */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-blue-600" />
 
           {/* Brand Logo & Heading */}
           <div className="text-center mb-6">
@@ -161,29 +140,29 @@ export const AuthPage: React.FC<AuthPageProps> = ({
               <ModernSatelliteAiLogo size="md" showText={true} />
             </div>
 
-            <h1 className="text-xl font-bold text-slate-900 dark:text-[#F5F7FF] tracking-tight">
+            <h1 className="text-xl font-bold text-slate-900 tracking-tight">
               {mode === 'login' && 'Welcome Back'}
               {mode === 'signup' && 'Create Your Account'}
               {mode === 'forgot-password' && 'Reset Password'}
             </h1>
 
-            <p className="text-xs text-slate-600 dark:text-[#A8B6CF] mt-1.5 leading-relaxed">
+            <p className="text-xs text-slate-600 mt-1.5 leading-relaxed">
               {mode === 'login' && 'Sign in to access your satellite analysis workspace'}
-              {mode === 'signup' && 'Join SatQuery AI to analyze remote-sensing data'}
+              {mode === 'signup' && 'Join SatQuery AI to explore and analyze satellite images'}
               {mode === 'forgot-password' && 'Enter your email to receive recovery instructions'}
             </p>
           </div>
 
           {/* Mode Switcher Tabs (Login / Register) */}
           {mode !== 'forgot-password' && (
-            <div className="flex p-1 mb-5 rounded-xl bg-slate-100 dark:bg-[#071426] border border-slate-200 dark:border-[#263B5C]">
+            <div className="flex p-1 mb-5 rounded-xl bg-slate-100 border border-slate-200">
               <button
                 type="button"
                 onClick={() => switchMode('login')}
-                className={`flex-1 py-2 text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-all duration-200 active:scale-95 ${
+                className={`flex-1 py-2 text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition-all duration-200 active:scale-95 ${
                   mode === 'login'
-                    ? 'bg-gradient-to-r from-[#5B8CFF] to-[#7C6CFF] text-white shadow-sm font-extrabold'
-                    : 'text-slate-600 dark:text-[#A8B6CF] hover:text-slate-900 dark:hover:text-[#F5F7FF] hover:bg-slate-200/60 dark:hover:bg-[#101F38]'
+                    ? 'bg-blue-600 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
                 }`}
               >
                 <LogIn className="w-3.5 h-3.5" />
@@ -193,10 +172,10 @@ export const AuthPage: React.FC<AuthPageProps> = ({
               <button
                 type="button"
                 onClick={() => switchMode('signup')}
-                className={`flex-1 py-2 text-xs font-bold rounded-lg flex items-center justify-center gap-1.5 transition-all duration-200 active:scale-95 ${
+                className={`flex-1 py-2 text-xs font-semibold rounded-lg flex items-center justify-center gap-1.5 transition-all duration-200 active:scale-95 ${
                   mode === 'signup'
-                    ? 'bg-gradient-to-r from-[#5B8CFF] to-[#7C6CFF] text-white shadow-sm font-extrabold'
-                    : 'text-slate-600 dark:text-[#A8B6CF] hover:text-slate-900 dark:hover:text-[#F5F7FF] hover:bg-slate-200/60 dark:hover:bg-[#101F38]'
+                    ? 'bg-blue-600 text-white shadow-xs'
+                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
                 }`}
               >
                 <UserPlus className="w-3.5 h-3.5" />
@@ -207,18 +186,18 @@ export const AuthPage: React.FC<AuthPageProps> = ({
 
           {/* Password Reset Confirmation Alert */}
           {resetDispatched && (
-            <div className="mb-4 p-3 rounded-xl bg-teal-50 dark:bg-[#101F38] border border-teal-500/40 text-xs text-teal-800 dark:text-[#2DD4BF] space-y-1.5 animate-in fade-in">
+            <div className="mb-4 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-xs text-emerald-800 space-y-1.5 animate-in fade-in">
               <div className="flex items-center gap-2 font-bold">
-                <CheckCircle2 className="w-4 h-4 text-teal-600 dark:text-[#2DD4BF]" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                 <span>Reset Link Sent</span>
               </div>
-              <p className="text-[11px] text-slate-600 dark:text-[#A8B6CF] leading-relaxed">
-                Instructions have been dispatched to <strong className="font-mono text-slate-900 dark:text-[#F5F7FF]">{email || 'your email'}</strong>. Check your inbox to proceed.
+              <p className="text-[11px] text-slate-600 leading-relaxed">
+                Instructions have been dispatched to <strong className="font-mono text-slate-900">{email || 'your email'}</strong>. Check your inbox to proceed.
               </p>
               <button
                 type="button"
                 onClick={() => switchMode('login')}
-                className="text-xs font-bold text-teal-700 dark:text-[#22D3EE] hover:underline block pt-1"
+                className="text-xs font-semibold text-blue-600 hover:underline block pt-1"
               >
                 Return to Log In →
               </button>
@@ -231,34 +210,34 @@ export const AuthPage: React.FC<AuthPageProps> = ({
             {mode === 'signup' && (
               <>
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-[#A8B6CF] mb-1">
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
                     Full Name
                   </label>
                   <div className="relative">
-                    <UserCheck className="w-4 h-4 text-[#5B8CFF] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <UserCheck className="w-4 h-4 text-blue-600 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                     <input
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       required
-                      placeholder="Dr. Maya Chen"
-                      className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-[#071426] border border-slate-200 dark:border-[#263B5C] focus:border-[#5B8CFF] outline-none text-slate-900 dark:text-[#F5F7FF] placeholder-slate-400 dark:placeholder-[#71819B] transition-colors"
+                      placeholder="Maya Chen"
+                      className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-white border border-slate-200 focus:border-blue-600 outline-none text-slate-900 placeholder-slate-400 transition-colors"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-[#A8B6CF] mb-1">
-                    Organization / Lab
+                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                    Organization / Team
                   </label>
                   <div className="relative">
-                    <Building2 className="w-4 h-4 text-[#5B8CFF] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                    <Building2 className="w-4 h-4 text-blue-600 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                     <input
                       type="text"
                       value={organization}
                       onChange={(e) => setOrganization(e.target.value)}
-                      placeholder="Space Applications Centre"
-                      className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-[#071426] border border-slate-200 dark:border-[#263B5C] focus:border-[#5B8CFF] outline-none text-slate-900 dark:text-[#F5F7FF] placeholder-slate-400 dark:placeholder-[#71819B] transition-colors"
+                      placeholder="Satellite Research Lab"
+                      className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-white border border-slate-200 focus:border-blue-600 outline-none text-slate-900 placeholder-slate-400 transition-colors"
                     />
                   </div>
                 </div>
@@ -267,18 +246,18 @@ export const AuthPage: React.FC<AuthPageProps> = ({
 
             {/* Email Field */}
             <div>
-              <label className="block text-xs font-semibold text-slate-700 dark:text-[#A8B6CF] mb-1">
+              <label className="block text-xs font-semibold text-slate-700 mb-1">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-[#5B8CFF] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                <Mail className="w-4 h-4 text-blue-600 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  placeholder="analyst@earthobservatory.org"
-                  className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-50 dark:bg-[#071426] border border-slate-200 dark:border-[#263B5C] focus:border-[#5B8CFF] outline-none text-slate-900 dark:text-[#F5F7FF] placeholder-slate-400 dark:placeholder-[#71819B] transition-colors"
+                  placeholder="analyst@example.com"
+                  className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-white border border-slate-200 focus:border-blue-600 outline-none text-slate-900 placeholder-slate-400 transition-colors"
                 />
               </div>
             </div>
@@ -286,23 +265,23 @@ export const AuthPage: React.FC<AuthPageProps> = ({
             {/* Password Field */}
             {mode !== 'forgot-password' && (
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-[#A8B6CF] mb-1">
+                <label className="block text-xs font-semibold text-slate-700 mb-1">
                   Password
                 </label>
                 <div className="relative">
-                  <Lock className="w-4 h-4 text-[#5B8CFF] absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+                  <Lock className="w-4 h-4 text-blue-600 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     placeholder="••••••••••••"
-                    className="w-full pl-9 pr-9 py-2 text-xs rounded-xl bg-slate-50 dark:bg-[#071426] border border-slate-200 dark:border-[#263B5C] focus:border-[#5B8CFF] outline-none text-slate-900 dark:text-[#F5F7FF] placeholder-slate-400 dark:placeholder-[#71819B] transition-colors"
+                    className="w-full pl-9 pr-9 py-2 text-xs rounded-xl bg-white border border-slate-200 focus:border-blue-600 outline-none text-slate-900 placeholder-slate-400 transition-colors"
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 dark:text-[#71819B] hover:text-slate-900 dark:hover:text-[#F5F7FF] transition-colors"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-700 transition-colors"
                   >
                     {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
@@ -313,12 +292,12 @@ export const AuthPage: React.FC<AuthPageProps> = ({
             {/* Remember Me & Forgot Password (Login Mode) */}
             {mode === 'login' && (
               <div className="flex items-center justify-between text-xs pt-0.5">
-                <label className="flex items-center gap-2 cursor-pointer text-slate-600 dark:text-[#A8B6CF] select-none">
+                <label className="flex items-center gap-2 cursor-pointer text-slate-600 select-none">
                   <input
                     type="checkbox"
                     checked={rememberMe}
                     onChange={(e) => setRememberMe(e.target.checked)}
-                    className="rounded border-slate-300 dark:border-[#263B5C] bg-slate-50 dark:bg-[#071426] text-[#5B8CFF] focus:ring-[#5B8CFF]"
+                    className="rounded border-slate-300 bg-white text-blue-600 focus:ring-blue-500"
                   />
                   <span>Remember me</span>
                 </label>
@@ -326,37 +305,37 @@ export const AuthPage: React.FC<AuthPageProps> = ({
                 <button
                   type="button"
                   onClick={() => switchMode('forgot-password')}
-                  className="text-[#5B8CFF] hover:text-[#7C6CFF] hover:underline font-semibold"
+                  className="text-blue-600 hover:text-blue-700 hover:underline font-semibold"
                 >
                   Forgot password?
                 </button>
               </div>
             )}
 
-            {/* Primary Submit Button with High-Engagement Hover */}
+            {/* Primary Submit Button */}
             <button
               type="submit"
-              className="w-full py-2.5 px-4 rounded-xl btn-gradient text-xs sm:text-sm font-bold flex items-center justify-center gap-2 mt-2 shadow-lg shadow-[#5B8CFF]/20 hover:shadow-[#5B8CFF]/35 text-white"
+              className="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-xs sm:text-sm font-semibold flex items-center justify-center gap-2 mt-2 text-white shadow-sm transition-colors"
             >
               {mode === 'login' && (
                  <>
-                  <LogIn className="w-4 h-4 text-white stroke-[2.5]" />
+                  <LogIn className="w-4 h-4 text-white" />
                   <span>Sign In</span>
                 </>
               )}
               {mode === 'signup' && (
                 <>
-                  <UserPlus className="w-4 h-4 text-white stroke-[2.5]" />
+                  <UserPlus className="w-4 h-4 text-white" />
                   <span>Create Account</span>
                 </>
               )}
               {mode === 'forgot-password' && (
                 <>
-                  <KeyRound className="w-4 h-4 text-white stroke-[2.5]" />
+                  <KeyRound className="w-4 h-4 text-white" />
                   <span>Send Reset Link</span>
                 </>
               )}
-              <ArrowRight className="w-4 h-4 text-white stroke-[2.5] ml-1" />
+              <ArrowRight className="w-4 h-4 text-white ml-1" />
             </button>
 
             {/* Forgot Password Mode Back Link */}
@@ -365,7 +344,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({
                 <button
                   type="button"
                   onClick={() => switchMode('login')}
-                  className="text-xs font-semibold text-slate-600 dark:text-[#A8B6CF] hover:text-[#5B8CFF]"
+                  className="text-xs font-semibold text-slate-600 hover:text-blue-600"
                 >
                   ← Back to Sign In
                 </button>
@@ -378,10 +357,10 @@ export const AuthPage: React.FC<AuthPageProps> = ({
             <>
               <div className="relative my-4">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-slate-200 dark:border-[#263B5C]" />
+                  <div className="w-full border-t border-slate-200" />
                 </div>
                 <div className="relative flex justify-center text-xs">
-                  <span className="px-2 bg-white dark:bg-[#0B1930] text-slate-500 dark:text-[#71819B] text-[10px] uppercase font-mono transition-colors">
+                  <span className="px-2 bg-white text-slate-500 text-[10px] uppercase tracking-wider">
                     or continue with
                   </span>
                 </div>
@@ -391,7 +370,7 @@ export const AuthPage: React.FC<AuthPageProps> = ({
                 <button
                   type="button"
                   onClick={() => handleSocialLogin('Google')}
-                  className="py-2 px-3 rounded-xl bg-slate-50 dark:bg-[#071426] hover:bg-slate-100 dark:hover:bg-[#101F38] border border-slate-200 dark:border-[#263B5C] hover:border-[#5B8CFF]/50 text-xs font-semibold text-slate-800 dark:text-[#F5F7FF] flex items-center justify-center gap-2 hover:scale-[1.03] hover:-translate-y-0.5 active:scale-95 transition-all duration-200 shadow-xs"
+                  className="py-2 px-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 hover:border-blue-400 text-xs font-semibold text-slate-800 flex items-center justify-center gap-2 transition-all shadow-xs"
                 >
                   <svg className="w-4 h-4" viewBox="0 0 24 24">
                     <path fill="#EA4335" d="M12 5c1.6 0 3 .6 4.1 1.7l3.1-3.1C17.3 1.8 14.8 1 12 1 7.4 1 3.5 3.6 1.6 7.4l3.7 2.9C6.2 7.3 8.9 5 12 5z"/>
@@ -405,9 +384,9 @@ export const AuthPage: React.FC<AuthPageProps> = ({
                 <button
                   type="button"
                   onClick={() => handleSocialLogin('GitHub')}
-                  className="py-2 px-3 rounded-xl bg-slate-50 dark:bg-[#071426] hover:bg-slate-100 dark:hover:bg-[#101F38] border border-slate-200 dark:border-[#263B5C] hover:border-[#5B8CFF]/50 text-xs font-semibold text-slate-800 dark:text-[#F5F7FF] flex items-center justify-center gap-2 hover:scale-[1.03] hover:-translate-y-0.5 active:scale-95 transition-all duration-200 shadow-xs"
+                  className="py-2 px-3 rounded-xl bg-white hover:bg-slate-50 border border-slate-200 hover:border-blue-400 text-xs font-semibold text-slate-800 flex items-center justify-center gap-2 transition-all shadow-xs"
                 >
-                  <svg className="w-4 h-4 fill-current text-slate-900 dark:text-[#F5F7FF]" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 fill-current text-slate-900" viewBox="0 0 24 24">
                     <path fillRule="evenodd" clipRule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" />
                   </svg>
                   <span>GitHub</span>
@@ -420,8 +399,8 @@ export const AuthPage: React.FC<AuthPageProps> = ({
       </main>
 
       {/* Simple Footer */}
-      <footer className="text-center py-2 text-xs text-[#71819B] z-20">
-        <span>© 2026 SatQuery AI • Vision-Language Remote Sensing</span>
+      <footer className="text-center py-2 text-xs text-slate-500 z-20">
+        <span>© 2026 SatQuery AI • Easy Satellite Image Analysis</span>
       </footer>
 
       {/* OAuth Fallback Modal */}
@@ -442,3 +421,4 @@ export const AuthPage: React.FC<AuthPageProps> = ({
 };
 
 export default AuthPage;
+

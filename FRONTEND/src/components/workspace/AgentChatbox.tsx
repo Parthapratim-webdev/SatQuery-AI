@@ -38,21 +38,21 @@ export const AgentChatbox: React.FC<AgentChatboxProps> = ({
       id: 'm-init',
       sender: 'agent',
       timestamp: '14:20:04',
-      text: `Initialized GeoLLM-v3 Earth Observation Agent. Connected to ESA Copernicus STAC & USGS Landsat catalogs. Active AOI is staged to **${activeAOI.name}**. What would you like to quantify or detect?`,
+      text: `Initialized Satellite AI Assistant. Ready to analyze imagery. Active location is set to **${activeAOI.name}**. What would you like to check or analyze?`,
       traces: [
         {
           id: 't-0',
-          title: 'AOI Geometric Orthorectification',
+          title: 'Image Alignment & Coordinates',
           status: 'completed',
           durationMs: 14,
-          details: `Reprojected tile bounds to UTM Zone (EPSG:32621). Checked 16 STAC items.`
+          details: `Aligned satellite imagery bounds to target region.`
         },
         {
           id: 't-1',
-          title: 'Cloud & Shadow Masking (s2cloudless)',
+          title: 'Cloud & Shadow Check',
           status: 'completed',
           durationMs: 22,
-          details: 'Masked 2.4% cirrus cloud interference across target sector.'
+          details: 'Checked for cloud cover across target area (2.4% cloud detected).'
         }
       ]
     },
@@ -60,7 +60,7 @@ export const AgentChatbox: React.FC<AgentChatboxProps> = ({
       id: 'm-query-1',
       sender: 'user',
       timestamp: '14:21:10',
-      text: 'Quantify recent canopy loss and identify illegal logging corridors in Sector 4.'
+      text: 'Show recent tree loss and identify cleared areas in Sector 4.'
     },
     {
       id: 'm-res-1',
@@ -68,57 +68,56 @@ export const AgentChatbox: React.FC<AgentChatboxProps> = ({
       timestamp: '14:21:12',
       text: `Analysis complete for **${activeAOI.name}** (Sector 4). 
 
-Using multi-temporal Sentinel-2 L2A BOA reflectance (June vs August 2024), we observed **48.2 hectares** of new canopy loss along illegal tributary corridors. The Normalized Difference Vegetation Index (NDVI) dropped from a baseline mean of **0.84** to **0.31** in affected clusters.`,
+Comparing satellite images from June vs August 2024, we detected **48.2 hectares** of new tree cover loss. The vegetation index dropped significantly in affected clusters.`,
       traces: [
         {
           id: 'tr-1',
-          title: 'Step 1: STAC Ingestion & Co-Registration',
+          title: 'Step 1: Loading Satellite Images',
           status: 'completed',
           durationMs: 28,
-          details: 'Fetched 4 Cloud-Optimized GeoTIFF tiles (B04, B08, B11, B12). Co-registered with <0.2 px sub-pixel residual error.',
+          details: 'Loaded 4 satellite image layers. Aligned images with high precision.',
           payload: {
-            stac_endpoint: 'https://earth-search.aws.element84.com/v1',
-            collection: 'sentinel-2-l2a',
-            bbox: activeAOI.bounds,
+            source: 'satellite-imagery',
+            collection: 'sentinel-2-surface',
+            region: activeAOI.name,
             cloud_cover_percent: 2.1
           }
         },
         {
           id: 'tr-2',
-          title: 'Step 2: Atmospheric Correction & Band Algebra',
+          title: 'Step 2: Comparing Color and Light Bands',
           status: 'completed',
           durationMs: 19,
-          details: 'Computed dNDVI = (B08 - B04)/(B08 + B04) across 16.4M raster pixels.'
+          details: 'Calculated vegetation change across all pixels.'
         },
         {
           id: 'tr-3',
-          title: 'Step 3: GeoSAM-v3 Large Deep Inference',
+          title: 'Step 3: AI Detection Analysis',
           status: 'completed',
           durationMs: 34,
-          details: 'Extracted 14 contiguous vector disturbance polygons at 98.6% mean confidence.',
+          details: 'Detected 14 separate disturbance areas with 98.6% confidence.',
           payload: {
-            model: 'SatQuery-GeoSAM-v3-Large',
-            iou_threshold: 0.85,
+            model: 'SatQuery-High-Accuracy-Detector',
             features_detected: 14,
             loss_area_ha: 48.2
           }
         },
         {
           id: 'tr-4',
-          title: 'Step 4: Spatial Synthesis & Metric Grounding',
+          title: 'Step 4: Metric Calculation',
           status: 'completed',
           durationMs: 12,
-          details: 'Calculated exact geodesic area metrics and cross-referenced with Brazilian PRODES conservation boundaries.'
+          details: 'Calculated exact area measurements and checked against conservation boundaries.'
         }
       ],
       groundedStats: [
         { label: 'Total Loss Area', value: '48.2', unit: 'hectares' },
-        { label: 'NDVI Drop', value: '-63.1%', unit: 'relative' },
-        { label: 'Model Confidence', value: '98.6%', unit: 'F1: 0.958' },
-        { label: 'Disturbance Polygons', value: '14', unit: 'vectors' }
+        { label: 'Vegetation Drop', value: '-63.1%', unit: 'relative' },
+        { label: 'Model Confidence', value: '98.6%', unit: 'Verified' },
+        { label: 'Detected Areas', value: '14', unit: 'zones' }
       ],
       suggestedAction: {
-        label: 'Highlight Disturbance Scar #1',
+        label: 'Highlight Area #1',
         actionType: 'highlight-scar'
       }
     }
@@ -131,9 +130,9 @@ Using multi-temporal Sentinel-2 L2A BOA reflectance (June vs August 2024), we ob
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const suggestedQueries = [
-    'Calculate burned area index & severity class',
-    'Map peak flood inundation depth > 1.2m',
-    'Detect crop nitrogen chlorophyll stress in Sector 7'
+    'Calculate burned area and damage severity',
+    'Map peak flooded areas with water depth > 1.2m',
+    'Check crop health and vegetation stress'
   ];
 
   useEffect(() => {
@@ -181,44 +180,44 @@ Using multi-temporal Sentinel-2 L2A BOA reflectance (June vs August 2024), we ob
         id: agentResId,
         sender: 'agent',
         timestamp: new Date().toTimeString().split(' ')[0],
-        text: `Processed query: "${textToSend}" on **${activeAOI.name}**. 
+        text: `Processed question: "${textToSend}" for **${activeAOI.name}**. 
 
-The foundation model isolated **28.4 km²** of spatial anomalies with high spectral variance. Radiometric alignment between multi-spectral passes verified the anomaly signatures with **97.4% precision**.`,
+The AI model identified **28.4 km²** of changes with high confidence. Satellite comparisons verified these areas with **97.4% precision**.`,
         traces: [
           {
             id: `tr-a-${Date.now()}`,
-            title: '1. STAC Raster Item Alignment',
+            title: '1. Image Alignment',
             status: 'completed',
             durationMs: 24,
-            details: `Retrieved Sentinel-2 Bottom-of-Atmosphere surface reflectance for bounds: [${activeAOI.coordinates.join(', ')}]`,
+            details: `Retrieved satellite surface imagery for selected region.`,
             payload: {
               sensor: 'sentinel-2',
-              bands: ['B02', 'B03', 'B04', 'B08', 'B11'],
-              resolution_gsd: '10m'
+              bands: ['Blue', 'Green', 'Red', 'Near-IR', 'Shortwave-IR'],
+              resolution: '10m'
             }
           },
           {
             id: `tr-b-${Date.now()}`,
-            title: '2. Deep Neural Segmentation',
+            title: '2. AI Detection Analysis',
             status: 'completed',
             durationMs: 38,
-            details: 'Ran TensorRT-accelerated GeoSAM-MultiSpectral inference (38ms latency).'
+            details: 'Ran AI image analysis in 38ms.'
           },
           {
             id: `tr-c-${Date.now()}`,
-            title: '3. Quantitative Polygon Extraction',
+            title: '3. Area Boundary Mapping',
             status: 'completed',
             durationMs: 18,
-            details: 'Vectorized classification raster into OGC GeoJSON feature collections.'
+            details: 'Created boundary outlines for detected areas.'
           }
         ],
         groundedStats: [
-          { label: 'Anomaly Extent', value: '28.4', unit: 'km²' },
-          { label: 'Spectral Index', value: '0.78', unit: 'Normalized' },
+          { label: 'Detected Area', value: '28.4', unit: 'km²' },
+          { label: 'Vegetation Index', value: '0.78', unit: 'Normalized' },
           { label: 'Confidence Score', value: '97.4%', unit: 'Verified' }
         ],
         suggestedAction: {
-          label: 'Export Analysis GeoJSON',
+          label: 'Export Analysis Results',
           actionType: 'export-geojson'
         }
       };
@@ -230,28 +229,28 @@ The foundation model isolated **28.4 km²** of spatial anomalies with high spect
   };
 
   return (
-    <div className="w-full h-full flex flex-col bg-white dark:bg-slate-950 border-l border-slate-200 dark:border-slate-800 shadow-[-10px_0_30px_rgba(0,0,0,0.1)] dark:shadow-[-10px_0_30px_rgba(0,0,0,0.5)] text-xs select-none text-slate-900 dark:text-slate-100 relative transition-colors duration-200">
-      {/* Radiant Blue Top Trim */}
-      <div className="h-1 w-full bg-gradient-to-r from-blue-600 via-cyan-400 to-indigo-600 shadow-[0_0_12px_rgba(56,189,248,0.5)]"></div>
+    <div className="w-full h-full flex flex-col bg-white border-l border-slate-200 text-xs select-none text-slate-900 relative transition-colors duration-200">
+      {/* Blue Top Trim */}
+      <div className="h-1 w-full bg-blue-600"></div>
 
       {/* Agent Header */}
-      <div className="p-3.5 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between bg-white dark:bg-slate-900 shadow-xs transition-colors duration-200">
+      <div className="p-3.5 border-b border-slate-200 flex items-center justify-between bg-white shadow-xs transition-colors duration-200">
         <div className="flex items-center gap-2.5">
-          <OrbitMascot size="sm" mood={isProcessing ? 'analyzing' : 'idle'} showHalo={true} />
+          <OrbitMascot size="sm" mood={isProcessing ? 'analyzing' : 'idle'} showHalo={false} />
           <div>
-            <div className="flex items-center gap-1.5 font-bold text-slate-900 dark:text-white">
-              <span>Orbit AI Copilot</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-teal-500 animate-ping"></span>
+            <div className="flex items-center gap-1.5 font-bold text-slate-900">
+              <span>Orbit AI Assistant</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
             </div>
-            <p className="text-[10px] text-slate-500 dark:text-slate-400">
-              Observable STAC Inference
+            <p className="text-[10px] text-slate-500">
+              Satellite Analysis Copilot
             </p>
           </div>
         </div>
 
         <button
           onClick={() => setMessages([messages[0]])}
-          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all duration-150 active:scale-[0.98]"
+          className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-all duration-150 active:scale-[0.98]"
           title="Clear Chat History"
           aria-label="Clear Chat History"
         >
@@ -260,7 +259,7 @@ The foundation model isolated **28.4 km²** of spatial anomalies with high spect
       </div>
 
       {/* Messages Scroll Area */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-slate-50/60 dark:bg-slate-950/40">
+      <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-white">
         {messages.map((msg) => (
           <div
             key={msg.id}
@@ -269,7 +268,7 @@ The foundation model isolated **28.4 km²** of spatial anomalies with high spect
             }`}
           >
             {/* Sender tag */}
-            <div className="flex items-center gap-1.5 text-[10px] text-slate-500 dark:text-slate-400 mb-1 px-1">
+            <div className="flex items-center gap-1.5 text-[10px] text-slate-500 mb-1 px-1">
               {msg.sender === 'user' ? (
                 <>
                   <span className="font-medium">You</span>
@@ -278,7 +277,7 @@ The foundation model isolated **28.4 km²** of spatial anomalies with high spect
               ) : (
                 <>
                   <OrbitMascot size="xs" mood="idle" showHalo={false} />
-                  <span className="text-teal-600 dark:text-teal-400 font-semibold">Orbit Copilot</span>
+                  <span className="text-blue-600 font-semibold">Orbit Copilot</span>
                 </>
               )}
               <span>•</span>
@@ -289,24 +288,24 @@ The foundation model isolated **28.4 km²** of spatial anomalies with high spect
             <div
               className={`p-3.5 rounded-2xl max-w-[92%] leading-relaxed ${
                 msg.sender === 'user'
-                  ? 'bg-teal-500 text-slate-950 font-medium rounded-tr-sm shadow-sm'
-                  : 'bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 text-slate-800 dark:text-slate-200 rounded-tl-sm shadow-sm'
+                  ? 'bg-blue-600 text-white font-medium rounded-tr-sm shadow-sm'
+                  : 'bg-white border border-slate-200 text-slate-800 rounded-tl-sm shadow-sm'
               }`}
             >
               <div className="text-xs whitespace-pre-line">{msg.text}</div>
 
               {/* Observable Execution Traces Widget */}
               {msg.traces && msg.traces.length > 0 && (
-                <div className="mt-3 pt-3 border-t border-slate-200 dark:border-slate-800">
+                <div className="mt-3 pt-3 border-t border-slate-200">
                   <button
                     onClick={() =>
                       setExpandedTraceId(expandedTraceId === msg.id ? null : msg.id)
                     }
-                    className="w-full flex items-center justify-between text-[11px] font-mono font-semibold text-teal-600 dark:text-teal-400 hover:underline active:scale-[0.98] py-1"
+                    className="w-full flex items-center justify-between text-[11px] font-mono font-semibold text-blue-600 hover:underline active:scale-[0.98] py-1"
                   >
                     <span className="flex items-center gap-1.5">
                       <Terminal className="w-3.5 h-3.5" />
-                      <span>Execution Pipeline Traces ({msg.traces.length} steps)</span>
+                      <span>Analysis Steps ({msg.traces.length} steps)</span>
                     </span>
                     {expandedTraceId === msg.id ? (
                       <ChevronUp className="w-3.5 h-3.5" />
@@ -316,23 +315,23 @@ The foundation model isolated **28.4 km²** of spatial anomalies with high spect
                   </button>
 
                   {expandedTraceId === msg.id && (
-                    <div className="mt-2 space-y-2 font-mono text-[11px] bg-slate-50 dark:bg-slate-950/70 p-3 rounded-xl border border-slate-200 dark:border-slate-800 animate-in fade-in">
+                    <div className="mt-2 space-y-2 font-mono text-[11px] bg-slate-50 p-3 rounded-xl border border-slate-200 animate-in fade-in">
                       {msg.traces.map((trace) => (
                         <div
                           key={trace.id}
-                          className="p-2 rounded-lg bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1 shadow-xs"
+                          className="p-2 rounded-lg bg-white border border-slate-200 space-y-1 shadow-xs"
                         >
                           <div className="flex items-center justify-between">
-                            <span className="font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-teal-500 flex-shrink-0" />
+                            <span className="font-semibold text-slate-800 flex items-center gap-1.5">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 flex-shrink-0" />
                               {trace.title}
                             </span>
-                            <span className="text-[10px] text-slate-400 dark:text-slate-500 flex items-center gap-1">
+                            <span className="text-[10px] text-slate-400 flex items-center gap-1">
                               <Clock className="w-3 h-3" />
                               {trace.durationMs}ms
                             </span>
                           </div>
-                          <p className="text-[10px] text-slate-500 dark:text-slate-400 pl-5">
+                          <p className="text-[10px] text-slate-500 pl-5">
                             {trace.details}
                           </p>
 
@@ -341,13 +340,13 @@ The foundation model isolated **28.4 km²** of spatial anomalies with high spect
                             <div className="pl-5 pt-1">
                               <button
                                 onClick={() => setShowRawJson(!showRawJson)}
-                                className="text-[9px] text-teal-600 dark:text-teal-400 hover:underline flex items-center gap-1"
+                                className="text-[9px] text-blue-600 hover:underline flex items-center gap-1"
                               >
                                 <FileCode2 className="w-3 h-3" />
-                                {showRawJson ? 'Hide STAC Payload' : 'Inspect STAC Payload'}
+                                {showRawJson ? 'Hide Details' : 'View Details'}
                               </button>
                               {showRawJson && (
-                                <pre className="mt-1 p-2 rounded bg-slate-900 dark:bg-slate-950 border border-slate-800 text-teal-300 text-[9px] overflow-x-auto">
+                                <pre className="mt-1 p-2 rounded bg-slate-100 border border-slate-200 text-slate-800 text-[9px] overflow-x-auto">
                                   {JSON.stringify(trace.payload, null, 2)}
                                 </pre>
                               )}
@@ -362,16 +361,16 @@ The foundation model isolated **28.4 km²** of spatial anomalies with high spect
 
               {/* Grounded Quantitative Statistics Grid */}
               {msg.groundedStats && (
-                <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800 grid grid-cols-2 gap-2">
+                <div className="mt-3 pt-2.5 border-t border-slate-100 grid grid-cols-2 gap-2">
                   {msg.groundedStats.map((stat, i) => (
                     <div
                       key={i}
-                      className="p-2 rounded-lg bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60"
+                      className="p-2 rounded-lg bg-slate-50 border border-slate-200"
                     >
-                      <div className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">{stat.label}</div>
-                      <div className="text-xs font-bold font-mono text-teal-600 dark:text-teal-400 mt-0.5">
+                      <div className="text-[10px] text-slate-500 font-mono">{stat.label}</div>
+                      <div className="text-xs font-bold font-mono text-blue-600 mt-0.5">
                         {stat.value}{' '}
-                        <span className="text-[10px] font-normal text-slate-400 dark:text-slate-500">
+                        <span className="text-[10px] font-normal text-slate-400">
                           {stat.unit}
                         </span>
                       </div>
@@ -391,9 +390,9 @@ The foundation model isolated **28.4 km²** of spatial anomalies with high spect
                         onHighlightFeature?.('feature-1');
                       }
                     }}
-                    className="px-3 py-1.5 rounded-lg bg-teal-50 dark:bg-teal-950/50 hover:bg-teal-100 dark:hover:bg-teal-900/50 text-teal-700 dark:text-teal-300 border border-teal-300 dark:border-teal-700 text-[11px] font-mono font-semibold flex items-center gap-1.5 transition-all duration-150 active:scale-[0.98]"
+                    className="px-3 py-1.5 rounded-lg bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 text-[11px] font-mono font-semibold flex items-center gap-1.5 transition-all duration-150 active:scale-[0.98]"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-teal-500" />
+                    <Sparkles className="w-3.5 h-3.5 text-blue-600" />
                     <span>{msg.suggestedAction.label}</span>
                   </button>
                 </div>
@@ -405,11 +404,11 @@ The foundation model isolated **28.4 km²** of spatial anomalies with high spect
         {/* Processing Indicator */}
         {isProcessing && (
           <div className="flex flex-col items-start animate-in fade-in">
-            <div className="p-3 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-800 dark:text-slate-200 rounded-tl-sm flex items-center gap-3 text-xs shadow-sm">
+            <div className="p-3 rounded-2xl bg-white border border-slate-200 text-slate-800 rounded-tl-sm flex items-center gap-3 text-xs shadow-sm">
               <OrbitMascot size="xs" mood="analyzing" showHalo={false} />
-              <div className="flex items-center gap-1.5 font-medium text-teal-600 dark:text-teal-400">
-                <Loader2 className="w-3.5 h-3.5 text-teal-500 animate-spin" />
-                <span>Orbit is computing tensor graph inference...</span>
+              <div className="flex items-center gap-1.5 font-medium text-blue-600">
+                <Loader2 className="w-3.5 h-3.5 text-blue-600 animate-spin" />
+                <span>Orbit is analyzing satellite images...</span>
               </div>
             </div>
           </div>
@@ -419,13 +418,13 @@ The foundation model isolated **28.4 km²** of spatial anomalies with high spect
       </div>
 
       {/* Suggested Quick Queries */}
-      <div className="p-2.5 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 overflow-x-auto flex items-center gap-1.5">
+      <div className="p-2.5 border-t border-slate-200 bg-white overflow-x-auto flex items-center gap-1.5">
         {suggestedQueries.map((query, i) => (
           <button
             key={i}
             onClick={() => handleSend(query)}
             disabled={isProcessing}
-            className="px-2.5 py-1 rounded-lg bg-slate-50 dark:bg-slate-800/80 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 hover:border-teal-500 dark:hover:border-teal-400 text-[11px] font-medium text-slate-700 dark:text-slate-300 hover:text-teal-700 dark:hover:text-teal-300 whitespace-nowrap transition-all duration-150 active:scale-[0.98] shadow-xs"
+            className="px-2.5 py-1 rounded-lg bg-slate-50 hover:bg-slate-100 border border-slate-200 hover:border-blue-400 text-[11px] font-medium text-slate-700 hover:text-blue-700 whitespace-nowrap transition-all duration-150 active:scale-[0.98] shadow-xs"
           >
             {query}
           </button>
@@ -433,7 +432,7 @@ The foundation model isolated **28.4 km²** of spatial anomalies with high spect
       </div>
 
       {/* Input Query Bar */}
-      <div className="p-3 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900">
+      <div className="p-3 border-t border-slate-200 bg-white">
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -445,14 +444,14 @@ The foundation model isolated **28.4 km²** of spatial anomalies with high spect
             type="text"
             value={inputQuery}
             onChange={(e) => setInputQuery(e.target.value)}
-            placeholder="Ask anything about this AOI..."
+            placeholder="Ask anything about this region..."
             disabled={isProcessing}
-            className="flex-1 px-3.5 py-2 rounded-xl bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-teal-500 dark:focus:border-teal-400 focus:ring-1 focus:ring-teal-500/20 text-xs"
+            className="flex-1 px-3.5 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 placeholder-slate-400 outline-none focus:bg-white focus:border-blue-600 focus:ring-1 focus:ring-blue-600/20 text-xs"
           />
           <button
             type="submit"
             disabled={!inputQuery.trim() || isProcessing}
-            className="p-2.5 rounded-xl bg-teal-500 hover:bg-teal-400 text-slate-950 font-bold shadow-sm shadow-teal-500/20 transition-all duration-150 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 disabled:opacity-40"
+            className="p-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold shadow-sm transition-all duration-150 active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 disabled:opacity-40"
             aria-label="Send Query"
           >
             <Send className="w-4 h-4" />

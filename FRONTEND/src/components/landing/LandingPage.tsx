@@ -6,7 +6,6 @@ import { HowItWorksSection } from './HowItWorksSection';
 import { UseCasesSection } from './UseCasesSection';
 import { Footer } from '../layout/Footer';
 import { RevealOnScroll } from '../common/RevealOnScroll';
-import { CosmicOrbitBackground } from './CosmicOrbitBackground';
 
 interface LandingPageProps {
   onLaunchApp: () => void;
@@ -27,13 +26,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({
   };
 
   return (
-    <div className="relative min-h-screen flex flex-col bg-slate-50 dark:bg-modern-gradient text-slate-900 dark:text-[#F5F7FF] selection:bg-[#5B8CFF] selection:text-white transition-colors duration-300 overflow-x-hidden">
-      {/* Space Related Animated Cosmic Background */}
-      <CosmicOrbitBackground />
-
-      {/* Subtle glowing nebula accents in cyan (#00f2fe) and indigo (#4facfe) */}
-      <div className="absolute top-[14%] left-1/2 -translate-x-1/2 w-[850px] h-[420px] bg-radial from-[#4facfe]/10 via-[#00f2fe]/06 to-transparent blur-[140px] pointer-events-none opacity-30 dark:opacity-100 transition-opacity duration-300" />
-      <div className="absolute top-[50%] left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-radial from-[#00f2fe]/08 via-[#4facfe]/06 to-transparent blur-[150px] pointer-events-none opacity-30 dark:opacity-100 transition-opacity duration-300" />
+    <div className="relative min-h-screen flex flex-col bg-white text-slate-900 selection:bg-blue-600 selection:text-white overflow-x-hidden">
 
       {/* 1. Landing Navbar */}
       <LandingNavbar
