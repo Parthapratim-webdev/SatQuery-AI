@@ -196,7 +196,15 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
               style={{
                 transform: `scale(${zoom})`,
                 transformOrigin: 'center center',
-                background: getVisualBackground(evidence.changeMap?.visual || evidence.fusedResult?.visual || evidence.imageB?.visual || evidence.imageA?.visual)
+                background: getVisualBackground(
+                  evidence.changeMap?.visual ||
+                  result.urls?.overlay_url ||
+                  result.urls?.mask_url ||
+                  result.urls?.heatmap_url ||
+                  evidence.fusedResult?.visual ||
+                  evidence.imageB?.visual ||
+                  evidence.imageA?.visual
+                )
               }}
             >
               <div className="absolute inset-0 geo-grid-pattern opacity-40" />
@@ -305,11 +313,53 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
             {/* Right Image */}
             <div
               className="h-full rounded-xl relative overflow-hidden border border-blue-300 flex flex-col justify-between p-4"
-              style={{ background: getVisualBackground(evidence.changeMap?.visual || evidence.fusedResult?.visual || evidence.imageB?.visual, 'linear-gradient(135deg, #0f172a, #0369a1)') }}
+              style={{
+                background: getVisualBackground(
+                  evidence.changeMap?.visual ||
+                  result.urls?.overlay_url ||
+                  result.urls?.mask_url ||
+                  result.urls?.heatmap_url ||
+                  evidence.fusedResult?.visual ||
+                  evidence.imageB?.visual ||
+                  evidence.imageA?.visual,
+                  'linear-gradient(135deg, #0f172a, #0369a1)'
+                )
+              }}
             >
               <div className="absolute inset-0 geo-grid-pattern opacity-30 pointer-events-none" />
+
+              {/* Bounding Boxes in Side-by-Side View */}
+              {maskVisible && evidence.boundingBoxes && (
+                <div className="absolute inset-0 pointer-events-none p-4 sm:p-6 flex items-center justify-center">
+                  {evidence.boundingBoxes.map(bb => (
+                    <div
+                      key={bb.id}
+                      style={{
+                        position: 'absolute',
+                        left: `${bb.x}%`,
+                        top: `${bb.y}%`,
+                        width: `${bb.width}%`,
+                        height: `${bb.height}%`,
+                        borderColor: bb.color,
+                        borderWidth: '2px',
+                        borderStyle: 'solid',
+                        backgroundColor: `${bb.color}25`
+                      }}
+                      className="rounded-lg transition-all pointer-events-auto group/box"
+                    >
+                      <span
+                        style={{ backgroundColor: bb.color }}
+                        className="absolute -top-5 left-0 px-2 py-0.5 rounded text-[10px] font-bold text-slate-950 font-mono shadow-md whitespace-nowrap"
+                      >
+                        {bb.label} {bb.confidence && !bb.label.includes('%') ? `(${bb.confidence}%)` : ''}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
               <span className="relative z-10 px-2.5 py-1 rounded bg-blue-50 border border-blue-200 text-xs text-blue-700 font-bold self-start">
-                {evidence.changeMap?.label || evidence.fusedResult?.label || evidence.imageB?.label || 'Evidence Mask'}
+                {evidence.changeMap?.label || evidence.fusedResult?.label || evidence.imageB?.label || (result.urls?.overlay_url ? 'AI Detection Overlay' : 'Evidence Mask')}
               </span>
               <span className="relative z-10 text-[11px] text-blue-600 font-semibold">
                 Confidence: {result.confidence}% Verified
@@ -331,7 +381,14 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
               <div
                 className="absolute inset-0 pointer-events-none transition-opacity duration-200"
                 style={{
-                  background: getVisualBackground(evidence.changeMap?.visual || evidence.fusedResult?.visual, 'linear-gradient(135deg, rgba(37,99,235,0.3), rgba(245,158,11,0.3))'),
+                  background: getVisualBackground(
+                    evidence.changeMap?.visual ||
+                    result.urls?.overlay_url ||
+                    result.urls?.mask_url ||
+                    result.urls?.heatmap_url ||
+                    evidence.fusedResult?.visual,
+                    'linear-gradient(135deg, rgba(37,99,235,0.3), rgba(245,158,11,0.3))'
+                  ),
                   opacity: maskOpacity / 100
                 }}
               />

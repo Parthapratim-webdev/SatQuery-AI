@@ -380,6 +380,11 @@ export const MOCK_SCENARIOS: AnalysisScenario[] = [
           date: '2025-09-01',
           bounds: '24.12°N, 78.34°E [EPSG:32644]'
         },
+        changeMap: {
+          visual: '/api/inputs/samples/sentinel2_godavari_pre_preview.png',
+          label: 'AI Grounded Detection Mask (Water Body Extent)',
+          legend: 'Cyan: Primary Inland Reservoir (+0.68 NDWI) | Teal: Spillway Channel'
+        },
         boundingBoxes: [
           { id: 'bb-1', label: 'Primary Reservoir (412.8 km²)', x: 22, y: 35, width: 56, height: 48, color: '#38bdf8', confidence: 0.98 },
           { id: 'bb-2', label: 'Spillway Outflow Channel', x: 74, y: 60, width: 18, height: 26, color: '#2dd4bf', confidence: 0.92 }
@@ -599,6 +604,11 @@ export const MOCK_SCENARIOS: AnalysisScenario[] = [
           label: 'Calibrated Multi-Spectral Scene (Punjab Basin)',
           date: '2025-08-19',
           bounds: '30.90°N, 75.85°E'
+        },
+        changeMap: {
+          visual: '/api/inputs/samples/sample_cropland.png',
+          label: 'Classified Land-Cover Segmentation Map',
+          legend: 'Green: Croplands (62%) | Olive: Agro-Forestry (18%) | Amber: Rural (12%)'
         },
         stats: [
           { label: 'Active Croplands', value: '62.4%', delta: 'High Biomass' },

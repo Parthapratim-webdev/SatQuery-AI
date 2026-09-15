@@ -151,7 +151,7 @@ export const NewAnalysisWorkspace: React.FC<NewAnalysisWorkspaceProps> = ({
         const stats = realApiResult.statistics;
         const audit = realApiResult.audit_trace;
         const urls = realApiResult.urls;
-        const overlayUrl = urls?.overlay_url || undefined;
+        const rightVisual = urls?.overlay_url || urls?.mask_url || urls?.heatmap_url || undefined;
 
         const newResultData: AnalysisResultData = {
           id: `AN-${audit.trace_id?.slice(0, 8) || Date.now().toString().slice(-4)}`,
@@ -183,10 +183,13 @@ export const NewAnalysisWorkspace: React.FC<NewAnalysisWorkspaceProps> = ({
               visual: realApiResult.secondary_preview_url || images[1]?.previewUrl || activeScenario.result.evidence.imageB?.visual || 'linear-gradient(135deg, #020617, #1e293b)',
               label: images[1]?.name || 'Secondary Raster (T2 / SAR)'
             } : activeScenario.result.evidence.imageB,
-            changeMap: overlayUrl ? {
-              visual: overlayUrl,
-              label: `Actual Neural Detection Overlay (${stats.area_hectares.toFixed(1)} ha)`
-            } : activeScenario.result.evidence.changeMap,
+            changeMap: rightVisual ? {
+              visual: rightVisual,
+              label: urls?.overlay_url ? `Actual Neural Detection Overlay (${stats.area_hectares.toFixed(1)} ha)` : 'AI Evidence Mask'
+            } : (activeScenario.result.evidence.changeMap || {
+              visual: realApiResult.primary_preview_url || images[0]?.previewUrl || '',
+              label: 'AI Evidence Mask & Delineation'
+            }),
             boundingBoxes: (realApiResult.bounding_boxes && realApiResult.bounding_boxes.length > 0) ? realApiResult.bounding_boxes as any : stats.bounding_boxes as any,
             stats: [
               { label: 'Surface Extent', value: `${stats.area_hectares.toFixed(2)} ha` },
@@ -214,7 +217,7 @@ export const NewAnalysisWorkspace: React.FC<NewAnalysisWorkspaceProps> = ({
             executionTime: `${newResultData.executionSummary.latencyMs} ms`,
             status: 'Generated',
             inputSummary: newResultData.executionSummary.inputSummary,
-            evidenceVisual: overlayUrl || newResultData.evidence.imageA?.visual,
+            evidenceVisual: rightVisual || newResultData.evidence.imageA?.visual,
             tags: [newResultData.task, newResultData.mode],
             fullAnalysis: newResultData
           };
@@ -222,6 +225,10 @@ export const NewAnalysisWorkspace: React.FC<NewAnalysisWorkspaceProps> = ({
         }
       } else {
         // Fallback simulation
+        const fallbackChangeMap = activeScenario.result.evidence.changeMap || {
+          visual: images[0]?.previewUrl || activeScenario.result.evidence.imageA?.visual || '',
+          label: 'AI Grounded Evidence Mask'
+        };
         const newResultData: AnalysisResultData = {
           id: `AN-${Date.now().toString().slice(-4)}`,
           query,
@@ -239,7 +246,8 @@ export const NewAnalysisWorkspace: React.FC<NewAnalysisWorkspaceProps> = ({
             imageA: images[0]?.previewUrl ? {
               visual: images[0].previewUrl,
               label: images[0].name
-            } : activeScenario.result.evidence.imageA
+            } : activeScenario.result.evidence.imageA,
+            changeMap: fallbackChangeMap
           }
         };
         setCurrentResult(newResultData);
