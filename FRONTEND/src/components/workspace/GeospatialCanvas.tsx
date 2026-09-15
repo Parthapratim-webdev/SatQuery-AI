@@ -15,6 +15,7 @@ import {
   Crosshair
 } from 'lucide-react';
 import { AOIPreset, SensorType, SpectralBandMode, LayerConfig } from '../../types';
+import { SatQueryApiService } from '../../services/apiService';
 
 interface GeospatialCanvasProps {
   activeAOI: AOIPreset;
@@ -95,16 +96,17 @@ export const GeospatialCanvas: React.FC<GeospatialCanvasProps> = ({
 
   const getCanvasBackgroundStyle = (visual: string): React.CSSProperties => {
     if (!visual) return { background: '#FFFFFF' };
+    const resolvedVisual = visual.startsWith('/api/') ? SatQueryApiService.getFullUrl(visual) : visual;
     if (
-      visual.startsWith('/') ||
-      visual.startsWith('http') ||
-      visual.startsWith('data:') ||
-      visual.includes('.png') ||
-      visual.includes('.tif') ||
-      visual.includes('.jpg')
+      resolvedVisual.startsWith('/') ||
+      resolvedVisual.startsWith('http') ||
+      resolvedVisual.startsWith('data:') ||
+      resolvedVisual.includes('.png') ||
+      resolvedVisual.includes('.tif') ||
+      resolvedVisual.includes('.jpg')
     ) {
       return {
-        backgroundImage: `url(${visual})`,
+        backgroundImage: `url(${resolvedVisual})`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'

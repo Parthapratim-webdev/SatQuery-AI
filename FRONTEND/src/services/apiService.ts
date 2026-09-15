@@ -4,26 +4,18 @@
  * and the offline PyTorch neural reasoning specialists & physics verification engine.
  */
 
-// Determine base API URL:
-// 1. Explicit Vite environment variable (e.g. set on Vercel: VITE_API_BASE_URL)
-// 2. In browser local development: relative '' (proxied by Vite to http://127.0.0.1:8000)
-// 3. In production: relative '' (supports Vercel rewrites / reverse proxy)
-// 4. Fallback: http://127.0.0.1:8000
-const getApiBaseUrl = (): string => {
-  const envUrl = import.meta.env.VITE_API_BASE_URL;
+// Determine base API URL from Vite environment variable:
+// Primary: import.meta.env.VITE_API_URL (e.g. set in .env or Vercel project settings)
+// Fallback: import.meta.env.VITE_API_BASE_URL (for backwards compatibility)
+export const getApiBaseUrl = (): string => {
+  const envUrl = import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL;
   if (envUrl && typeof envUrl === 'string' && envUrl.trim() !== '') {
     return envUrl.trim().replace(/\/+$/, '');
   }
-  if (typeof window !== 'undefined') {
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-      return '';
-    }
-    return '';
-  }
-  return 'http://127.0.0.1:8000';
+  return '';
 };
 
-const API_BASE_URL = getApiBaseUrl();
+export const API_BASE_URL = getApiBaseUrl();
 
 export interface BackendHealth {
   status: string;
@@ -175,12 +167,14 @@ export interface ServerReport {
 }
 
 export class SatQueryApiService {
-  public static getFullUrl(path: string): string {
+  public static getFullUrl(path?: string): string {
+    if (!path) return '';
     if (path.startsWith('http://') || path.startsWith('https://')) {
       return path;
     }
     const cleanPath = path.startsWith('/') ? path : `/${path}`;
-    return `${API_BASE_URL}${cleanPath}`;
+    const baseUrl = getApiBaseUrl();
+    return baseUrl ? `${baseUrl}${cleanPath}` : cleanPath;
   }
 
   /**

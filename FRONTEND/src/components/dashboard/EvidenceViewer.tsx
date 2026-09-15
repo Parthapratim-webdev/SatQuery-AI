@@ -9,6 +9,7 @@ import {
   Download
 } from 'lucide-react';
 import { AnalysisResultData } from '../../types';
+import { SatQueryApiService } from '../../services/apiService';
 
 interface EvidenceViewerProps {
   result: AnalysisResultData;
@@ -40,16 +41,17 @@ export const EvidenceViewer: React.FC<EvidenceViewerProps> = ({ result }) => {
 
   const getVisualBackground = (visual?: string, fallback: string = 'linear-gradient(135deg, #0f172a, #1e293b)') => {
     if (!visual) return fallback;
-    if (visual.startsWith('http') || visual.startsWith('/') || visual.startsWith('data:')) {
-      return `url("${visual}") center/cover no-repeat`;
+    const resolved = visual.startsWith('/api/') ? SatQueryApiService.getFullUrl(visual) : visual;
+    if (resolved.startsWith('http') || resolved.startsWith('/') || resolved.startsWith('data:')) {
+      return `url("${resolved}") center/cover no-repeat`;
     }
-    return visual;
+    return resolved;
   };
 
   const getFullArtifactUrl = (url?: string) => {
     if (!url) return '#';
     if (url.startsWith('http://') || url.startsWith('https://')) return url;
-    return url.startsWith('/') ? url : `/${url}`;
+    return SatQueryApiService.getFullUrl(url);
   };
 
 
